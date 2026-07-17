@@ -1,0 +1,6 @@
+{
+  "name": "Namya EcoPack",
+  "description": "Premium sugarcane bagasse sustainable food packaging manufacturer and exporter. Compostable tableware solutions crafted for global brands.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
