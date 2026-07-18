@@ -64,3 +64,6 @@ export interface BlogItem {
   content: string;
   image: string;
 }
+
+
+

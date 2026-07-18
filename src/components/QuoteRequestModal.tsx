@@ -141,7 +141,7 @@ export default function QuoteRequestModal({ isOpen, onClose }: QuoteRequestModal
                 <div className="space-y-2">
                   <h4 className="text-2xl font-bold text-slate-900 leading-tight">Quotation Requested!</h4>
                   <p className="text-sm text-slate-500 leading-relaxed">
-                    Thank you. Your request ID **NY-2026-9482** has been registered. An export executive from our Gujarat production plant will contact you within **12 business hours** with a final proforma invoice.
+                    Thank you. Your request ID **NY-2026-9482** has been registered. An export executive from our Gujarat sourcing office will contact you within **12 business hours** with a final proforma invoice.
                   </p>
                 </div>
 
@@ -160,7 +160,7 @@ export default function QuoteRequestModal({ isOpen, onClose }: QuoteRequestModal
                     <span className="font-medium text-teal-700">${calculatedUnitPrice} USD</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-500">Estimated Production Lead:</span>
+                    <span className="text-slate-500">Estimated Supply Lead:</span>
                     <span className="font-medium text-slate-900">{estimatedLeadTimeDays} days</span>
                   </div>
                 </div>
@@ -537,8 +537,8 @@ export default function QuoteRequestModal({ isOpen, onClose }: QuoteRequestModal
                       <div className="p-4 bg-slate-900 text-white rounded-2xl flex items-start space-x-3">
                         <ShieldCheck className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-0.5" />
                         <div className="text-xs">
-                          <p className="font-bold">Production Lead Time: ~{estimatedLeadTimeDays} Days</p>
-                          <p className="text-slate-300 mt-1">Includes precision tooling CAD mockup, sample physical proof, hydraulic heat moulding, post-dry, metal detection safety and vacuum bulk wrapping.</p>
+                          <p className="font-bold">Sourcing & Supply Lead Time: ~{estimatedLeadTimeDays} Days</p>
+                          <p className="text-slate-300 mt-1">Includes precision tooling CAD mockup, sample physical proof, hydraulic heat sourcing, post-dry, metal detection safety and vacuum bulk wrapping.</p>
                         </div>
                       </div>
 

@@ -1,166 +1,289 @@
 import React, { useState } from 'react';
-import { Leaf, Award, Globe, Scale, Droplet, Trees, Sparkles, AlertCircle, TrendingDown } from 'lucide-react';
-import { motion } from 'motion/react';
+import { Leaf, Recycle, Sprout, ShieldCheck, Ban, Globe, ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+
+interface CircularStep {
+  num: string;
+  title: string;
+  desc: string;
+  longDesc: string;
+  image: string;
+  x: number;
+  y: number;
+}
+
+const sustainabilityMetrics = [
+  { value: "100%", label: "COMPOSTABLE", icon: Sprout, color: "text-emerald-600 bg-emerald-50" },
+  { value: "0%", label: "PLASTIC IN PRODUCT", icon: Ban, color: "text-rose-600 bg-rose-50" },
+  { value: "Grade AA", label: "BRCGS CERTIFIED", icon: ShieldCheck, color: "text-teal-600 bg-teal-50" },
+  { value: "74%", label: "LOWER CARBON", icon: Globe, color: "text-blue-600 bg-blue-50" },
+  { value: "90 days", label: "RETURNS TO SOIL", icon: Recycle, color: "text-amber-600 bg-amber-50" }
+];
+
+const circularSteps: CircularStep[] = [
+  {
+    num: "01",
+    title: "Sugarcane Field",
+    desc: "Sourced from refinery crop crushers in India.",
+    longDesc: "We source 100% renewable sugarcane stalks directly after juice extraction, preventing crop incineration and reducing agrarian field smoke.",
+    image: "https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?q=80&w=400&auto=format&fit=crop",
+    x: 50,
+    y: 15
+  },
+  {
+    num: "02",
+    title: "Agricultural Bagasse",
+    desc: "Fibrous cane residue is processed mechanically.",
+    longDesc: "Dry leftover biomass fibers are prepared mechanically without any bleach or chlorine, completely preserving global forest trees.",
+    image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=400&auto=format&fit=crop",
+    x: 74.7,
+    y: 25.3
+  },
+  {
+    num: "03",
+    title: "Precision Moulding",
+    desc: "Thermoformed in high-temp automated CNC steel molds.",
+    longDesc: "Raw pulp is heat-pressed in custom robotic thermoforming machine lines under 400-tons of hydraulic pressure for structural resilience.",
+    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=400&auto=format&fit=crop",
+    x: 85,
+    y: 50
+  },
+  {
+    num: "04",
+    title: "Premium Food Packaging",
+    desc: "Heavy-duty plates & bowls are trimmed and inspected.",
+    longDesc: "Finished, PFAS-free and BRCGS food-contact grade containers emerge with perfect rim trim, ready to hold hot oils, water and foods.",
+    image: "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?q=80&w=400&auto=format&fit=crop",
+    x: 74.7,
+    y: 74.7
+  },
+  {
+    num: "05",
+    title: "Restaurant & Consumer Use",
+    desc: "Tableware serves hot meals in catering & takeaways.",
+    longDesc: "Hot & cold friendly (-20°C to 120°C). Perfect for microwaves, freezer storage, bulk dining networks, corporate events, and airlines.",
+    image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=400&auto=format&fit=crop",
+    x: 50,
+    y: 85
+  },
+  {
+    num: "06",
+    title: "Industrial Composting",
+    desc: "Discarded containers enter organic compost streams.",
+    longDesc: "Used bagasse tableware disintegrates rapidly under commercial or home composting conditions, avoiding high-volume plastic landfill dumps.",
+    image: "https://images.unsplash.com/photo-1530587191325-3db32d826c18?q=80&w=400&auto=format&fit=crop",
+    x: 25.3,
+    y: 74.7
+  },
+  {
+    num: "07",
+    title: "Nutrient-Rich Soil",
+    desc: "Packaging decomposes completely into healthy humus.",
+    longDesc: "Within 90 days, the organic fibers fully decay back into clean nitrogen-rich humus soil, leaving zero microplastics or chemicals.",
+    image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?q=80&w=400&auto=format&fit=crop",
+    x: 15,
+    y: 50
+  },
+  {
+    num: "08",
+    title: "New Sugarcane Growth",
+    desc: "Fertile land nurtures the next sugarcane harvest.",
+    longDesc: "The bio-fertilized agricultural soils feed new green crops of sugarcane stalks, restarting our pristine natural circular sequence.",
+    image: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?q=80&w=400&auto=format&fit=crop",
+    x: 25.3,
+    y: 25.3
+  }
+];
 
 export default function SustainabilityInfo() {
-  const [weeklyBoxes, setWeeklyBoxes] = useState(10000);
+  const [activeStep, setActiveStep] = useState<number>(0);
+  const [hoveredStep, setHoveredStep] = useState<number | null>(null);
 
-  // Conversion calculations (derived from standard life cycle assessment statistics)
-  // Replacing 1 polypropylene container with 1 bagasse container saves:
-  // - 25g of plastic waste
-  // - 44g of greenhouse gas CO2 equivalents
-  // - 1.2 Liters of pure water compared to virgin forest wood-paper pulp
-  // - 0.0003 trees (1 tree produces approx 3,000 paper boxes)
-  const plasticSavedKg = Math.round((weeklyBoxes * 25) / 1000);
-  const co2PreventedKg = Math.round((weeklyBoxes * 44) / 1000);
-  const waterSavedLiters = Math.round(weeklyBoxes * 1.2);
-  const treesSavedCount = parseFloat((weeklyBoxes * 0.0003).toFixed(2));
-
-  // Annual projection
-  const annualPlasticSavedTn = parseFloat(((plasticSavedKg * 52) / 1000).toFixed(1));
-  const annualCo2PreventedTn = parseFloat(((co2PreventedKg * 52) / 1000).toFixed(1));
+  const displayIndex = hoveredStep !== null ? hoveredStep : activeStep;
+  const currentStepInfo = circularSteps[displayIndex];
 
   return (
-    <div className="space-y-16">
-      {/* Header Infographics */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 text-slate-800">
-        
-        {/* Metric 1 */}
-        <div className="bg-white border border-slate-200 rounded-3xl p-8 shadow-sm space-y-4 relative overflow-hidden group hover:border-teal-300 transition-colors">
-          <div className="w-12 h-12 rounded-2xl bg-teal-50 text-teal-700 flex items-center justify-center">
-            <Globe className="w-6 h-6 group-hover:rotate-12 transition-transform" />
-          </div>
-          <p className="text-sm font-bold text-slate-400 uppercase tracking-widest font-mono">Agricultural Origin</p>
-          <p className="text-3xl font-extrabold text-slate-900 tracking-tight">0% Land Diverted</p>
-          <p className="text-xs text-slate-500 leading-relaxed">
-            Unlike starch-corn PLA or virgin paper, sugarcane bagasse is a 100% agricultural residue byproduct of sugar processing. It requires **zero additional farming acreage**, preserving global soil biodiversity.
-          </p>
-        </div>
-
-        {/* Metric 2 */}
-        <div className="bg-white border border-slate-200 rounded-3xl p-8 shadow-sm space-y-4 relative overflow-hidden group hover:border-teal-300 transition-colors">
-          <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center">
-            <Leaf className="w-6 h-6 group-hover:scale-110 transition-transform" />
-          </div>
-          <p className="text-sm font-bold text-slate-400 uppercase tracking-widest font-mono">Biodegradation Rate</p>
-          <p className="text-3xl font-extrabold text-slate-900 tracking-tight">Under 90 Days</p>
-          <p className="text-xs text-slate-500 leading-relaxed">
-            Under commercial or backyard composting conditions, our bagasse tableware decomposes completely into nitrogen-rich bio-compost, feeding organic nutrients back to agricultural soils.
-          </p>
-        </div>
-
-        {/* Metric 3 */}
-        <div className="bg-white border border-slate-200 rounded-3xl p-8 shadow-sm space-y-4 relative overflow-hidden group hover:border-teal-300 transition-colors">
-          <div className="w-12 h-12 rounded-2xl bg-lime-50 text-lime-700 flex items-center justify-center">
-            <TrendingDown className="w-6 h-6 group-hover:-translate-y-1 transition-transform" />
-          </div>
-          <p className="text-sm font-bold text-slate-400 uppercase tracking-widest font-mono">Zero Carbon Sourcing</p>
-          <p className="text-3xl font-extrabold text-slate-900 tracking-tight">85% Lower CO₂</p>
-          <p className="text-xs text-slate-500 leading-relaxed">
-            By diverting agricultural bagasse fibers from refinery incinerators, we prevent massive field-burning CO2 emissions. Sourcing has an exceptionally low cradle-to-gate global warming potential.
-          </p>
-        </div>
-
+    <div className="space-y-16" id="sustainability-section">
+      {/* 1. Metrics Grid - 1 row of 5 on desktop; 1 full-width and 4 split on mobile */}
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4">
+        {sustainabilityMetrics.map((metric, idx) => {
+          const Icon = metric.icon;
+          return (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.05, duration: 0.4 }}
+              className={`bg-white border border-slate-200/70 rounded-2xl p-4 sm:p-5 text-center flex flex-col justify-center items-center shadow-sm hover:border-teal-400 hover:shadow-md transition-all duration-300 group ${idx === 0 ? 'col-span-2 md:col-span-1' : 'col-span-1'}`}
+            >
+              <div className={`w-8 h-8 rounded-lg flex items-center justify-center mb-3 ${metric.color} transition-transform group-hover:scale-110 duration-300`}>
+                <Icon className="w-4 h-4 stroke-[2]" />
+              </div>
+              <span className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight block leading-none">
+                {metric.value}
+              </span>
+              <span className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest block mt-2 leading-tight font-mono">
+                {metric.label}
+              </span>
+            </motion.div>
+          );
+        })}
       </div>
 
-      {/* ESG Calculator Section */}
-      <div className="bg-slate-900 text-white rounded-3xl p-8 sm:p-12 border border-slate-800 shadow-2xl relative overflow-hidden">
+      {/* 2. Interactive Circular Process Block */}
+      <div className="bg-gradient-to-br from-teal-50/10 via-white to-emerald-50/10 border border-slate-200/60 rounded-[32px] p-6 sm:p-10 md:p-12 shadow-sm relative overflow-hidden">
         
-        {/* Background ambient radial circles */}
-        <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-teal-500/10 blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-lime-500/10 blur-[120px] pointer-events-none" />
+        {/* Subtle background glow */}
+        <div className="absolute top-0 right-0 w-72 h-72 rounded-full bg-emerald-500/5 blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-teal-500/5 blur-[100px] pointer-events-none" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
           
-          {/* Slider input */}
+          {/* Left: Heading Content */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="space-y-2">
-              <span className="text-xs font-mono font-bold text-teal-400 uppercase tracking-widest flex items-center space-x-2">
-                <Sparkles className="w-4 h-4" />
-                <span>Interactive ESG Impact Calculator</span>
+            <div className="space-y-3">
+              <span className="text-xs font-bold text-teal-700 uppercase tracking-widest font-mono flex items-center space-x-2">
+                <span className="w-2 h-2 rounded-full bg-teal-500 animate-pulse" />
+                <span>THE CIRCULAR JOURNEY</span>
               </span>
-              <h3 className="text-2xl sm:text-3xl font-bold tracking-tight">Measure Your Impact</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Enter your food chain or distribution network’s estimated weekly takeaway volume. Watch how switching from single-use plastics to Namya compostable bagasse immediately offsets corporate environmental footprint.
+              <h3 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                From Sugarcane to <br />
+                <span className="text-teal-700 italic font-serif font-medium">Sustainable Packaging.</span>
+              </h3>
+              <p className="text-slate-500 text-sm leading-relaxed font-medium">
+                A closed-loop lifecycle where agricultural residue becomes premium compostable packaging, then returns to the earth to grow the next harvest.
               </p>
             </div>
 
-            <div className="space-y-4 p-5 bg-slate-800/50 rounded-2xl border border-slate-700/50">
-              <div className="flex justify-between items-center text-xs">
-                <span className="font-bold uppercase text-slate-400 font-mono">Weekly Container Consumption</span>
-                <span className="text-teal-400 font-mono font-bold text-base bg-teal-950/80 px-3 py-1 rounded-lg border border-teal-800/40">{weeklyBoxes.toLocaleString()} Units</span>
+            {/* Dynamic Step Inspector Panel */}
+            <motion.div 
+              layout
+              className="bg-white/90 backdrop-blur-sm border border-teal-100/60 rounded-2xl p-5 shadow-sm space-y-3 min-h-[140px]"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono font-extrabold text-teal-600 bg-teal-50 px-2.5 py-1 rounded-full border border-teal-100/40">
+                  STAGE {currentStepInfo.num}
+                </span>
               </div>
-              <input
-                type="range"
-                min="1000"
-                max="500000"
-                step="5000"
-                value={weeklyBoxes}
-                onChange={(e) => setWeeklyBoxes(Number(e.target.value))}
-                className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-teal-500"
-              />
-              <div className="flex justify-between text-[10px] text-slate-500 font-mono">
-                <span>1,000 (Small Bistro)</span>
-                <span>50,000 (Local Food Chain)</span>
-                <span>500,000 (Multinational Franchises)</span>
-              </div>
-            </div>
-
-            <div className="flex items-start space-x-2 text-[11px] text-slate-400 leading-relaxed">
-              <AlertCircle className="w-4 h-4 text-teal-500 flex-shrink-0 mt-0.5" />
-              <p>Conversion metrics based on standard Life Cycle Assessment (LCA) guidelines comparing PET / Polypropylene containers with natural sugarcane bagasse pulp products.</p>
-            </div>
+              <h4 className="text-base font-extrabold text-slate-950 tracking-tight">
+                {currentStepInfo.title}
+              </h4>
+              <p className="text-xs text-slate-500 leading-relaxed font-medium">
+                {currentStepInfo.longDesc}
+              </p>
+            </motion.div>
           </div>
 
-          {/* Calculations Dashboard */}
-          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Right: Circular Wheel (Desktop) & Collapsible Steps (Mobile) */}
+          <div className="lg:col-span-7 flex justify-center items-center">
             
-            {/* Box 1: Plastic Saved */}
-            <div className="bg-slate-850 border border-slate-750 p-5 rounded-2xl flex items-start space-x-3.5 hover:bg-slate-800 transition-colors">
-              <div className="w-10 h-10 rounded-xl bg-teal-500/10 text-teal-400 flex items-center justify-center flex-shrink-0">
-                <Scale className="w-5 h-5" />
+            {/* Desktop Circular Diagram */}
+            <div className="hidden md:block w-full max-w-[500px] lg:max-w-[530px] aspect-square relative">
+              
+              {/* Background Circular Dash Path */}
+              <div className="absolute inset-[15%] rounded-full border-2 border-dashed border-teal-100/80 pointer-events-none z-0" />
+
+              {/* Center Loop Statement Card */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] rounded-full bg-white shadow-xl border border-slate-100 flex flex-col items-center justify-center p-5 text-center z-10">
+                <span className="text-[9px] font-mono font-extrabold text-teal-600 uppercase tracking-widest leading-none">CLOSED LOOP</span>
+                <h4 className="text-lg font-extrabold text-slate-900 mt-2 leading-tight tracking-tight">
+                  Designed by Nature.<br />
+                  <span className="text-teal-700 italic font-serif font-semibold">Returned to Nature.</span>
+                </h4>
+                <p className="text-[9px] font-medium text-slate-400 mt-2 leading-tight">
+                  Eight stages. Zero waste.<br />One continuous cycle.
+                </p>
               </div>
-              <div>
-                <p className="text-[11px] text-slate-400 uppercase tracking-wider font-mono">Plastic Prevented</p>
-                <p className="text-xl font-bold text-white mt-0.5">{plasticSavedKg.toLocaleString()} Kg / week</p>
-                <p className="text-xs text-teal-400/80 font-medium mt-1">Saves {annualPlasticSavedTn} Metric Tons of plastic waste annually</p>
-              </div>
+
+              {/* 8 Outer Nodes */}
+              {circularSteps.map((step, idx) => {
+                const isActive = activeStep === idx;
+                const isHovered = hoveredStep === idx;
+                return (
+                  <div
+                    key={idx}
+                    style={{ left: `${step.x}%`, top: `${step.y}%` }}
+                    className="absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center cursor-pointer z-20 group"
+                    onClick={() => setActiveStep(idx)}
+                    onMouseEnter={() => setHoveredStep(idx)}
+                    onMouseLeave={() => setHoveredStep(null)}
+                  >
+                    {/* Circle Node with Unsplash Image */}
+                    <div className={`w-16 h-16 lg:w-[76px] lg:h-[76px] rounded-full p-1 bg-white shadow-md transition-all duration-300 relative ${
+                      isActive 
+                        ? 'border-2 border-teal-600 scale-110 shadow-teal-100/50' 
+                        : 'border border-slate-200 group-hover:border-teal-400 group-hover:scale-105'
+                    }`}>
+                      <img 
+                        src={step.image} 
+                        alt={step.title} 
+                        className="w-full h-full rounded-full object-cover"
+                        referrerPolicy="no-referrer"
+                      />
+                      {/* Step Number Badge */}
+                      <span className={`absolute -top-1 -right-1 w-5 h-5 rounded-full text-[9px] font-mono font-bold flex items-center justify-center border shadow-sm ${
+                        isActive 
+                          ? 'bg-teal-600 border-teal-600 text-white' 
+                          : 'bg-white border-slate-200 text-slate-500'
+                      }`}>
+                        {step.num}
+                      </span>
+                    </div>
+
+                    {/* Step Title below node */}
+                    <div className="absolute top-[72px] lg:top-[82px] w-[110px] text-center pointer-events-none transition-all duration-300">
+                      <p className={`text-[9px] font-extrabold leading-tight tracking-tight ${
+                        isActive 
+                          ? 'text-teal-700 font-black' 
+                          : 'text-slate-700 group-hover:text-teal-600'
+                      }`}>
+                        {step.title}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
 
-            {/* Box 2: CO2 Avoided */}
-            <div className="bg-slate-850 border border-slate-750 p-5 rounded-2xl flex items-start space-x-3.5 hover:bg-slate-800 transition-colors">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center flex-shrink-0">
-                <Leaf className="w-5 h-5" />
-              </div>
-              <div>
-                <p className="text-[11px] text-slate-400 uppercase tracking-wider font-mono">Carbon Emission Offset</p>
-                <p className="text-xl font-bold text-white mt-0.5">{co2PreventedKg.toLocaleString()} Kg CO₂e</p>
-                <p className="text-xs text-emerald-400/80 font-medium mt-1">Equivalent to offsetting {annualCo2PreventedTn} tons of greenhouse gas per year</p>
-              </div>
-            </div>
-
-            {/* Box 3: Water Saved */}
-            <div className="bg-slate-850 border border-slate-750 p-5 rounded-2xl flex items-start space-x-3.5 hover:bg-slate-800 transition-colors">
-              <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center flex-shrink-0">
-                <Droplet className="w-5 h-5" />
-              </div>
-              <div>
-                <p className="text-[11px] text-slate-400 uppercase tracking-wider font-mono">Water Conserved</p>
-                <p className="text-xl font-bold text-white mt-0.5">{waterSavedLiters.toLocaleString()} Liters / week</p>
-                <p className="text-xs text-blue-400/80 font-medium mt-1">Versus fresh-wood pulping lines which consume heavy aquifers</p>
-              </div>
-            </div>
-
-            {/* Box 4: Trees Preserved */}
-            <div className="bg-slate-850 border border-slate-750 p-5 rounded-2xl flex items-start space-x-3.5 hover:bg-slate-800 transition-colors">
-              <div className="w-10 h-10 rounded-xl bg-lime-500/10 text-lime-400 flex items-center justify-center flex-shrink-0">
-                <Trees className="w-5 h-5" />
-              </div>
-              <div>
-                <p className="text-[11px] text-slate-400 uppercase tracking-wider font-mono">Forest Trees Preserved</p>
-                <p className="text-xl font-bold text-white mt-0.5">{treesSavedCount} Trees / week</p>
-                <p className="text-xs text-lime-400/80 font-medium mt-1">Zero trees chopped, utilising 100% leftover bagasse crops</p>
-              </div>
+            {/* Mobile-Friendly Vertical Step List */}
+            <div className="md:hidden w-full space-y-4">
+              {circularSteps.map((step, idx) => {
+                const isActive = activeStep === idx;
+                return (
+                  <div 
+                    key={idx}
+                    onClick={() => setActiveStep(idx)}
+                    className={`p-4 rounded-2xl border transition-all duration-300 cursor-pointer flex items-center space-x-4 ${
+                      isActive 
+                        ? 'bg-teal-50/50 border-teal-300 shadow-sm' 
+                        : 'bg-white border-slate-100 hover:border-slate-200'
+                    }`}
+                  >
+                    <div className="w-14 h-14 rounded-full overflow-hidden flex-shrink-0 border border-slate-200 p-0.5 bg-white">
+                      <img 
+                        src={step.image} 
+                        alt={step.title} 
+                        className="w-full h-full rounded-full object-cover"
+                        referrerPolicy="no-referrer"
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center space-x-2">
+                        <span className="text-[9px] font-mono font-bold text-teal-600 bg-teal-50 px-1.5 py-0.5 rounded">
+                          {step.num}
+                        </span>
+                        <h4 className="text-xs font-extrabold text-slate-950 truncate">
+                          {step.title}
+                        </h4>
+                      </div>
+                      <p className="text-[11px] text-slate-500 mt-1 leading-tight font-medium">
+                        {step.desc}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
 
           </div>

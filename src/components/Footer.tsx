@@ -39,7 +39,7 @@ export default function Footer({ setCurrentPage, onOpenQuoteModal }: FooterProps
             </span>
           </div>
           <p className="text-sm text-slate-400 max-w-sm leading-relaxed">
-            Premium Indian manufacturer and exporter of sustainable sugarcane bagasse tableware. Replacing single-use plastics with luxury, food-safe biodegradable alternatives for global food brands, hotels, and airlines.
+            Premium Indian supplier and exporter of sustainable sugarcane bagasse tableware. Replacing single-use plastics with luxury, food-safe biodegradable alternatives for global food brands, hotels, and airlines.
           </p>
           
           {/* Newsletter signup */}
@@ -101,7 +101,7 @@ export default function Footer({ setCurrentPage, onOpenQuoteModal }: FooterProps
             {[
               { id: 'oem', label: 'OEM Customized Shapes' },
               { id: 'privatelabel', label: 'Private Label Molding' },
-              { id: 'manufacturing', label: 'Modern Pulp Molding plant' },
+              { id: 'manufacturing', label: 'Modern Pulp Molding Supply' },
               { id: 'exports', label: 'Export & FCL Logistics' },
               { id: 'sustainability', label: 'Circular Economy Metric' },
               { id: 'faq', label: 'Import FAQ' },
@@ -134,17 +134,17 @@ export default function Footer({ setCurrentPage, onOpenQuoteModal }: FooterProps
             <li className="flex items-start space-x-2.5">
               <MapPin className="w-5 h-5 text-lime-500 mt-0.5 flex-shrink-0" />
               <div className="leading-tight">
-                <p className="font-semibold text-slate-200">Manufacturing Plant:</p>
-                <p className="text-xs mt-1">Plot 45-48, GIDC Industrial Estate, Agro-Processing Zone, Sanand, Gujarat, 382110, India</p>
+                <p className="font-semibold text-slate-200">Sourcing & Supply Office:</p>
+                <p className="text-xs mt-1">Ahmedabad, Gujarat, India</p>
               </div>
             </li>
             <li className="flex items-center space-x-2.5">
               <Phone className="w-4 h-4 text-teal-500 flex-shrink-0" />
-              <span className="text-xs font-mono">+91 98765 43210</span>
+              <span className="text-xs font-mono">+91 7041969067</span>
             </li>
             <li className="flex items-center space-x-2.5">
               <Mail className="w-4 h-4 text-teal-500 flex-shrink-0" />
-              <span className="text-xs font-mono">export@namyaecopack.com</span>
+              <span className="text-xs font-mono">sales@namyaecopack.com</span>
             </li>
           </ul>
         </div>

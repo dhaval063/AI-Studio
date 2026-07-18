@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Search, Globe, ChevronDown, ArrowRight, FileText, Settings, ShieldCheck, HelpCircle } from 'lucide-react';
+import { Menu, X, Search, Globe, ChevronDown, ArrowRight, FileText, Settings, ShieldCheck, HelpCircle, Disc, CupSoda, Package, Grid3X3, Coffee, PackageOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { categories } from '../data/products';
 
@@ -151,11 +151,12 @@ export default function Navbar({
                           className="flex space-x-3 p-3 rounded-xl hover:bg-slate-50 cursor-pointer transition-all duration-200 group/item"
                         >
                           <div className="w-10 h-10 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center flex-shrink-0 group-hover/item:bg-teal-700 group-hover/item:text-white transition-colors duration-200">
-                            {cat.id === 'plates' && <Settings className="w-5 h-5" />}
-                            {cat.id === 'bowls' && <ShieldCheck className="w-5 h-5" />}
-                            {cat.id === 'containers' && <FileText className="w-5 h-5" />}
-                            {cat.id === 'trays' && <Globe className="w-5 h-5" />}
-                            {cat.id !== 'plates' && cat.id !== 'bowls' && cat.id !== 'containers' && cat.id !== 'trays' && <HelpCircle className="w-5 h-5" />}
+                            {cat.id === 'plates' && <Disc className="w-5 h-5" />}
+                            {cat.id === 'bowls' && <CupSoda className="w-5 h-5" />}
+                            {cat.id === 'containers' && <Package className="w-5 h-5" />}
+                            {cat.id === 'trays' && <Grid3X3 className="w-5 h-5" />}
+                            {cat.id === 'cups' && <Coffee className="w-5 h-5" />}
+                            {cat.id === 'takeaway' && <PackageOpen className="w-5 h-5" />}
                           </div>
                           <div>
                             <h4 className="text-sm font-semibold text-slate-800 leading-tight group-hover/item:text-teal-700">{cat.name}</h4>
@@ -179,7 +180,7 @@ export default function Navbar({
                     ['oem', 'privatelabel', 'manufacturing'].includes(currentPage) ? 'text-teal-700' : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
-                  <span>OEM & Manufacturing</span>
+                  <span>OEM & Sourcing</span>
                   <ChevronDown className="w-4 h-4" />
                 </button>
 
@@ -208,7 +209,7 @@ export default function Navbar({
                       >
                         <FileText className="w-5 h-5 text-teal-600 mt-0.5" />
                         <div>
-                          <div className="text-sm font-semibold text-slate-800">Private Label Manufacturing</div>
+                          <div className="text-sm font-semibold text-slate-800">Private Label Sourcing</div>
                           <p className="text-xs text-slate-500 mt-0.5">Custom bottom embossing and branding.</p>
                         </div>
                       </button>
@@ -218,8 +219,8 @@ export default function Navbar({
                       >
                         <ShieldCheck className="w-5 h-5 text-teal-600 mt-0.5" />
                         <div>
-                          <div className="text-sm font-semibold text-slate-800">Production Facility</div>
-                          <p className="text-xs text-slate-500 mt-0.5">Our world-class zero-waste plants.</p>
+                          <div className="text-sm font-semibold text-slate-800">Sourcing Facility</div>
+                          <p className="text-xs text-slate-500 mt-0.5">Our world-class zero-waste supply channels.</p>
                         </div>
                       </button>
                     </motion.div>
@@ -408,7 +409,7 @@ export default function Navbar({
                 <span className="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-2">Company</span>
                 {[
                   { id: 'home', label: 'Home Page' },
-                  { id: 'about', label: 'About Our Manufacturing' },
+                  { id: 'about', label: 'About Our Supply network' },
                   { id: 'exports', label: 'Export & Shipping Logistics' },
                   { id: 'sustainability', label: 'Sustainability & Infographics' },
                   { id: 'faq', label: 'Frequently Asked Questions' }
@@ -430,7 +431,7 @@ export default function Navbar({
                 {[
                   { id: 'oem', label: 'OEM Custom Shaping' },
                   { id: 'privatelabel', label: 'Private Label branding' },
-                  { id: 'manufacturing', label: 'Zero-Waste Facility' }
+                  { id: 'manufacturing', label: 'Zero-Waste Supply Facility' }
                 ].map((item) => (
                   <button
                     key={item.id}

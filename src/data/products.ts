@@ -30,13 +30,6 @@ export const categories: ProductCategory[] = [
     icon: 'Grid3X3'
   },
   {
-    id: 'takeaway',
-    name: 'Takeaway Packaging',
-    description: 'Premium rectangular boxes, lunch containers, and custom leak-resistant solutions.',
-    image: 'https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=600&auto=format&fit=crop',
-    icon: 'ShoppingBag'
-  },
-  {
     id: 'cups',
     name: 'Sugarcane Cups & Lids',
     description: 'Double-walled insulated hot and cold beverage cups made from organic bagasse with tight-sealing lids.',
@@ -44,18 +37,11 @@ export const categories: ProductCategory[] = [
     icon: 'Coffee'
   },
   {
-    id: 'cutlery',
-    name: 'Heavy-Duty Cutlery',
-    description: '100% compostable spoons, forks, knives, and custom catering packs with extreme temperature tolerance.',
-    image: 'https://images.unsplash.com/photo-1543510473-ac2c35329a28?q=80&w=600&auto=format&fit=crop',
-    icon: 'Utensils'
-  },
-  {
-    id: 'custom',
-    name: 'Custom OEM Packaging',
-    description: 'Bespoke shape design, custom branding embossing, and tailormade commercial packaging developments.',
+    id: 'takeaway',
+    name: 'Takeaway Packaging',
+    description: 'High-performance leak-resistant rectangular containers, portion cups, and tight-fitting compostable lids.',
     image: 'https://images.unsplash.com/photo-1530587191325-3db32d826c18?q=80&w=600&auto=format&fit=crop',
-    icon: 'Settings'
+    icon: 'PackageOpen'
   }
 ];
 
@@ -264,23 +250,40 @@ export const products: Product[] = [
     applications: ['Specialty Coffee Shops', 'Eco Cafés', 'Aviation Hot Beverage Service', 'Exhibitions and Large Arenas']
   },
 
-  // Cutlery
+  // Takeaway
   {
-    id: 'eco-spoon-6',
-    name: '6.5" High-Density Compostable Spoon',
-    category: 'cutlery',
-    image: 'https://images.unsplash.com/photo-1543510473-ac2c35329a28?q=80&w=600&auto=format&fit=crop',
-    description: 'Crystalline structured organic compostable spoon, designed for durability. Resists temperatures up to 100°C without softening.',
-    features: ['High density PLA/Bagasse reinforced structure', 'Smooth, polished mouth feel', 'Ergonomic handle grip', 'BPI certified 100% compostable'],
+    id: 'rectangular-container-500',
+    name: '500ml Sugarcane Takeaway Container',
+    category: 'takeaway',
+    image: 'https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?q=80&w=600&auto=format&fit=crop',
+    description: 'Premium base for single-portion meals, side dishes, stir-fries, and premium desserts. Crafted from 100% renewable sugarcane fibers.',
+    features: ['100% Biodegradable & Compostable', 'Microwave (up to 120°C) and Freezer safe', 'Oil-resistant and Water-resistant', 'Extremely high structural rigidity'],
     specs: {
-      material: 'High-Density Sugarcane / PLA blend',
-      dimensions: '165 mm Length',
-      weight: '4.8g ± 0.2g',
-      packingDetails: '100 Pcs / Pack, 10 Packs / Carton',
-      qtyPerPack: '100 Pcs',
-      qtyPerCarton: '1000 Pcs'
+      material: '100% Sugarcane Bagasse Pulp',
+      dimensions: '180 mm x 125 mm x H 45 mm',
+      weight: '14.0g ± 0.5g',
+      packingDetails: '50 Pcs / Pack, 10 Packs / Carton',
+      qtyPerPack: '50 Pcs',
+      qtyPerCarton: '500 Pcs'
     },
-    applications: ['Fast Food Outlets', 'Premium Event Planners', 'Airline Dining Packs', 'Zero-waste Cafés']
+    applications: ['Single Portion Food Delivery', 'Gourmet Cafes', 'Salad Bars', 'Catering Buffets']
+  },
+  {
+    id: 'takeaway-lid-9x5',
+    name: 'Universal Rectangular Sugarcane Lid',
+    category: 'takeaway',
+    image: 'https://images.unsplash.com/photo-1530587191325-3db32d826c18?q=80&w=600&auto=format&fit=crop',
+    description: 'Fits our 750ml, 1000ml, and 2-Compartment container range perfectly. Patented leak-resistant double lock lip seals tightly.',
+    features: ['Double-tight snap lock mechanism', 'Steam resistant, prevents condensation build-up', '100% compostable agricultural fiber', 'Zero plastic coatings'],
+    specs: {
+      material: '100% Sugarcane Bagasse (Home Compostable)',
+      dimensions: '235 mm x 140 mm x H 10 mm',
+      weight: '8.0g ± 0.3g',
+      packingDetails: '50 Pcs / Pack, 10 Packs / Carton',
+      qtyPerPack: '50 Pcs',
+      qtyPerCarton: '500 Pcs'
+    },
+    applications: ['Meal Deliveries', 'Premium Takeout Outlets', 'Cloud Kitchen Operations', 'Safe Food Logistics']
   },
 
   // Custom Pack
@@ -289,8 +292,8 @@ export const products: Product[] = [
     name: 'Custom OEM Shape Molded Solution',
     category: 'custom',
     image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=600&auto=format&fit=crop',
-    description: 'Tailor-made packaging solution built according to your precise dimensional drawings. Includes 3D CAD modeling, custom engraving, and secure corporate manufacturing tooling.',
-    features: ['Custom structural embossing (brand logos)', 'Engineered specifically for your food delivery boxes', '3D design and rapid prototyping under NDA', 'Mass manufacturing scale (over 5M units monthly)'],
+    description: 'Tailor-made packaging solution built according to your precise dimensional drawings. Includes 3D CAD modeling, custom engraving, and secure corporate supply tooling.',
+    features: ['Custom structural embossing (brand logos)', 'Engineered specifically for your food delivery boxes', '3D design and rapid prototyping under NDA', 'Mass supply scale (over 5M units monthly)'],
     specs: {
       material: 'Sugarcane Bagasse & Wheatstraw Fiber blend',
       dimensions: 'Tailormade to Client Specifications',
@@ -308,8 +311,8 @@ export const certifications: Certification[] = [
   { id: 'bpi', name: 'BPI Certified Compostable', code: 'ASTM D6400 / D6868', authority: 'Biodegradable Products Institute (USA)', description: 'Confirms that products biodegrade entirely in commercial composting facilities leaving no synthetic residues.', badgeColor: 'bg-emerald-800' },
   { id: 'okcompost', name: 'OK Compost HOME / INDUSTRIAL', code: 'EN 13432', authority: 'TÜV AUSTRIA (Europe)', description: 'Guarantees standard European biodegradation performance under both home compost heap and commercial composting conditions.', badgeColor: 'bg-teal-700' },
   { id: 'fda', name: 'FDA Food Contact Safe', code: '21 CFR 176.170', authority: 'U.S. Food and Drug Administration', description: 'Certifies that our organic bagasse sugarcane packaging contains zero harmful chemical coatings and is entirely non-toxic for high-heat food contact.', badgeColor: 'bg-slate-800' },
-  { id: 'brc', name: 'BRCGS Global Standard AA Grade', code: 'Issue 6 Global Standard', authority: 'British Retail Consortium Global Standards', description: 'Awarded AA Grade for hygiene and product safety management within our sugarcane processing plants.', badgeColor: 'bg-lime-700' },
-  { id: 'iso', name: 'ISO 9001 & ISO 14001', code: 'QMS & EMS Standards', authority: 'SGS International Certifications', description: 'Specifies international requirements for high-quality B2B manufacturing management alongside meticulous eco-environmental protection.', badgeColor: 'bg-blue-900' },
+  { id: 'brc', name: 'BRCGS Global Standard AA Grade', code: 'Issue 6 Global Standard', authority: 'British Retail Consortium Global Standards', description: 'Awarded AA Grade for hygiene and product safety management within our partner sugarcane processing facilities.', badgeColor: 'bg-lime-700' },
+  { id: 'iso', name: 'ISO 9001 & ISO 14001', code: 'QMS & EMS Standards', authority: 'SGS International Certifications', description: 'Specifies international requirements for high-quality B2B quality supply management alongside meticulous eco-environmental protection.', badgeColor: 'bg-blue-900' },
   { id: 'fsc', name: 'FSC Chain of Custody', code: 'FSC-C124356', authority: 'Forest Stewardship Council', description: 'Assures that agricultural byproducts and additional pulp fibers used are harvested from responsibly-managed source forestry.', badgeColor: 'bg-emerald-700' },
   { id: 'sgs', name: 'SGS Heavy Metal Free', code: 'EU Directive 94/62/EC', authority: 'SGS Testing Labs', description: 'Independent scientific testing verifying our material contains 0% heavy metals, Fluorine, or chlorine chemical agents.', badgeColor: 'bg-orange-700' },
   { id: 'lfgb', name: 'LFGB German Food Safe', code: 'LFGB Section 30 & 31', authority: 'TÜV Rheinland (Germany)', description: 'Passes rigid sensory odor and taste testing, ensuring absolutely no transfer of organic material properties from tray to food.', badgeColor: 'bg-amber-800' }
@@ -342,7 +345,7 @@ export const testimonials: Testimonial[] = [
     role: 'Managing Director & Founder',
     company: 'Pacific EcoDistributors',
     country: 'Australia',
-    text: 'We do high volume wholesaling. Working with Namya on Private Label OEM production was smooth. They created our custom embossed plates within 30 days of CAD signoff. Meticulous laboratory testing reports and premium container loading make them a world-class strategic partner.',
+    text: 'We do high volume wholesaling. Working with Namya on Private Label OEM sourcing was smooth. They created our custom embossed plates within 30 days of CAD signoff. Meticulous laboratory testing reports and premium container loading make them a world-class strategic partner.',
     rating: 5,
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=120&auto=format&fit=crop'
   },
@@ -367,14 +370,14 @@ export const faqs: FAQItem[] = [
   },
   {
     id: 'faq-lead',
-    question: 'What is the production and transit lead time for ocean freight?',
-    answer: 'Standard production lead time is 15 to 25 days from the receipt of deposit and design approval. Ocean transit from India to North America/Europe ranges between 20 to 35 days depending on the destination port. We provide complete tracking, automated shipping manifestos, and real-time container loading reports directly to our clients on WhatsApp/Email.',
+    question: 'What is the supply and transit lead time for ocean freight?',
+    answer: 'Standard supply lead time is 15 to 25 days from the receipt of deposit and design approval. Ocean transit from India to North America/Europe ranges between 20 to 35 days depending on the destination port. We provide complete tracking, automated shipping manifestos, and real-time container loading reports directly to our clients on WhatsApp/Email.',
     category: 'production'
   },
   {
     id: 'faq-custom',
-    question: 'Can you manufacture custom shapes and do private label branding?',
-    answer: 'Yes, absolutely. OEM and Private Label Manufacturing is a core pillar of our company. We can emboss your brand logo directly onto the bottom of any plate, bowl, or box. We also design entirely custom-molded sustainable shapes. Our in-house engineering team designs 3D CAD files, fabricates the high-precision CNC tooling, and runs sample batches under NDA within 30 days.',
+    question: 'Can you supply custom shapes and do private label branding?',
+    answer: 'Yes, absolutely. OEM and Private Label Sourcing is a core pillar of our company. We can emboss your brand logo directly onto the bottom of any plate, bowl, or box. We also design entirely custom-molded sustainable shapes. Our partner engineering teams design 3D CAD files, coordinate the high-precision CNC tooling, and run sample batches under NDA within 30 days.',
     category: 'customization'
   },
   {
@@ -405,7 +408,7 @@ export const blogs: BlogItem[] = [
     readTime: '6 min read',
     category: 'Sustainability',
     excerpt: 'Explore the carbon footprint, land use, and degradation speeds of sugarcane bagasse packaging versus paper pulp and corn-starch PLA alternatives.',
-    content: 'As global single-use plastic bans intensify, food chains are scrambling to find authentic sustainable alternatives. Recycled paper often contains toxic ink residues and requires heavy chemical bleaching, while PLA (polylactic acid) only degrades under strict, high-heat industrial compost parameters, rendering them virtually non-compostable in ocean waters or domestic backyard settings. Sugarcane bagasse is the fibrous waste leftover from sugar extraction—a pure agricultural byproduct. It requires zero extra agricultural land, uses low processing water, and disintegrates entirely in home compost soil in under 90 days, feeding nutrients back to the earth. Namya EcoPack utilizes a zero-waste closed loop production system where steam is re-captured and solar grids power 40% of our molding lines, establishing our bagasse as the absolute greenest tableware on earth.',
+    content: 'As global single-use plastic bans intensify, food chains are scrambling to find authentic sustainable alternatives. Recycled paper often contains toxic ink residues and requires heavy chemical bleaching, while PLA (polylactic acid) only degrades under strict, high-heat industrial compost parameters, rendering them virtually non-compostable in ocean waters or domestic backyard settings. Sugarcane bagasse is the fibrous waste leftover from sugar extraction—a pure agricultural byproduct. It requires zero extra agricultural land, uses low processing water, and disintegrates entirely in home compost soil in under 90 days, feeding nutrients back to the earth. Namya EcoPack utilizes a zero-waste closed loop sourcing system where steam is re-captured and solar grids power 40% of our molding lines, establishing our bagasse as the absolute greenest tableware on earth.',
     image: 'https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?q=80&w=600&auto=format&fit=crop'
   },
   {

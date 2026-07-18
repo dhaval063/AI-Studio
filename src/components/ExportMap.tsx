@@ -33,7 +33,7 @@ export default function ExportMap() {
             <span className="text-xs font-mono font-bold text-teal-700 uppercase tracking-widest block">Seamless B2B Logistics</span>
             <h3 className="text-2xl sm:text-3xl font-bold tracking-tight">World-Class Export Engine.</h3>
             <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-              Our factory is strategically located in Sanand, Gujarat—less than **280 km from Mundra Port (India’s largest automated deep-water ocean terminal)**. This guarantees rapid container movement, zero domestic highway delays, and instant custom clearance.
+              Our strategic supply network is headquartered in Ahmedabad, Gujarat—with direct logistics to Mundra Port (India’s largest automated deep-water ocean terminal). This guarantees rapid container movement, zero domestic highway delays, and instant customs clearance.
             </p>
           </div>
 
@@ -75,7 +75,7 @@ export default function ExportMap() {
             <div className="absolute left-[45%] top-[55%] z-20 flex flex-col items-center">
               <span className="h-4 w-4 rounded-full bg-teal-500 flex items-center justify-center animate-ping absolute" />
               <span className="h-4 w-4 rounded-full bg-teal-600 border border-white z-10 shadow-lg" />
-              <span className="text-[9px] font-mono font-bold text-teal-400 mt-1 bg-slate-950/80 px-1.5 py-0.5 rounded border border-slate-800">Namya Plant (IN)</span>
+              <span className="text-[9px] font-mono font-bold text-teal-400 mt-1 bg-slate-950/80 px-1.5 py-0.5 rounded border border-slate-800">Namya Sourcing (IN)</span>
             </div>
 
             {/* US Node */}

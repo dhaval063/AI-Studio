@@ -85,7 +85,7 @@ export default function Hero({ setCurrentPage, onOpenQuoteModal }: HeroProps) {
     {
       title: "Sugarcane Hot Cups",
       subtitle: "Double-Walled Barrier",
-      description: "Organic hot cups manufactured without standard polyethylene (PE) coatings, offering premium thermal containment and a flawless grip.",
+      description: "Organic hot cups crafted without standard polyethylene (PE) coatings, offering premium thermal containment and a flawless grip.",
       image: "https://images.unsplash.com/photo-1517256064527-09c53b2d0c6b?q=80&w=800&auto=format&fit=crop",
       badge: "Plastic Free",
       category: "cups",
@@ -175,10 +175,10 @@ export default function Hero({ setCurrentPage, onOpenQuoteModal }: HeroProps) {
 
   // Stats counter values
   const stats = [
-    { value: '1.5M+', label: 'Daily Pulp Production Units', icon: Factory },
+    { value: '1.5M+', label: 'Daily Pulp Supply Capacity', icon: Factory },
     { value: '28+', label: 'Global Sovereign Export Nations', icon: Globe },
     { value: '450+', label: 'Annual Plastic Tons Offset', icon: ShieldCheck },
-    { value: '120k', label: 'Sq.Ft. Advanced Automated Plant', icon: Award }
+    { value: '120k', label: 'Sq.Ft. Sourcing Logistics Network', icon: Award }
   ];
 
   const clientsList = [
@@ -222,7 +222,7 @@ export default function Hero({ setCurrentPage, onOpenQuoteModal }: HeroProps) {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-600"></span>
                 </span>
-                <span>Premium Sugarcane Bagasse Manufacturer</span>
+                <span>Premium Sugarcane Bagasse Supplier</span>
               </div>
 
               {/* Master Typography Heading with elegant text animation */}
@@ -233,7 +233,7 @@ export default function Hero({ setCurrentPage, onOpenQuoteModal }: HeroProps) {
 
               {/* Subheading */}
               <p className="text-sm sm:text-base text-slate-500 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
-                Premium-grade biodegradable and compostable food service tableware manufactured from organic sugarcane fibers. Crafted with Scandinavian elegance for restaurants, airlines, hotels, and bulk B2B distributors worldwide.
+                Premium-grade biodegradable and compostable food service tableware sourced from organic sugarcane fibers. Crafted with Scandinavian elegance for restaurants, airlines, hotels, and bulk B2B distributors worldwide.
               </p>
             </div>
 
@@ -413,7 +413,7 @@ export default function Hero({ setCurrentPage, onOpenQuoteModal }: HeroProps) {
       </div>
 
       {/* Industrial Statistics Sections with Viewport Triggered Entrance */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 relative z-10">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map((st, idx) => {
             const Icon = st.icon;

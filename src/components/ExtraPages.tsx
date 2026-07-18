@@ -34,16 +34,16 @@ export default function ExtraPages({ pageId, onOpenQuoteModal }: ExtraPagesProps
             <div className="space-y-6">
               <h3 className="text-2xl font-bold tracking-tight">Our Core Mission</h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Namya EcoPack is an premier Indian enterprise pioneering high-volume manufacturing of compostable, biodegradable, and sustainable food packaging solutions. Formulated entirely from agricultural byproduct fibers of sugarcane bagasse, we replace fragile single-use plastic and heavy wood-paper pulp with structurally robust, chemical-free alternatives.
+                Namya EcoPack is an premier Indian enterprise pioneering high-volume supply of compostable, biodegradable, and sustainable food packaging solutions. Formulated entirely from agricultural byproduct fibers of sugarcane bagasse, we replace fragile single-use plastic and heavy wood-paper pulp with structurally robust, chemical-free alternatives.
               </p>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Headquartered in Gurgaon with our high-capacity, state-of-the-art production plant situated in Sanand, Gujarat, we have built an elite supply-chain network delivering bulk full containers directly to distributors, airline catering hubs, food franchises, and hotels across 28+ countries.
+                Headquartered in Gurgaon with our elite sourcing operations in Ahmedabad, Gujarat, we have built an elite supply-chain network delivering bulk full containers directly to distributors, airline catering hubs, food franchises, and hotels across 28+ countries.
               </p>
               
               <div className="grid grid-cols-2 gap-4 pt-4">
                 <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
                   <p className="text-2xl font-black text-teal-700 font-mono">1.2M</p>
-                  <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-1">Daily Mold Output</p>
+                  <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-1">Daily Supply Output</p>
                 </div>
                 <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
                   <p className="text-2xl font-black text-teal-700 font-mono">28+</p>
@@ -70,7 +70,7 @@ export default function ExtraPages({ pageId, onOpenQuoteModal }: ExtraPagesProps
           {/* Vision Values Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { title: 'Manufacturing Excellence', desc: 'Operating advanced automated molding tunnels, inline robotic trimming, and strict water recycling loops to keep production carbon footprints at historic lows.', icon: Factory },
+              { title: 'Sourcing Excellence', desc: 'Operating with advanced automated molding facilities, inline robotic trimming channels, and strict water recycling loops to keep supply carbon footprints at historic lows.', icon: Factory },
               { title: 'Zero Deforestation', desc: 'By replacing wood-paper boards with annual sugarcane crops, we prevent virgin forest clear-cutting and conserve heavy forest canopy soils.', icon: Award },
               { title: 'Corporate Reliability', desc: 'Meticulous quality control, prompt shipping logs, vacuum pallet wrapping, and flawless international customs clearance paperwork.', icon: ShieldCheck }
             ].map((val, idx) => (
@@ -148,10 +148,10 @@ export default function ExtraPages({ pageId, onOpenQuoteModal }: ExtraPagesProps
               
               <div className="space-y-4 text-xs sm:text-sm">
                 {[
-                  { step: '01', title: '3D Prototyping & CAD CAD Mock', text: 'Provide your dimensional sketches or food container blueprints. Our in-house engineering team designs fully-dimensioned 3D CAD models and checks structural partition load stress.' },
-                  { step: '02', title: 'CNC Metal Tooling Fabrication', text: 'We machine premium chrome-steel or high-durability alloy molds using state-of-the-art 4-axis CNC engraving systems, maintaining absolute bottom-logo text legibility.' },
-                  { step: '03', title: 'Sample Run & Lab Validation', text: 'We press an initial trial batch of 500 units, conducting rigorous grease-holding, oven-baking, and seal-tightness tests in our quality assurance laboratory before dispatching samples.' },
-                  { step: '04', title: 'Mass Scale Molding production', text: 'Upon coordinate clearance signoff, the custom molds are locked into our 400-ton automated hydraulic presses, cranking out over 150,000 customized containers daily.' }
+                  { step: '01', title: '3D Prototyping & CAD CAD Mock', text: 'Provide your dimensional sketches or food container blueprints. Our partner engineering team designs fully-dimensioned 3D CAD models and checks structural partition load stress.' },
+                  { step: '02', title: 'CNC Metal Tooling Fabrication', text: 'We coordinate premium chrome-steel or high-durability alloy molds using state-of-the-art 4-axis CNC engraving systems, maintaining absolute bottom-logo text legibility.' },
+                  { step: '03', title: 'Sample Run & Lab Validation', text: 'We press an initial trial batch of 500 units, conducting rigorous grease-holding, oven-baking, and seal-tightness tests in quality assurance laboratories before dispatching samples.' },
+                  { step: '04', title: 'Mass Scale Sourcing & Supply', text: 'Upon design clearance signoff, the custom molds are locked into high-performance automated hydraulic systems, dispatching over 150,000 customized containers daily.' }
                 ].map((item, i) => (
                   <div key={i} className="flex space-x-4">
                     <span className="text-lg font-black text-teal-700 font-mono mt-0.5">{item.step}</span>

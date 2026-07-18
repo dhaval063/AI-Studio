@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { PhoneCall, MessageCircle, ArrowUp, X, Sparkles, Send, Mail, Download, Layers } from 'lucide-react';
+import { ArrowUp, MessageCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface PopupsProps {
@@ -9,12 +9,10 @@ interface PopupsProps {
 
 export default function Popups({ onOpenQuoteModal, setCurrentPage }: PopupsProps) {
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const [showStickyRibbon, setShowStickyRibbon] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setShowBackToTop(window.scrollY > 400);
-      setShowStickyRibbon(window.scrollY > 700);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -29,7 +27,7 @@ export default function Popups({ onOpenQuoteModal, setCurrentPage }: PopupsProps
 
   const handleWhatsAppClick = () => {
     const msg = encodeURIComponent("Hello Namya EcoPack sales team. I am interested in requesting your sugarcane bagasse product catalogue and container-load pricing.");
-    window.open(`https://wa.me/919876543210?text=${msg}`, '_blank');
+    window.open(`https://wa.me/917041969067?text=${msg}`, '_blank');
   };
 
   return (
@@ -71,45 +69,6 @@ export default function Popups({ onOpenQuoteModal, setCurrentPage }: PopupsProps
           </span>
         </motion.button>
       </div>
-
-      {/* Sticky Bottom Quote Ribbon for B2B procurement reminder */}
-      <AnimatePresence>
-        {showStickyRibbon && (
-          <motion.div
-            initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 100, opacity: 0 }}
-            className="fixed bottom-0 inset-x-0 bg-slate-900 border-t border-slate-800 py-3.5 px-4 sm:px-6 lg:px-8 z-30 hidden md:flex items-center justify-between"
-          >
-            <div className="flex items-center space-x-3 text-slate-200">
-              <span className="flex h-2 w-2 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
-              </span>
-              <p className="text-xs sm:text-sm font-medium">
-                <span className="text-teal-400 font-bold font-mono">B2B IMPORTERS:</span> Looking for custom branding, embossed logos, or private labeling? 
-              </p>
-            </div>
-            <div className="flex items-center space-x-3">
-              <button
-                onClick={() => {
-                  setCurrentPage('faq');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                className="text-xs text-slate-400 hover:text-white transition-colors"
-              >
-                Request Free Sample Kit
-              </button>
-              <button
-                onClick={onOpenQuoteModal}
-                className="bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold px-4 py-2 rounded-lg transition-colors shadow-md"
-              >
-                Calculate Container Quote
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </>
   );
 }

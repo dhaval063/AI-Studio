@@ -9,13 +9,15 @@ interface ProductCatalogProps {
   onOpenQuoteModal: () => void;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
+  onCategoryChange?: (catId: string) => void;
 }
 
 export default function ProductCatalog({
   initialCategory,
   onOpenQuoteModal,
   searchQuery,
-  setSearchQuery
+  setSearchQuery,
+  onCategoryChange
 }: ProductCatalogProps) {
   const [selectedCat, setSelectedCat] = useState(initialCategory || 'all');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -158,7 +160,7 @@ export default function ProductCatalog({
         {/* Category Filters Carousel (Horizontal) */}
         <div className="flex items-center space-x-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none flex-grow max-w-full">
           <button
-            onClick={() => { setSelectedCat('all'); }}
+            onClick={() => { setSelectedCat('all'); onCategoryChange?.('all'); }}
             className={`px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-300 ${
               selectedCat === 'all' 
                 ? 'bg-teal-700 text-white shadow-md shadow-teal-700/10' 
@@ -170,7 +172,7 @@ export default function ProductCatalog({
           {categories.map((cat) => (
             <button
               key={cat.id}
-              onClick={() => { setSelectedCat(cat.id); }}
+              onClick={() => { setSelectedCat(cat.id); onCategoryChange?.(cat.id); }}
               className={`px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-300 ${
                 selectedCat === cat.id 
                   ? 'bg-teal-700 text-white shadow-md shadow-teal-700/10' 
@@ -354,7 +356,7 @@ export default function ProductCatalog({
               <HelpCircle className="w-12 h-12 text-slate-400 mx-auto animate-bounce" />
               <h4 className="text-lg font-bold text-slate-800">No matching SKU specifications found</h4>
               <p className="text-xs text-slate-500 max-w-sm mx-auto">
-                No standard items match your exact combination of profile shape, compartments, and unbleached options. Let us manufacture it for you.
+                No standard items match your exact combination of profile shape, compartments, and unbleached options. Let us source and customize it for you.
               </p>
               <div className="flex justify-center gap-3">
                 <button

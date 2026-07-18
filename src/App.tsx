@@ -12,11 +12,23 @@ import ContactSection from './components/ContactSection';
 import ExportMap from './components/ExportMap';
 import ExtraPages from './components/ExtraPages';
 import Footer from './components/Footer';
-import ManufacturingProcess from './components/ManufacturingProcess';
 import SustainabilityInfo from './components/SustainabilityInfo';
 import QuoteRequestModal from './components/QuoteRequestModal';
 import Popups from './components/Popups';
+import PlatesSKUView from './components/PlatesSKUView';
+import BowlsSKUView from './components/BowlsSKUView';
+import ContainersSKUView from './components/ContainersSKUView';
+import TraysSKUView from './components/TraysSKUView';
+import CupsSKUView from './components/CupsSKUView';
+import TakeawaySKUView from './components/TakeawaySKUView';
 import { categories, testimonials } from './data/products';
+
+import platesImg from './assets/images/sugarcane_compartment_plate_1784290569010.jpg';
+import bowlsImg from './assets/images/sugarcane_salad_bowls_1784290587244.jpg';
+import containersImg from './assets/images/sugarcane_clamshell_box_1784290602529.jpg';
+import traysImg from './assets/images/sugarcane_5comp_tray_1784290621851.jpg';
+import cupsImg from './assets/images/sugarcane_hot_cup_1784290638862.jpg';
+import cutleryImg from './assets/images/compostable_cutlery_set_1784290659429.jpg';
 
 const homeCategories = [
   {
@@ -24,42 +36,42 @@ const homeCategories = [
     name: 'Plates',
     skus: '12 SKUs',
     description: 'Round • Oval • Square • Compartment',
-    image: 'https://images.unsplash.com/photo-1598514983318-2f64f8f4796c?q=80&w=600&auto=format&fit=crop'
+    image: platesImg
   },
   {
     id: 'bowls',
     name: 'Bowls',
     skus: '9 SKUs',
     description: 'Soup, salad & serving bowls',
-    image: 'https://images.unsplash.com/photo-1574484284002-952d92456975?q=80&w=600&auto=format&fit=crop'
+    image: bowlsImg
   },
   {
     id: 'containers',
     name: 'Containers',
     skus: '18 SKUs',
     description: 'Clamshells • Burger & lunch boxes',
-    image: 'https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?q=80&w=600&auto=format&fit=crop'
+    image: containersImg
   },
   {
     id: 'trays',
     name: 'Meal Trays',
     skus: '8 SKUs',
     description: 'Compartment trays for airlines & kitchens',
-    image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=600&auto=format&fit=crop'
+    image: traysImg
   },
   {
     id: 'cups',
     name: 'Cups & Lids',
     skus: '11 SKUs',
     description: 'Hot & cold, single & double wall',
-    image: 'https://images.unsplash.com/photo-1517256064527-09c53b2d0c6b?q=80&w=600&auto=format&fit=crop'
+    image: cupsImg
   },
   {
-    id: 'cutlery',
-    name: 'Cutlery',
-    skus: '6 SKUs',
-    description: 'Compostable spoons, forks, knives',
-    image: 'https://images.unsplash.com/photo-1543510473-ac2c35329a28?q=80&w=600&auto=format&fit=crop'
+    id: 'takeaway',
+    name: 'Takeaway Packaging',
+    skus: '5 SKUs',
+    description: 'Compostable rectangular containers & lids',
+    image: containersImg
   }
 ];
 
@@ -150,7 +162,7 @@ export default function App() {
     switch (currentPage) {
       case 'home':
         return (
-          <div className="space-y-24 pb-24">
+          <div className="space-y-14 pb-14">
             {/* Cinematic Hero Segment */}
             <Hero 
               setCurrentPage={setCurrentPage} 
@@ -252,28 +264,6 @@ export default function App() {
               <SustainabilityInfo />
             </section>
 
-            {/* Core Manufacturing Process Timeline */}
-            <section id="home-process" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center max-w-3xl mx-auto space-y-4 mb-12">
-                <span className="text-xs font-bold text-teal-700 uppercase tracking-widest font-mono">Modern Pulp Molding Facility</span>
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-none">
-                  Our Zero-Waste Closed Loop Plant
-                </h2>
-              </div>
-              <ManufacturingProcess />
-            </section>
-
-            {/* Global Exports Map Highlight */}
-            <section id="home-logistics" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center max-w-3xl mx-auto space-y-4 mb-12">
-                <span className="text-xs font-bold text-teal-700 uppercase tracking-widest font-mono">Supply Chain & Transit channels</span>
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-none">
-                  Worldwide Seaworthy FCL Dispatch
-                </h2>
-              </div>
-              <ExportMap />
-            </section>
-
             {/* Client Testimonials Carousel Section */}
             <section id="home-testimonials" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center max-w-2xl mx-auto space-y-4 mb-12">
@@ -322,6 +312,66 @@ export default function App() {
           </div>
         );
       case 'products':
+        if (selectedCategory === 'plates' && searchQuery === '') {
+          return (
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-8">
+              <PlatesSKUView 
+                onOpenQuoteModal={() => setIsQuoteModalOpen(true)}
+                onBackToCatalog={() => setSelectedCategory('all')}
+              />
+            </div>
+          );
+        }
+        if (selectedCategory === 'bowls' && searchQuery === '') {
+          return (
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-8">
+              <BowlsSKUView 
+                onOpenQuoteModal={() => setIsQuoteModalOpen(true)}
+                onBackToCatalog={() => setSelectedCategory('all')}
+              />
+            </div>
+          );
+        }
+        if (selectedCategory === 'containers' && searchQuery === '') {
+          return (
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-8">
+              <ContainersSKUView 
+                onOpenQuoteModal={() => setIsQuoteModalOpen(true)}
+                onBackToCatalog={() => setSelectedCategory('all')}
+              />
+            </div>
+          );
+        }
+        if (selectedCategory === 'trays' && searchQuery === '') {
+          return (
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-8">
+              <TraysSKUView 
+                onOpenQuoteModal={() => setIsQuoteModalOpen(true)}
+                onBackToCatalog={() => setSelectedCategory('all')}
+              />
+            </div>
+          );
+        }
+        if (selectedCategory === 'cups' && searchQuery === '') {
+          return (
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-8">
+              <CupsSKUView 
+                onOpenQuoteModal={() => setIsQuoteModalOpen(true)}
+                onBackToCatalog={() => setSelectedCategory('all')}
+              />
+            </div>
+          );
+        }
+        if (selectedCategory === 'takeaway' && searchQuery === '') {
+          return (
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-8">
+              <TakeawaySKUView 
+                onOpenQuoteModal={() => setIsQuoteModalOpen(true)}
+                onBackToCatalog={() => setSelectedCategory('all')}
+              />
+            </div>
+          );
+        }
         return (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-8">
             <div className="space-y-3 max-w-2xl">
@@ -338,6 +388,7 @@ export default function App() {
               onOpenQuoteModal={() => setIsQuoteModalOpen(true)}
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
+              onCategoryChange={handleSelectCategory}
             />
           </div>
         );
@@ -345,12 +396,12 @@ export default function App() {
         return (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-8">
             <div className="space-y-3 max-w-2xl">
-              <span className="text-xs font-bold text-teal-700 uppercase tracking-widest font-mono">Sanand Unit 1 Production Plant</span>
+              <span className="text-xs font-bold text-teal-700 uppercase tracking-widest font-mono">Gujarat Automated Sourcing Facility</span>
               <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-none">
-                Advanced Automation Pulp Molding
+                Advanced Automated Sourcing & Supply
               </h2>
             </div>
-            <ManufacturingProcess />
+            <SustainabilityInfo />
           </div>
         );
       case 'exports':
