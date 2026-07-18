@@ -1,10 +1,24 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowLeft, MessageCircle, FileText, CheckCircle, HelpCircle, X, ChevronRight, ShieldCheck, Truck, Scale, Grid3X3 } from 'lucide-react';
+import { ArrowLeft, FileText, CheckCircle, HelpCircle, X, ChevronRight, ShieldCheck, Truck, Scale, Grid3X3 } from 'lucide-react';
 import platesImg from '../assets/images/sugarcane_compartment_plate_1784290569010.jpg';
 
+// Import high-resolution plate images
+import plate6 from '../assets/images/products/plates/6-inch.png';
+import plate7 from '../assets/images/products/plates/7-inch.png';
+import plate9 from '../assets/images/products/plates/9-inch.png';
+import plate10 from '../assets/images/products/plates/10-inch.png';
+import plate11 from '../assets/images/products/plates/11-inch.png';
+import plate12 from '../assets/images/products/plates/12-inch.png';
+
+// Import high-resolution compartment plate images
+import comp9_3cp from '../assets/images/products/compartment-plates/9-3cp.png';
+import comp10_3cp from '../assets/images/products/compartment-plates/10-3cp.png';
+import comp11_4cp from '../assets/images/products/compartment-plates/11-4cp.png';
+import comp12_4cp from '../assets/images/products/compartment-plates/12-4cp.png';
+
 interface PlatesSKUViewProps {
-  onOpenQuoteModal: () => void;
+  onOpenQuoteModal: (category?: string, productId?: string) => void;
   onBackToCatalog: () => void;
 }
 
@@ -17,6 +31,7 @@ interface PlateSKU {
   pcsPerCtn: number;
   description: string;
   heatResistance: string;
+  image: string;
 }
 
 export default function PlatesSKUView({ onOpenQuoteModal, onBackToCatalog }: PlatesSKUViewProps) {
@@ -40,7 +55,8 @@ export default function PlatesSKUView({ onOpenQuoteModal, onBackToCatalog }: Pla
       weight: '7 g',
       pcsPerCtn: 1000,
       description: 'Ideal size for appetizers, desserts, bread servings, and small portion snacks. Compact but robust structural rigidity.',
-      heatResistance: 'Water resistant up to 100°C, Oil resistant up to 120°C'
+      heatResistance: 'Water resistant up to 100°C, Oil resistant up to 120°C',
+      image: plate6
     },
     {
       id: 'plate-7',
@@ -50,7 +66,8 @@ export default function PlatesSKUView({ onOpenQuoteModal, onBackToCatalog }: Pla
       weight: '8 g',
       pcsPerCtn: 1000,
       description: 'A versatile mid-sized plate perfect for side dishes, salads, pastries, and social cocktail events.',
-      heatResistance: 'Water resistant up to 100°C, Oil resistant up to 120°C'
+      heatResistance: 'Water resistant up to 100°C, Oil resistant up to 120°C',
+      image: plate7
     },
     {
       id: 'plate-9',
@@ -60,7 +77,8 @@ export default function PlatesSKUView({ onOpenQuoteModal, onBackToCatalog }: Pla
       weight: '20 g',
       pcsPerCtn: 500,
       description: 'Our most popular lunch and dinner size. Engineered with reinforced mechanical ribs on the outer edge for high load carrying capacity.',
-      heatResistance: 'Water resistant up to 100°C, Oil resistant up to 120°C'
+      heatResistance: 'Water resistant up to 100°C, Oil resistant up to 120°C',
+      image: plate9
     },
     {
       id: 'plate-10',
@@ -70,7 +88,8 @@ export default function PlatesSKUView({ onOpenQuoteModal, onBackToCatalog }: Pla
       weight: '20 g',
       pcsPerCtn: 500,
       description: 'Standard full-course dinner size. Perfect for catering, weddings, and premium buffet dining lines.',
-      heatResistance: 'Water resistant up to 100°C, Oil resistant up to 120°C'
+      heatResistance: 'Water resistant up to 100°C, Oil resistant up to 120°C',
+      image: plate10
     },
     {
       id: 'plate-11',
@@ -80,7 +99,8 @@ export default function PlatesSKUView({ onOpenQuoteModal, onBackToCatalog }: Pla
       weight: '24 g',
       pcsPerCtn: 500,
       description: 'Generously-sized plate designed for large portion banquets, luxury main courses, and combo platter services.',
-      heatResistance: 'Water resistant up to 100°C, Oil resistant up to 120°C'
+      heatResistance: 'Water resistant up to 100°C, Oil resistant up to 120°C',
+      image: plate11
     },
     {
       id: 'plate-12',
@@ -90,7 +110,55 @@ export default function PlatesSKUView({ onOpenQuoteModal, onBackToCatalog }: Pla
       weight: '26 g',
       pcsPerCtn: 500,
       description: 'The maximum standard round plate size. Excellent as a serving platter, pizza tray, or heavy-duty hotel banquet base.',
-      heatResistance: 'Water resistant up to 100°C, Oil resistant up to 120°C'
+      heatResistance: 'Water resistant up to 100°C, Oil resistant up to 120°C',
+      image: plate12
+    }
+  ];
+
+  const compartmentPlateSkus: PlateSKU[] = [
+    {
+      id: 'plate-9-3cp',
+      name: '9" 3CP Compartment Plate',
+      sizeInch: '9"',
+      sizeMm: '225 mm',
+      weight: '15 g',
+      pcsPerCtn: 500,
+      description: 'Designed for efficient meal presentation, our compostable bagasse compartment plates keep food portions neatly separated while maintaining excellent strength and durability. Suitable for schools, hospitals, corporate cafeterias, catering companies, airline meal services, food courts, institutions, and large-scale foodservice operations. Manufactured from 100% sugarcane bagasse, these plates provide an eco-friendly alternative to plastic and foam without compromising performance.',
+      heatResistance: 'Water resistant up to 100°C, Oil resistant up to 120°C',
+      image: comp9_3cp
+    },
+    {
+      id: 'plate-10-3cp',
+      name: '10" 3CP Compartment Plate',
+      sizeInch: '10"',
+      sizeMm: '225 mm',
+      weight: '20 g',
+      pcsPerCtn: 500,
+      description: 'Designed for efficient meal presentation, our compostable bagasse compartment plates keep food portions neatly separated while maintaining excellent strength and durability. Suitable for schools, hospitals, corporate cafeterias, catering companies, airline meal services, food courts, institutions, and large-scale foodservice operations. Manufactured from 100% sugarcane bagasse, these plates provide an eco-friendly alternative to plastic and foam without compromising performance.',
+      heatResistance: 'Water resistant up to 100°C, Oil resistant up to 120°C',
+      image: comp10_3cp
+    },
+    {
+      id: 'plate-11-4cp',
+      name: '11" 4CP Compartment Plate',
+      sizeInch: '11"',
+      sizeMm: '280 mm',
+      weight: '24 g',
+      pcsPerCtn: 500,
+      description: 'Designed for efficient meal presentation, our compostable bagasse compartment plates keep food portions neatly separated while maintaining excellent strength and durability. Suitable for schools, hospitals, corporate cafeterias, catering companies, airline meal services, food courts, institutions, and large-scale foodservice operations. Manufactured from 100% sugarcane bagasse, these plates provide an eco-friendly alternative to plastic and foam without compromising performance.',
+      heatResistance: 'Water resistant up to 100°C, Oil resistant up to 120°C',
+      image: comp11_4cp
+    },
+    {
+      id: 'plate-12-4cp',
+      name: '12" 4CP Compartment Plate',
+      sizeInch: '12"',
+      sizeMm: '300 mm',
+      weight: '26 g',
+      pcsPerCtn: 500,
+      description: 'Designed for efficient meal presentation, our compostable bagasse compartment plates keep food portions neatly separated while maintaining excellent strength and durability. Suitable for schools, hospitals, corporate cafeterias, catering companies, airline meal services, food courts, institutions, and large-scale foodservice operations. Manufactured from 100% sugarcane bagasse, these plates provide an eco-friendly alternative to plastic and foam without compromising performance.',
+      heatResistance: 'Water resistant up to 100°C, Oil resistant up to 120°C',
+      image: comp12_4cp
     }
   ];
 
@@ -106,7 +174,7 @@ export default function PlatesSKUView({ onOpenQuoteModal, onBackToCatalog }: Pla
 
   const getWhatsAppLink = () => {
     const text = `Hello Namya EcoPack Export Team, I am interested in your Sugarcane Plates range (6" to 12" Round Plates). Please share wholesale MOQ terms, B2B price lists, and container shipping schedules to our region.`;
-    return `https://wa.me/919909900000?text=${encodeURIComponent(text)}`;
+    return `https://wa.me/917041969067?text=${encodeURIComponent(text)}`;
   };
 
   return (
@@ -153,17 +221,10 @@ export default function PlatesSKUView({ onOpenQuoteModal, onBackToCatalog }: Pla
           {/* Action CTAs */}
           <div className="flex flex-wrap gap-3.5 pt-2">
             <button
-              onClick={onOpenQuoteModal}
+              onClick={() => onOpenQuoteModal('plates')}
               className="bg-teal-800 hover:bg-teal-900 text-white font-bold text-xs sm:text-sm px-6 py-3.5 rounded-xl shadow-lg shadow-teal-950/10 transition-all flex items-center space-x-2"
             >
               <span>Get Bulk Quote</span>
-            </button>
-            
-            <button
-              onClick={() => setShowSampleForm(true)}
-              className="bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-bold text-xs sm:text-sm px-6 py-3.5 rounded-xl transition-all"
-            >
-              <span>Build Sample Kit</span>
             </button>
             
             <a
@@ -172,7 +233,13 @@ export default function PlatesSKUView({ onOpenQuoteModal, onBackToCatalog }: Pla
               rel="noopener noreferrer"
               className="bg-white hover:bg-slate-50 text-emerald-700 border border-emerald-200 hover:border-emerald-300 font-bold text-xs sm:text-sm px-6 py-3.5 rounded-xl transition-all flex items-center space-x-2"
             >
-              <MessageCircle className="w-4 h-4 fill-emerald-600 stroke-none" />
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                viewBox="0 0 448 512" 
+                className="w-4 h-4 fill-emerald-600"
+              >
+                <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+              </svg>
               <span>WhatsApp Us</span>
             </a>
           </div>
@@ -207,69 +274,124 @@ export default function PlatesSKUView({ onOpenQuoteModal, onBackToCatalog }: Pla
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
+        <div className="flex flex-wrap justify-center gap-6">
           {plateSkus.map((sku) => {
-            // Determine scale factor for plate visual illustration based on inches
-            const sizeNum = parseFloat(sku.sizeInch);
-            const scaleFactor = 40 + (sizeNum - 6) * 10; // scales from 40% to 100% diameter
-            
             return (
               <div
                 key={sku.id}
                 onClick={() => setSelectedSku(sku)}
-                className="bg-[#FBFBFA] border border-slate-200/80 rounded-2xl p-4 flex flex-col justify-between hover:border-teal-400 hover:shadow-xl transition-all duration-300 cursor-pointer group relative"
+                className="w-full sm:w-[280px] h-[400px] flex flex-col justify-between bg-[#FBFBFA] border border-slate-200/80 rounded-2xl p-5 hover:border-teal-400 hover:shadow-xl transition-all duration-300 cursor-pointer group relative"
               >
-                {/* Specs Badge */}
-                <span className="absolute top-3 right-3 bg-[#113C2E] text-white text-[8px] font-bold uppercase tracking-widest font-mono px-2 py-0.5 rounded-md shadow-sm z-10">
-                  SPECS
-                </span>
+                {/* Real High-Resolution Plate Image */}
+                <div className="h-[180px] w-full rounded-xl bg-white/40 flex items-center justify-center p-3 relative overflow-hidden border border-slate-100 shadow-inner mb-4 flex-shrink-0">
+                  <img
+                    src={sku.image}
+                    alt={sku.name}
+                    className="max-h-full max-w-full object-contain select-none transition-transform duration-500 group-hover:scale-105"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
 
-                {/* Elegant Concentric Circle SVG Plate Visual */}
-                <div className="aspect-square w-full rounded-xl bg-white/40 flex items-center justify-center p-6 relative overflow-hidden border border-slate-100 shadow-inner mb-4">
-                  <div 
-                    className="rounded-full bg-white shadow-md border border-slate-100 flex items-center justify-center relative transition-transform duration-500 group-hover:scale-105"
-                    style={{ width: `${scaleFactor}%`, height: `${scaleFactor}%` }}
-                  >
-                    {/* Outer rim mold fiber detail lines */}
-                    <div className="absolute inset-2 rounded-full border border-dashed border-slate-200/60" />
-                    <div className="absolute inset-4 rounded-full border border-slate-100 flex items-center justify-center shadow-inner bg-slate-50/20">
-                      {/* Centered plate base dimension text */}
-                      <span className="text-[10px] font-extrabold text-slate-400 font-mono tracking-tighter">
-                        {sku.sizeInch}
-                      </span>
-                    </div>
+                {/* SKU Name */}
+                <div className="h-10 flex items-start mb-2 flex-shrink-0">
+                  <h3 className="text-xs font-black text-slate-950 uppercase tracking-tight group-hover:text-teal-800 transition-colors line-clamp-2 leading-snug">
+                    {sku.name}
+                  </h3>
+                </div>
+
+                {/* Specs list */}
+                <div className="border-t border-slate-100 pt-3 space-y-1.5 text-xs flex-1 flex flex-col justify-center">
+                  <div className="flex justify-between">
+                    <span className="text-slate-400 font-medium">Size</span>
+                    <span className="font-bold text-slate-800 text-right">{sku.sizeInch} • {sku.sizeMm}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400 font-medium">Weight</span>
+                    <span className="font-bold text-slate-800 text-right">{sku.weight}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400 font-medium">Pcs/Ctn</span>
+                    <span className="font-bold text-slate-800 text-right">{sku.pcsPerCtn}</span>
                   </div>
                 </div>
 
-                {/* SKU Name & specs list */}
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="text-xs font-black text-slate-950 uppercase tracking-tight group-hover:text-teal-800 transition-colors">
-                      {sku.name}
-                    </h3>
-                  </div>
+                {/* Link */}
+                <div className="pt-3 mt-auto flex-shrink-0">
+                  <span className="text-[10px] font-bold text-teal-700 flex items-center group-hover:translate-x-1 duration-200">
+                    <span>View Technical specs</span>
+                    <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+                  </span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
 
-                  <div className="border-t border-slate-100 pt-3 space-y-1.5 text-xs">
-                    <div className="flex justify-between">
-                      <span className="text-slate-400 font-medium">Size</span>
-                      <span className="font-bold text-slate-800">{sku.sizeInch} • {sku.sizeMm}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-400 font-medium">Weight</span>
-                      <span className="font-bold text-slate-800">{sku.weight}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-400 font-medium">Pcs/Ctn</span>
-                      <span className="font-bold text-slate-800">{sku.pcsPerCtn}</span>
-                    </div>
-                  </div>
+      {/* Compartment Plates Section */}
+      <section className="space-y-8 pt-12 border-t border-slate-100">
+        <div className="max-w-3xl mx-auto text-center space-y-3">
+          <span className="text-[10px] font-extrabold text-amber-600 uppercase tracking-widest font-mono block">
+            COMPARTMENT PLATES
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+            Compartment Plates
+          </h2>
+          <p className="text-sm font-bold text-teal-800">
+            Sustainable bagasse compartment plates designed for organized meal service.
+          </p>
+          <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
+            Designed for efficient meal presentation, our compostable bagasse compartment plates keep food portions neatly separated while maintaining excellent strength and durability. Suitable for schools, hospitals, corporate cafeterias, catering companies, airline meal services, food courts, institutions, and large-scale foodservice operations. Manufactured from 100% sugarcane bagasse, these plates provide an eco-friendly alternative to plastic and foam without compromising performance.
+          </p>
+        </div>
 
-                  <div className="pt-2">
-                    <span className="text-[10px] font-bold text-teal-700 flex items-center group-hover:translate-x-1 duration-200">
-                      <span>View Technical specs</span>
-                      <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
-                    </span>
+        <div className="flex flex-wrap justify-center gap-6">
+          {compartmentPlateSkus.map((sku) => {
+            return (
+              <div
+                key={sku.id}
+                onClick={() => setSelectedSku(sku)}
+                className="w-full sm:w-[280px] h-[400px] flex flex-col justify-between bg-[#FBFBFA] border border-slate-200/80 rounded-2xl p-5 hover:border-teal-400 hover:shadow-xl transition-all duration-300 cursor-pointer group relative"
+              >
+                {/* Real High-Resolution Plate Image */}
+                <div className="h-[180px] w-full rounded-xl bg-white/40 flex items-center justify-center p-3 relative overflow-hidden border border-slate-100 shadow-inner mb-4 flex-shrink-0">
+                  <img
+                    src={sku.image}
+                    alt={sku.name}
+                    className="max-h-full max-w-full object-contain select-none transition-transform duration-500 group-hover:scale-105"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
+
+                {/* SKU Name */}
+                <div className="h-10 flex items-start mb-2 flex-shrink-0">
+                  <h3 className="text-xs font-black text-slate-950 uppercase tracking-tight group-hover:text-teal-800 transition-colors line-clamp-2 leading-snug">
+                    {sku.name}
+                  </h3>
+                </div>
+
+                {/* Specs list */}
+                <div className="border-t border-slate-100 pt-3 space-y-1.5 text-xs flex-1 flex flex-col justify-center">
+                  <div className="flex justify-between">
+                    <span className="text-slate-400 font-medium">Size</span>
+                    <span className="font-bold text-slate-800 text-right">{sku.sizeInch} • {sku.sizeMm}</span>
                   </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400 font-medium">Weight</span>
+                    <span className="font-bold text-slate-800 text-right">{sku.weight}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400 font-medium">Pcs/Ctn</span>
+                    <span className="font-bold text-slate-800 text-right">{sku.pcsPerCtn}</span>
+                  </div>
+                </div>
+
+                {/* Link */}
+                <div className="pt-3 mt-auto flex-shrink-0">
+                  <span className="text-[10px] font-bold text-teal-700 flex items-center group-hover:translate-x-1 duration-200">
+                    <span>View Technical specs</span>
+                    <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+                  </span>
                 </div>
               </div>
             );
@@ -337,21 +459,20 @@ export default function PlatesSKUView({ onOpenQuoteModal, onBackToCatalog }: Pla
 
                 <div className="flex gap-3 pt-2">
                   <a
-                    href={`https://wa.me/919909900000?text=${encodeURIComponent(`Hello Namya EcoPack, I am interested in placing an FCL container quote for ${selectedSku.name}. Please send B2B wholesale pricing terms.`)}`}
+                    href={`https://wa.me/917041969067?text=${encodeURIComponent(`Hello Namya EcoPack, I am interested in placing an FCL container quote for ${selectedSku.name}. Please send B2B wholesale pricing terms.`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs p-3 rounded-xl transition-all flex items-center justify-center space-x-1.5"
+                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs p-3 rounded-xl transition-all flex items-center justify-center space-x-1.5"
                   >
-                    <MessageCircle className="w-4 h-4 fill-white" />
+                    <svg 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      viewBox="0 0 448 512" 
+                      className="w-4 h-4 fill-white"
+                    >
+                      <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+                    </svg>
                     <span>Inquire via WhatsApp</span>
                   </a>
-
-                  <button
-                    onClick={() => { setSelectedSku(null); onOpenQuoteModal(); }}
-                    className="flex-1 bg-teal-800 hover:bg-teal-900 text-white font-bold text-xs p-3 rounded-xl transition-all"
-                  >
-                    Request Volume Pricing
-                  </button>
                 </div>
               </div>
             </motion.div>

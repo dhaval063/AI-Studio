@@ -2,6 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, FileText, ChevronLeft, ChevronRight, Globe, ShieldCheck, Factory, Award, CheckCircle2, Star, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
+import hero1Img from '../assets/images/hero/hero_1.png';
+import hero2Img from '../assets/images/hero/hero_2.png';
+import hero3Img from '../assets/images/hero/hero_3.png';
+import hero4Img from '../assets/images/hero/hero_4.png';
+
 interface HeroProps {
   setCurrentPage: (page: string) => void;
   onOpenQuoteModal: () => void;
@@ -29,94 +34,40 @@ export default function Hero({ setCurrentPage, onOpenQuoteModal }: HeroProps) {
 
   const slides: Slide[] = [
     {
-      title: "Round Sugarcane Plates",
-      subtitle: "Zero Deforestation Tableware",
-      description: "Ultra-rigid, unbleached sugarcane plates engineered with oil-soak proof natural barriers to support heavy catering requirements without collapsing.",
-      image: "https://images.unsplash.com/photo-1598514983318-2f64f8f4796c?q=80&w=800&auto=format&fit=crop",
-      badge: "FDA Approved",
+      title: "Good for Business. Great for Earth.",
+      subtitle: "Sustainable Packaging Solutions",
+      description: "Premium compostable tableware solutions that elevate your brand and protect our planet.",
+      image: hero1Img,
+      badge: "Premium Quality",
       category: "plates",
-      stats: "Oil-proof up to 120°C"
+      stats: "100% Compostable"
     },
     {
-      title: "Modern Square Plates",
-      subtitle: "Scandinavian Geometry",
-      description: "Sleek, minimalist design featuring clean structural lines and a luxury matte tactile profile. Highly preferred by premium European distributors.",
-      image: "https://images.unsplash.com/photo-1536304997881-a372c179924b?q=80&w=800&auto=format&fit=crop",
-      badge: "TÜV OK Compost",
-      category: "plates",
-      stats: "Waterproof up to 100°C"
-    },
-    {
-      title: "Organic Bowls & Lids",
-      subtitle: "Leak-Proof Delivery",
-      description: "Heavy-duty soup and meal bowls with precision-engineered secure-fit compostable lids to prevent leakages and preserve heat.",
-      image: "https://images.unsplash.com/photo-1574484284002-952d92456975?q=80&w=800&auto=format&fit=crop",
-      badge: "100% Home Compostable",
-      category: "bowls",
-      stats: "Up to 32oz capacities"
-    },
-    {
-      title: "5-Compartment Trays",
-      subtitle: "Aviation & Corporate Dining",
-      description: "Ergonomic multi-chamber meal trays designed to separate flavor profiles cleanly. Standard spec for leading airlines and corporate cafeterias.",
-      image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=800&auto=format&fit=crop",
-      badge: "Heavy Duty",
+      title: "Perfect for Every Meal.",
+      subtitle: "Strong & Reliable Tableware",
+      description: "Microwave safe, freezer safe, and leak resistant multi-compartment containers.",
+      image: hero2Img,
+      badge: "Microwave Safe",
       category: "trays",
-      stats: "Five isolated cavities"
+      stats: "Leak Resistant"
     },
     {
-      title: "Clamshell Burger Boxes",
-      subtitle: "Smart Steam Release",
-      description: "Hinged-lid containers with natural fiber breathability that absorbs excess condensation, keeping burger buns crispy during fast transit.",
-      image: "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?q=80&w=800&auto=format&fit=crop",
-      badge: "Premium QSR Standard",
-      category: "containers",
-      stats: "Rigid locking tabs"
+      title: "Small Choices. Big Impact.",
+      subtitle: "Responsible by Nature",
+      description: "Compostable packaging that reduces waste and builds a greener future.",
+      image: hero3Img,
+      badge: "Eco Friendly",
+      category: "bowls",
+      stats: "Home Compostable"
     },
     {
-      title: "Takeaway Bento Boxes",
-      subtitle: "Secure Catering Locks",
-      description: "High-integrity structural containers built with a dual-groove lock rim system to replace legacy polystyrene and plastic takeaway boxes.",
-      image: "https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=800&auto=format&fit=crop",
-      badge: "Highly Stackable",
-      category: "takeaway",
-      stats: "Bleach-free option"
-    },
-    {
-      title: "Sugarcane Hot Cups",
-      subtitle: "Double-Walled Barrier",
-      description: "Organic hot cups crafted without standard polyethylene (PE) coatings, offering premium thermal containment and a flawless grip.",
-      image: "https://images.unsplash.com/photo-1517256064527-09c53b2d0c6b?q=80&w=800&auto=format&fit=crop",
-      badge: "Plastic Free",
+      title: "Better Packaging. Better Planet.",
+      subtitle: "Sugarcane Bagasse Products",
+      description: "Eco-friendly bagasse tableware made from 100% natural sugarcane fiber.",
+      image: hero4Img,
+      badge: "Food Safe",
       category: "cups",
-      stats: "Zero PE coatings"
-    },
-    {
-      title: "PLA & Bagasse Cutlery",
-      subtitle: "Shatter-Resistant Fiber",
-      description: "High-density spoons, forks, and knives molded with structural reinforcement ribs to resist snaps under high-pressure loading.",
-      image: "https://images.unsplash.com/photo-1543510473-ac2c35329a28?q=80&w=800&auto=format&fit=crop",
-      badge: "BPI Certified",
-      category: "cutlery",
-      stats: "Shatterproof design"
-    },
-    {
-      title: "Bespoke OEM Solutions",
-      subtitle: "Custom 3D CAD Tooling",
-      description: "Collaborative CAD prototyping, rapid mock fabrication, and custom-embossed company logos for high-volume corporate clients.",
-      image: "https://images.unsplash.com/photo-1530587191325-3db32d826c18?q=80&w=800&auto=format&fit=crop",
-      badge: "NDA Protected",
-      category: "custom",
-      stats: "Prototype in 14 Days"
-    },
-    {
-      title: "Private Label Programs",
-      subtitle: "Corporate Packaging Solutions",
-      description: "Complete unbranded white-label options and custom master shippers, designed and dispatched for global warehouse distribution networks.",
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop",
-      badge: "FCL Worldwide",
-      category: "custom",
-      stats: "Custom inner packaging"
+      stats: "Zero PE Coatings"
     }
   ];
 
@@ -125,7 +76,7 @@ export default function Hero({ setCurrentPage, onOpenQuoteModal }: HeroProps) {
     if (!isPlaying) return;
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 7000);
+    }, 4000);
     return () => clearInterval(interval);
   }, [isPlaying, slides.length]);
 
@@ -191,7 +142,7 @@ export default function Hero({ setCurrentPage, onOpenQuoteModal }: HeroProps) {
       id="hero-section"
       ref={heroRef}
       onMouseMove={handleMouseMove}
-      className="relative bg-white pt-24 pb-16 overflow-hidden select-none"
+      className="relative bg-white pt-12 pb-12 overflow-hidden select-none"
     >
       {/* Desktop Cursor Glow Highlight */}
       <div 
@@ -285,7 +236,7 @@ export default function Hero({ setCurrentPage, onOpenQuoteModal }: HeroProps) {
             onTouchEnd={handleTouchEnd}
           >
             {/* Visual Frame */}
-            <div className="relative rounded-3xl overflow-hidden aspect-[4/3] w-full max-w-lg shadow-2xl border border-slate-100 bg-slate-100 flex items-center justify-center group/slider">
+            <div className="relative rounded-3xl overflow-hidden aspect-[3/2] w-full max-w-xl shadow-2xl border border-slate-100/80 bg-white flex items-center justify-center group/slider">
               
               <AnimatePresence mode="wait">
                 <motion.div
@@ -294,39 +245,15 @@ export default function Hero({ setCurrentPage, onOpenQuoteModal }: HeroProps) {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.98 }}
                   transition={{ duration: 0.5, ease: "easeInOut" }}
-                  className="absolute inset-0 w-full h-full"
+                  className="absolute inset-0 w-full h-full flex items-center justify-center"
                 >
                   {/* Premium Slide Image */}
                   <img
                     src={slides[currentSlide].image}
                     alt={slides[currentSlide].title}
-                    className="object-cover w-full h-full"
+                    className="object-contain w-full h-full"
                     referrerPolicy="no-referrer"
                   />
-                  
-                  {/* Subtle Gradient overlay to ensure text contrast */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-900/10" />
-
-                  {/* Elegant Slide Text Information Panel */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 text-white space-y-2">
-                    <div className="flex items-center space-x-2">
-                      <span className="bg-teal-500 text-slate-950 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider">
-                        {slides[currentSlide].badge}
-                      </span>
-                      <span className="text-teal-300 font-mono text-xs font-semibold">
-                        {slides[currentSlide].stats}
-                      </span>
-                    </div>
-                    <p className="text-xs font-bold text-teal-400 uppercase tracking-wider font-mono">
-                      {slides[currentSlide].subtitle}
-                    </p>
-                    <h3 className="text-xl sm:text-2xl font-bold tracking-tight">
-                      {slides[currentSlide].title}
-                    </h3>
-                    <p className="text-slate-300 text-xs sm:text-sm line-clamp-2 leading-relaxed">
-                      {slides[currentSlide].description}
-                    </p>
-                  </div>
                 </motion.div>
               </AnimatePresence>
 
@@ -359,21 +286,6 @@ export default function Hero({ setCurrentPage, onOpenQuoteModal }: HeroProps) {
                   }`}
                   aria-label={`Go to slide ${i + 1}`}
                 />
-              ))}
-            </div>
-            
-            {/* Slide name carousel quick links */}
-            <div className="hidden sm:flex flex-wrap justify-center gap-2 mt-4 max-w-lg">
-              {slides.map((slide, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrentSlide(i)}
-                  className={`px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-widest transition-colors duration-200 ${
-                    i === currentSlide ? 'bg-teal-50 text-teal-800 border border-teal-100' : 'text-slate-400 hover:text-slate-600'
-                  }`}
-                >
-                  {slide.title.replace("Sugarcane ", "").replace("Premium ", "").replace("Bespoke ", "").replace(" Programs", "")}
-                </button>
               ))}
             </div>
           </div>

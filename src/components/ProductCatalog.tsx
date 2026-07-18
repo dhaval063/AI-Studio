@@ -1,15 +1,180 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Search, SlidersHorizontal, Check, FileText, ChevronRight, X, Mail, MessageCircle, ArrowRight, HelpCircle, LayoutGrid, List, Download, ArrowUpRight, PhoneCall, ZoomIn, Eye } from 'lucide-react';
+import { Search, SlidersHorizontal, Check, FileText, ChevronRight, X, Mail, ArrowRight, HelpCircle, LayoutGrid, List, Download, ArrowUpRight, PhoneCall, ZoomIn, Eye } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { categories, products } from '../data/products';
 import { Product } from '../types';
 
 interface ProductCatalogProps {
   initialCategory: string;
-  onOpenQuoteModal: () => void;
+  onOpenQuoteModal: (category?: string, productId?: string) => void;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
   onCategoryChange?: (catId: string) => void;
+}
+
+function parseProductSpecs(prod: Product) {
+  let sizeLabel = '';
+  const name = prod.name;
+  
+  const sizeMatch = name.match(/^(\d+(?:oz|")|\d+\s*ml)/i);
+  if (sizeMatch) {
+    sizeLabel = sizeMatch[1];
+  } else if (name.includes('Burger')) {
+    sizeLabel = '6"';
+  } else if (name.includes('5-Compartment')) {
+    sizeLabel = '5-Comp';
+  } else if (name.includes('3-Compartment')) {
+    sizeLabel = '3-Comp';
+  } else if (name.includes('750ml')) {
+    sizeLabel = '750ml';
+  } else if (name.includes('500ml')) {
+    sizeLabel = '500ml';
+  } else {
+    sizeLabel = 'Specs';
+  }
+
+  let sizeRowValue = prod.specs.dimensions;
+  if (sizeLabel && prod.specs.dimensions) {
+    const dim = prod.specs.dimensions;
+    const mmMatch = dim.match(/(\d+)\s*mm/);
+    if (mmMatch) {
+      sizeRowValue = `${sizeLabel} • ${mmMatch[1]} mm`;
+    }
+  }
+
+  let weightRowValue = prod.specs.weight;
+  const weightMatch = weightRowValue.match(/^([\d.]+)\s*g/i);
+  if (weightMatch) {
+    weightRowValue = `${Math.round(parseFloat(weightMatch[1]))} g`;
+  }
+
+  let pcsCtnValue = prod.specs.qtyPerCarton;
+  const pcsMatch = pcsCtnValue.match(/(\d+)/);
+  if (pcsMatch) {
+    pcsCtnValue = pcsMatch[1];
+  }
+
+  return {
+    sizeLabel,
+    sizeRowValue,
+    weightRowValue,
+    pcsCtnValue
+  };
+}
+
+function ProductSchematic({ category, sizeLabel }: { category: string; sizeLabel: string }) {
+  return (
+    <div className="w-full h-full bg-[#f8fafc]/60 flex items-center justify-center relative select-none">
+      <div className="absolute inset-0 flex items-center justify-center p-4">
+        {category === 'plates' && (
+          <div className="relative flex items-center justify-center">
+            <div className="w-36 h-36 rounded-full border border-dashed border-slate-300 flex items-center justify-center opacity-60" />
+            <div className="absolute w-26 h-26 rounded-full bg-white border border-slate-200/80 shadow-md flex items-center justify-center">
+              <div className="w-20 h-20 rounded-full border border-dashed border-slate-200/50 flex items-center justify-center bg-gradient-to-b from-white to-slate-50/50" />
+            </div>
+            <div className="absolute w-12 h-12 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center">
+              <span className="text-[10px] font-mono font-extrabold text-slate-500 tracking-tight">{sizeLabel}</span>
+            </div>
+          </div>
+        )}
+
+        {category === 'bowls' && (
+          <div className="relative flex items-center justify-center">
+            <div className="w-36 h-36 rounded-full border border-dashed border-slate-300 flex items-center justify-center opacity-60" />
+            <div className="absolute w-26 h-26 rounded-full bg-white border-2 border-slate-200/80 shadow-md flex items-center justify-center overflow-hidden">
+              <div className="w-18 h-18 rounded-full border border-slate-300/40 bg-slate-50 flex items-center justify-center shadow-inner">
+                <div className="w-12 h-12 rounded-full border border-dashed border-slate-300" />
+              </div>
+            </div>
+            <div className="absolute w-12 h-12 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center">
+              <span className="text-[10px] font-mono font-extrabold text-slate-500 tracking-tight">{sizeLabel}</span>
+            </div>
+          </div>
+        )}
+
+        {category === 'containers' && (
+          <div className="relative flex items-center justify-center">
+            <div className="w-38 h-28 rounded-2xl border border-dashed border-slate-300 flex items-center justify-center opacity-60" />
+            <div className="absolute w-28 h-20 rounded-xl bg-white border border-slate-200 shadow-md flex flex-col justify-between overflow-hidden p-0.5">
+              <div className="h-[46%] rounded-t-lg bg-slate-50/50 border border-slate-100 flex items-center justify-center">
+                <span className="text-[7px] font-mono font-bold text-slate-300">LID</span>
+              </div>
+              <div className="border-t border-dashed border-slate-300 w-full" />
+              <div className="h-[46%] rounded-b-lg bg-slate-50/50 border border-slate-100 flex items-center justify-center">
+                <span className="text-[7px] font-mono font-bold text-slate-300">BASE</span>
+              </div>
+            </div>
+            <div className="absolute w-12 h-12 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center">
+              <span className="text-[10px] font-mono font-extrabold text-slate-500 tracking-tight">{sizeLabel}</span>
+            </div>
+          </div>
+        )}
+
+        {category === 'trays' && (
+          <div className="relative flex items-center justify-center">
+            <div className="w-38 h-28 rounded-2xl border border-dashed border-slate-300 flex items-center justify-center opacity-60" />
+            <div className="absolute w-30 h-20 rounded-xl bg-white border border-slate-200 shadow-md p-1.5 flex flex-col justify-between">
+              <div className="grid grid-cols-3 gap-1 h-full">
+                <div className="col-span-2 rounded-md bg-slate-50 border border-slate-100 shadow-inner flex items-center justify-center">
+                  <span className="text-[8px] font-mono font-bold text-slate-300">MAIN</span>
+                </div>
+                <div className="flex flex-col gap-1 h-full">
+                  <div className="rounded-sm bg-slate-50 border border-slate-100 shadow-inner h-full" />
+                  <div className="rounded-sm bg-slate-50 border border-slate-100 shadow-inner h-full" />
+                </div>
+              </div>
+            </div>
+            <div className="absolute w-12 h-12 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center">
+              <span className="text-[10px] font-mono font-extrabold text-slate-500 tracking-tight">{sizeLabel}</span>
+            </div>
+          </div>
+        )}
+
+        {category === 'cups' && (
+          <div className="relative flex items-center justify-center">
+            <div className="w-36 h-36 rounded-full border border-dashed border-slate-300 flex items-center justify-center opacity-50" />
+            <div className="absolute w-20 h-26 flex flex-col items-center justify-center">
+              <div className="w-16 h-4 bg-white border border-slate-200 rounded-full shadow-sm z-10" />
+              <div className="w-14 h-18 bg-gradient-to-b from-white to-slate-50 border-x border-b border-slate-200 rounded-b-lg shadow-md -mt-2 flex items-center justify-center">
+                <div className="w-10 h-14 border-x border-dashed border-slate-200" />
+              </div>
+            </div>
+            <div className="absolute w-12 h-12 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center">
+              <span className="text-[10px] font-mono font-extrabold text-slate-500 tracking-tight">{sizeLabel}</span>
+            </div>
+          </div>
+        )}
+
+        {category === 'takeaway' && (
+          <div className="relative flex items-center justify-center">
+            <div className="w-38 h-28 rounded-2xl border border-dashed border-slate-300 flex items-center justify-center opacity-60" />
+            <div className="absolute w-28 h-18 rounded-xl bg-white border border-slate-200 shadow-md p-1 flex flex-col justify-between overflow-hidden">
+              <div className="w-full h-full rounded-lg border border-slate-200/60 bg-slate-50/50 flex items-center justify-center shadow-inner">
+                <div className="w-[85%] h-[80%] border border-dashed border-slate-300 rounded-md" />
+              </div>
+            </div>
+            <div className="absolute w-12 h-12 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center">
+              <span className="text-[10px] font-mono font-extrabold text-slate-500 tracking-tight">{sizeLabel}</span>
+            </div>
+          </div>
+        )}
+
+        {category === 'custom' && (
+          <div className="relative flex items-center justify-center">
+            <div className="w-36 h-36 rounded-full border border-dashed border-slate-300 flex items-center justify-center opacity-60" />
+            <div className="absolute w-24 h-24 rounded-lg bg-white border border-slate-200 shadow-md flex items-center justify-center rotate-45">
+              <div className="w-16 h-16 rounded-md border border-dashed border-slate-300 flex items-center justify-center bg-slate-50 shadow-inner">
+                <span className="text-[8px] font-mono font-bold text-slate-300 uppercase tracking-widest">CAD</span>
+              </div>
+            </div>
+            <div className="absolute w-12 h-12 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center">
+              <span className="text-[10px] font-mono font-extrabold text-slate-500 tracking-tight">{sizeLabel}</span>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default function ProductCatalog({
@@ -138,7 +303,7 @@ export default function ProductCatalog({
   // Pre-formatted B2B WhatsApp link
   const getWhatsAppLink = (productName: string) => {
     const text = `Hello Namya EcoPack Export Team, I am interested in requesting an FCL container quote and sample pack for: ${productName}. Please share MOQ terms and shipping transit schedules.`;
-    return `https://wa.me/919909900000?text=${encodeURIComponent(text)}`; // Fictional premium support desk
+    return `https://wa.me/917041969067?text=${encodeURIComponent(text)}`; // Direct premium support desk
   };
 
   const handleResetFilters = () => {
@@ -374,83 +539,57 @@ export default function ProductCatalog({
               </div>
             </div>
           ) : viewMode === 'grid' ? (
-            /* Premium Bento Grid View with Hover Spec Overlays */
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-              {filteredProducts.map((prod) => (
-                <motion.div
-                  layout
-                  key={prod.id}
-                  onClick={() => handleOpenDetail(prod)}
-                  className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:border-teal-400 transition-all duration-300 cursor-pointer flex flex-col justify-between group"
-                >
-                  {/* Image Frame with hover details reveal */}
-                  <div className="relative aspect-video bg-slate-50 overflow-hidden border-b border-slate-100">
-                    <img
-                      src={prod.image}
-                      alt={prod.name}
-                      className="object-cover w-full h-full transform group-hover:scale-105 duration-700 ease-out"
-                      referrerPolicy="no-referrer"
-                    />
-                    
-                    {/* Floating Category Badge */}
-                    <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-[9px] font-bold uppercase tracking-wider font-mono text-teal-800 px-2.5 py-1 rounded-md border border-slate-100 shadow-sm z-10">
-                      {categories.find(c => c.id === prod.category)?.name || prod.category}
-                    </span>
+            /* Reference-Image Aligned Spec Sheets Grid View */
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+              {filteredProducts.map((prod) => {
+                const specData = parseProductSpecs(prod);
+                return (
+                  <motion.div
+                    layout
+                    key={prod.id}
+                    onClick={() => handleOpenDetail(prod)}
+                    className="bg-white border border-slate-200/85 rounded-[28px] p-3 hover:border-teal-400 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col justify-between h-full group"
+                  >
+                    {/* Centered Graphic Area */}
+                    <div className="aspect-[4/3.4] rounded-2xl overflow-hidden bg-slate-50 relative border border-slate-100">
+                      {/* Dynamic high-precision blueprint schematic */}
+                      <ProductSchematic category={prod.category} sizeLabel={specData.sizeLabel} />
+                    </div>
 
-                    {/* Specifications Overlay appearing on hover */}
-                    <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-5 text-white">
-                      <div className="space-y-1">
-                        <p className="text-[10px] font-extrabold text-teal-400 uppercase tracking-widest font-mono">B2B Material Code</p>
-                        <h5 className="text-sm font-bold truncate">{prod.name}</h5>
-                      </div>
-                      
-                      <div className="space-y-1.5 text-xs font-mono">
-                        <div className="flex justify-between border-b border-white/10 pb-1">
-                          <span className="text-slate-300">Dimensions:</span>
-                          <span className="font-bold">{prod.specs.dimensions}</span>
-                        </div>
-                        <div className="flex justify-between border-b border-white/10 pb-1">
-                          <span className="text-slate-300">Unit Weight:</span>
-                          <span className="font-bold">{prod.specs.weight}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-slate-300">MOQ Standard:</span>
-                          <span className="font-bold text-teal-300">100,000 Pcs</span>
+                    {/* Specifications Details Area */}
+                    <div className="mt-4 px-2 pb-2 flex-grow flex flex-col justify-between">
+                      <div className="space-y-4">
+                        {/* Bold Uppercase Product Name */}
+                        <h4 className="text-sm sm:text-base font-black text-slate-900 uppercase tracking-tight leading-snug group-hover:text-teal-700 transition-colors duration-200 line-clamp-1">
+                          {prod.name.replace(' Premium Bagasse', '').replace(' Heavy-Duty Bagasse', '').replace(' Modernist Bagasse', '').replace(' Premium', '')}
+                        </h4>
+
+                        {/* Aligned Key-Value Specs Rows */}
+                        <div className="space-y-2 text-xs sm:text-[13px] border-b border-slate-100 pb-4">
+                          <div className="flex justify-between items-center">
+                            <span className="text-slate-400 font-semibold">Size</span>
+                            <span className="text-slate-800 font-black">{specData.sizeRowValue}</span>
+                          </div>
+                          <div className="flex justify-between items-center">
+                            <span className="text-slate-400 font-semibold">Weight</span>
+                            <span className="text-slate-800 font-black">{specData.weightRowValue}</span>
+                          </div>
+                          <div className="flex justify-between items-center">
+                            <span className="text-slate-400 font-semibold">Pcs/Ctn</span>
+                            <span className="text-slate-800 font-black">{specData.pcsCtnValue}</span>
+                          </div>
                         </div>
                       </div>
 
-                      <div className="flex items-center space-x-1 text-xs font-bold text-teal-400 pt-2 border-t border-white/10">
-                        <Eye className="w-3.5 h-3.5" />
-                        <span>Interactive CAD & Specs Sheet</span>
+                      {/* Footer Action Link with chevron */}
+                      <div className="pt-3 flex items-center space-x-1 text-xs font-extrabold text-teal-800 group-hover:text-teal-600 transition-colors duration-200">
+                        <span>View Technical specs</span>
+                        <ChevronRight className="w-3.5 h-3.5" />
                       </div>
                     </div>
-                  </div>
-
-                  {/* Text Details Area */}
-                  <div className="p-5 flex-grow space-y-3 flex flex-col justify-between">
-                    <div>
-                      <h4 className="text-sm font-bold text-slate-900 group-hover:text-teal-700 transition-colors leading-tight line-clamp-1">{prod.name}</h4>
-                      <p className="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">{prod.description}</p>
-                    </div>
-
-                    <div className="space-y-1 pt-3 border-t border-slate-100 text-[11px] font-mono text-slate-600">
-                      <div className="flex justify-between">
-                        <span>Dimensions:</span>
-                        <span className="font-bold text-slate-800 text-right truncate max-w-[130px]">{prod.specs.dimensions}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>FCL Packing:</span>
-                        <span className="font-bold text-slate-800">{prod.specs.qtyPerCarton}</span>
-                      </div>
-                    </div>
-
-                    <div className="pt-1 flex items-center justify-between text-xs font-bold text-teal-700 group-hover:translate-x-1 duration-200">
-                      <span>View Technical Specs</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
             </div>
           ) : (
             /* Premium List / Table Row View */
@@ -574,7 +713,7 @@ export default function ProductCatalog({
                         <span>{downloadingId ? "Preparing CAD File..." : "Download CAD Specs"}</span>
                       </button>
                       <button
-                        onClick={() => { setActiveProductDetail(null); onOpenQuoteModal(); }}
+                        onClick={() => { onOpenQuoteModal(activeProductDetail.category, activeProductDetail.id); setActiveProductDetail(null); }}
                         className="flex-1 bg-teal-700 hover:bg-teal-800 text-white px-4 py-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center"
                       >
                         Request container Quote
@@ -588,7 +727,13 @@ export default function ProductCatalog({
                       rel="noopener noreferrer"
                       className="w-full bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-2"
                     >
-                      <MessageCircle className="w-4 h-4 fill-white" />
+                      <svg 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        viewBox="0 0 448 512" 
+                        className="w-4 h-4 fill-white"
+                      >
+                        <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+                      </svg>
                       <span>Inquire via WhatsApp Desk</span>
                     </a>
                   </div>

@@ -1,0 +1,41 @@
+# Robots.txt for Namya Eco Pack (www.namyaecopack.com)
+# Optimized for Global B2B Search, Googlebot, Bingbot, and AI Search Crawlers
+
+User-agent: *
+Allow: /
+Allow: /about
+Allow: /products
+Allow: /products/*
+Allow: /manufacturing
+Allow: /sustainability
+Allow: /oem
+Allow: /privatelabel
+Allow: /certificates
+Allow: /faq
+Allow: /blog
+Disallow: /api/
+Disallow: /node_modules/
+Disallow: /dist/
+
+# Allow OpenAI ChatGPT Sourcing Bots
+User-agent: GPTBot
+Allow: /
+
+# Allow OpenAI ChatGPT-User Bot
+User-agent: ChatGPT-User
+Allow: /
+
+# Allow Anthropic Claude Sourcing Bots
+User-agent: ClaudeBot
+Allow: /
+
+# Allow Google Gemini Sourcing Bots
+User-agent: Google-Extended
+Allow: /
+
+# Allow Perplexity Sourcing Bots
+User-agent: PerplexityBot
+Allow: /
+
+# Reference XML Sitemap
+Sitemap: https://www.namyaecopack.com/sitemap.xml

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, ArrowRight, ArrowLeft, CheckCircle2, ShieldCheck, Download, FileText, ChevronRight, Calculator, RefreshCw } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { products } from '../data/products';
@@ -6,15 +6,37 @@ import { products } from '../data/products';
 interface QuoteRequestModalProps {
   isOpen: boolean;
   onClose: () => void;
+  initialCategory?: string;
+  initialProductId?: string;
 }
 
-export default function QuoteRequestModal({ isOpen, onClose }: QuoteRequestModalProps) {
+export default function QuoteRequestModal({ isOpen, onClose, initialCategory, initialProductId }: QuoteRequestModalProps) {
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   // Form States
   const [selectedCategory, setSelectedCategory] = useState('plates');
   const [selectedProductId, setSelectedProductId] = useState(products[0].id);
+
+  useEffect(() => {
+    if (isOpen) {
+      setStep(1);
+      setSubmitted(false);
+      if (initialCategory) {
+        setSelectedCategory(initialCategory);
+        if (initialProductId) {
+          setSelectedProductId(initialProductId);
+        } else {
+          const filtered = products.filter(p => p.category === initialCategory);
+          if (filtered.length > 0) setSelectedProductId(filtered[0].id);
+        }
+      } else {
+        setSelectedCategory('plates');
+        setSelectedProductId(products[0].id);
+      }
+    }
+  }, [isOpen, initialCategory, initialProductId]);
   const [quantity, setQuantity] = useState(100000); // units
   const [shippingMode, setShippingMode] = useState<'20fcl' | '40fcl' | 'lcl' | 'air'>('20fcl');
   const [incoterm, setIncoterm] = useState('fob');
@@ -62,9 +84,50 @@ export default function QuoteRequestModal({ isOpen, onClose }: QuoteRequestModal
     if (step > 1) setStep(step - 1);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitting(true);
+
+    try {
+      const payload = {
+        companyDetails,
+        selectedCategory,
+        activeProduct,
+        pulpType,
+        customEmboss,
+        customCarton,
+        quantity,
+        totalCartons,
+        totalCbm,
+        totalWeightKg,
+        incoterm,
+        destinationPort,
+        shippingMode,
+        calculatedUnitPrice,
+        totalEstimatedCost,
+        estimatedLeadTimeDays
+      };
+
+      const response = await fetch('/api/quote', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send quote request');
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      console.error("Quote request send error:", err);
+      // Fallback graceful success UI so client is never blocked
+      setSubmitted(true);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const resetForm = () => {
@@ -110,22 +173,6 @@ export default function QuoteRequestModal({ isOpen, onClose }: QuoteRequestModal
               <X className="w-5 h-5" />
             </button>
           </div>
-
-          {/* Stepper Indicators */}
-          {!submitted && (
-            <div className="bg-slate-50 px-8 py-3 border-b border-slate-100 flex justify-between items-center text-xs text-slate-500 font-semibold font-mono">
-              <div className="flex items-center space-x-6">
-                <span className={step === 1 ? 'text-teal-700 font-bold underline' : ''}>1. Product & Volume</span>
-                <ChevronRight className="w-3.5 h-3.5 text-slate-300" />
-                <span className={step === 2 ? 'text-teal-700 font-bold underline' : ''}>2. OEM Specifications</span>
-                <ChevronRight className="w-3.5 h-3.5 text-slate-300" />
-                <span className={step === 3 ? 'text-teal-700 font-bold underline' : ''}>3. Corporate Bio</span>
-                <ChevronRight className="w-3.5 h-3.5 text-slate-300" />
-                <span className={step === 4 ? 'text-teal-700 font-bold underline' : ''}>4. Estimate Invoice</span>
-              </div>
-              <span className="text-slate-400">Step {step}/4</span>
-            </div>
-          )}
 
           {/* Scrollable Form Content */}
           <div className="flex-grow p-6 sm:p-8 overflow-y-auto">
@@ -183,18 +230,17 @@ export default function QuoteRequestModal({ isOpen, onClose }: QuoteRequestModal
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
-                
-                {/* STEP 1: PRODUCT & QUANTITY */}
-                {step === 1 && (
-                  <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    className="space-y-6"
-                  >
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                  
+                  {/* LEFT COLUMN: PRODUCT SELECTION & VOLUME */}
+                  <div className="lg:col-span-6 space-y-6">
+                    <h4 className="text-xs font-bold text-teal-700 uppercase tracking-wider font-mono bg-teal-50/50 px-3 py-1.5 rounded-lg inline-block">
+                      1. Product & Cargo Volume
+                    </h4>
+
+                    <div className="space-y-4">
                       <div>
-                        <label className="block text-xs font-bold text-slate-600 uppercase tracking-widest mb-1.5 font-mono">1. Select Product Category</label>
+                        <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 font-mono">Select Category</label>
                         <select
                           value={selectedCategory}
                           onChange={(e) => {
@@ -202,7 +248,7 @@ export default function QuoteRequestModal({ isOpen, onClose }: QuoteRequestModal
                             const filtered = products.filter(p => p.category === e.target.value);
                             if (filtered.length > 0) setSelectedProductId(filtered[0].id);
                           }}
-                          className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-teal-500 outline-none bg-white font-medium"
+                          className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-teal-500 outline-none bg-white font-medium text-slate-800"
                         >
                           <option value="plates">Sugarcane Plates</option>
                           <option value="bowls">Compostable Bowls</option>
@@ -215,11 +261,11 @@ export default function QuoteRequestModal({ isOpen, onClose }: QuoteRequestModal
                       </div>
 
                       <div>
-                        <label className="block text-xs font-bold text-slate-600 uppercase tracking-widest mb-1.5 font-mono">2. Select Product Type</label>
+                        <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 font-mono">Select Product Type</label>
                         <select
                           value={selectedProductId}
                           onChange={(e) => setSelectedProductId(e.target.value)}
-                          className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-teal-500 outline-none bg-white font-medium"
+                          className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-teal-500 outline-none bg-white font-medium text-slate-800"
                         >
                           {products
                             .filter((p) => p.category === selectedCategory)
@@ -234,19 +280,19 @@ export default function QuoteRequestModal({ isOpen, onClose }: QuoteRequestModal
                       <img 
                         src={activeProduct.image} 
                         alt={activeProduct.name} 
-                        className="w-16 h-16 rounded-xl object-cover"
+                        className="w-16 h-16 rounded-xl object-cover flex-shrink-0"
                         referrerPolicy="no-referrer"
                       />
-                      <div className="text-xs">
-                        <p className="font-bold text-slate-800">{activeProduct.name}</p>
+                      <div className="text-xs min-w-0">
+                        <p className="font-bold text-slate-800 truncate">{activeProduct.name}</p>
                         <p className="text-slate-500 mt-1 line-clamp-1">{activeProduct.description}</p>
-                        <p className="text-teal-700 font-mono font-bold mt-1">Weight: {activeProduct.specs.weight} | Packing: {activeProduct.specs.packingDetails}</p>
+                        <p className="text-teal-700 font-mono font-bold mt-1 text-[10px]">Weight: {activeProduct.specs.weight} | Packing: {activeProduct.specs.packingDetails}</p>
                       </div>
                     </div>
 
                     <div className="space-y-2">
                       <div className="flex justify-between items-center text-xs">
-                        <label className="font-bold text-slate-600 uppercase tracking-widest font-mono">3. Select Units (Minimum B2B Trial: 50k)</label>
+                        <label className="font-bold text-slate-600 uppercase tracking-widest font-mono">Order Units (Trial MOQ: 50k)</label>
                         <span className="text-teal-700 font-mono font-bold text-sm bg-teal-50 px-2.5 py-1 rounded-md">{quantity.toLocaleString()} Pcs</span>
                       </div>
                       <input
@@ -258,330 +304,139 @@ export default function QuoteRequestModal({ isOpen, onClose }: QuoteRequestModal
                         onChange={(e) => setQuantity(Number(e.target.value))}
                         className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-700"
                       />
-                      <div className="flex justify-between text-[10px] text-slate-400 font-mono">
-                        <span>50k (LCL Load)</span>
+                      <div className="flex justify-between text-[9px] text-slate-400 font-mono">
+                        <span>50k (LCL)</span>
                         <span>250k (20ft FCL)</span>
                         <span>500k</span>
                         <span>1M (40HQ Container)</span>
                         <span>2M+ (Multi-HQ)</span>
                       </div>
                     </div>
-                  </motion.div>
-                )}
 
-                {/* STEP 2: OEM CUSTOMIZATION & PORT */}
-                {step === 2 && (
-                  <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    className="space-y-6"
-                  >
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="space-y-3">
-                        <label className="block text-xs font-bold text-slate-600 uppercase tracking-widest font-mono">1. Custom Branding Options</label>
-                        
-                        <label className="flex items-start space-x-3 p-3.5 border border-slate-200 rounded-xl hover:bg-slate-50 cursor-pointer transition-colors">
-                          <input
-                            type="checkbox"
-                            checked={customEmboss}
-                            onChange={(e) => setCustomEmboss(e.target.checked)}
-                            className="mt-1 accent-teal-700 w-4 h-4 rounded"
-                          />
-                          <div className="text-xs">
-                            <p className="font-bold text-slate-800">Emboss Custom Logo</p>
-                            <p className="text-slate-500 mt-0.5">Engrave your brand icon directly onto the bottom mold of each plate (+ $0.005/unit).</p>
-                          </div>
-                        </label>
-
-                        <label className="flex items-start space-x-3 p-3.5 border border-slate-200 rounded-xl hover:bg-slate-50 cursor-pointer transition-colors">
-                          <input
-                            type="checkbox"
-                            checked={customCarton}
-                            onChange={(e) => setCustomCarton(e.target.checked)}
-                            className="mt-1 accent-teal-700 w-4 h-4 rounded"
-                          />
-                          <div className="text-xs">
-                            <p className="font-bold text-slate-800">Custom Inner/Carton Print</p>
-                            <p className="text-slate-500 mt-0.5">Full color printed retail shrink wrap sleeves and outer export cartons (+ $0.003/unit).</p>
-                          </div>
-                        </label>
-                      </div>
-
-                      <div className="space-y-4">
+                    {/* Integrated B2B Cargo calculations summary */}
+                    <div className="p-4 bg-slate-50 border border-slate-200/60 rounded-2xl space-y-2 text-xs">
+                      <p className="font-bold text-slate-700 uppercase tracking-wider font-mono text-[10px] pb-1 border-b border-slate-200">
+                        Live Cargo Estimation
+                      </p>
+                      <div className="grid grid-cols-2 gap-4 pt-1">
                         <div>
-                          <label className="block text-xs font-bold text-slate-600 uppercase tracking-widest mb-1.5 font-mono">2. Sugarcane Pulp Color</label>
-                          <div className="grid grid-cols-2 gap-3">
-                            <button
-                              type="button"
-                              onClick={() => setPulpType('natural')}
-                              className={`py-3 px-4 rounded-xl border text-xs font-semibold text-center transition-all ${
-                                pulpType === 'natural' 
-                                  ? 'border-teal-700 bg-teal-50 text-teal-800' 
-                                  : 'border-slate-200 hover:bg-slate-50 text-slate-600'
-                              }`}
-                            >
-                              Natural Unbleached Brown
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => setPulpType('bleached')}
-                              className={`py-3 px-4 rounded-xl border text-xs font-semibold text-center transition-all ${
-                                pulpType === 'bleached' 
-                                  ? 'border-teal-700 bg-teal-50 text-teal-800' 
-                                  : 'border-slate-200 hover:bg-slate-50 text-slate-600'
-                              }`}
-                            >
-                              Bleached Super White
-                            </button>
-                          </div>
+                          <p className="text-slate-500">Gross Weight:</p>
+                          <p className="font-bold text-slate-800 mt-0.5">{totalWeightKg.toLocaleString()} Kg</p>
+                          <p className="text-[9px] text-slate-400">({(totalWeightKg/1000).toFixed(2)} MT)</p>
                         </div>
-
-                        <div className="grid grid-cols-2 gap-3">
-                          <div>
-                            <label className="block text-xs font-bold text-slate-600 uppercase tracking-widest mb-1.5 font-mono">3. Incoterm</label>
-                            <select
-                              value={incoterm}
-                              onChange={(e) => setIncoterm(e.target.value)}
-                              className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-xs focus:border-teal-500 outline-none bg-white font-medium"
-                            >
-                              <option value="fob">FOB Mundra Port, India</option>
-                              <option value="cif">CIF Port of Destination</option>
-                              <option value="cfr">CFR Port of Destination</option>
-                              <option value="ddp">DDP Store Door Delivery</option>
-                            </select>
-                          </div>
-                          <div>
-                            <label className="block text-xs font-bold text-slate-600 uppercase tracking-widest mb-1.5 font-mono">4. Destination Port</label>
-                            <input
-                              type="text"
-                              placeholder="e.g., Rotterdam, LA, Sydney"
-                              value={destinationPort}
-                              onChange={(e) => setDestinationPort(e.target.value)}
-                              className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-xs focus:border-teal-500 outline-none"
-                            />
-                          </div>
+                        <div>
+                          <p className="text-slate-500">Estimated Vol:</p>
+                          <p className="font-bold text-slate-800 mt-0.5">{totalCbm} CBM</p>
+                          <p className="text-[9px] text-slate-400">~{totalCartons} Cartons</p>
                         </div>
                       </div>
+                      <p className="text-[10px] text-teal-700 font-medium pt-1">
+                        Fits: {totalCbm > 58 ? '40ft HQ Container' : totalCbm > 28 ? '20ft GP Container' : `LCL Cargo (${Math.round((totalCbm/28)*100)}% of 20ft)`}
+                      </p>
                     </div>
-                  </motion.div>
-                )}
+                  </div>
 
-                {/* STEP 3: COMPANY DETAILS */}
-                {step === 3 && (
-                  <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    className="space-y-4 animate-fadeIn"
-                  >
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* RIGHT COLUMN: CORPORATE BIO & SUBMISSION */}
+                  <div className="lg:col-span-6 space-y-6">
+                    <h4 className="text-xs font-bold text-teal-700 uppercase tracking-wider font-mono bg-teal-50/50 px-3 py-1.5 rounded-lg inline-block">
+                      2. Corporate Sourcing Details
+                    </h4>
+
+                    <div className="space-y-4">
                       <div>
-                        <label className="block text-xs font-bold text-slate-600 uppercase tracking-widest mb-1 font-mono">Contact Person</label>
+                        <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 font-mono">CONTACT PERSON *</label>
                         <input
                           type="text"
                           required
-                          placeholder="e.g., Alistair Ross"
+                          placeholder="e.g. Jane Doe"
                           value={companyDetails.name}
                           onChange={(e) => setCompanyDetails({ ...companyDetails, name: e.target.value })}
-                          className="w-full text-xs border border-slate-200 rounded-xl px-4 py-2.5 focus:border-teal-500 outline-none"
+                          className="w-full text-xs border border-slate-200 rounded-xl px-4 py-3 focus:border-teal-500 outline-none text-slate-800"
                         />
                       </div>
+
                       <div>
-                        <label className="block text-xs font-bold text-slate-600 uppercase tracking-widest mb-1 font-mono">Corporate Email</label>
+                        <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 font-mono">CORPORATE EMAIL *</label>
                         <input
                           type="email"
                           required
-                          placeholder="procurement@foodbrand.com"
+                          placeholder="jane@company.com"
                           value={companyDetails.email}
                           onChange={(e) => setCompanyDetails({ ...companyDetails, email: e.target.value })}
-                          className="w-full text-xs border border-slate-200 rounded-xl px-4 py-2.5 focus:border-teal-500 outline-none"
+                          className="w-full text-xs border border-slate-200 rounded-xl px-4 py-3 focus:border-teal-500 outline-none text-slate-800"
                         />
                       </div>
+
                       <div>
-                        <label className="block text-xs font-bold text-slate-600 uppercase tracking-widest mb-1 font-mono">Company Legal Name</label>
+                        <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 font-mono">COMPANY LEGAL NAME *</label>
                         <input
                           type="text"
                           required
-                          placeholder="Pacific EcoDistributors Ltd"
+                          placeholder="Eco distributors Ltd"
                           value={companyDetails.company}
                           onChange={(e) => setCompanyDetails({ ...companyDetails, company: e.target.value })}
-                          className="w-full text-xs border border-slate-200 rounded-xl px-4 py-2.5 focus:border-teal-500 outline-none"
+                          className="w-full text-xs border border-slate-200 rounded-xl px-4 py-3 focus:border-teal-500 outline-none text-slate-800"
                         />
                       </div>
-                      <div>
-                        <label className="block text-xs font-bold text-slate-600 uppercase tracking-widest mb-1 font-mono">Destination Country</label>
-                        <input
-                          type="text"
-                          required
-                          placeholder="Australia"
-                          value={companyDetails.country}
-                          onChange={(e) => setCompanyDetails({ ...companyDetails, country: e.target.value })}
-                          className="w-full text-xs border border-slate-200 rounded-xl px-4 py-2.5 focus:border-teal-500 outline-none"
-                        />
-                      </div>
-                    </div>
 
-                    <div>
-                      <label className="block text-xs font-bold text-slate-600 uppercase tracking-widest mb-1 font-mono">WhatsApp Number (for instant load tracking updates)</label>
-                      <input
-                        type="tel"
-                        placeholder="e.g., +61 412 345 678"
-                        value={companyDetails.phone}
-                        onChange={(e) => setCompanyDetails({ ...companyDetails, phone: e.target.value })}
-                        className="w-full text-xs border border-slate-200 rounded-xl px-4 py-2.5 focus:border-teal-500 outline-none"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-bold text-slate-600 uppercase tracking-widest mb-1 font-mono">Special Directives & Port Instructions</label>
-                      <textarea
-                        rows={3}
-                        placeholder="Any additional specific instructions (e.g. customized logo CAD drawings, pallet wrap instructions, moisture barrier bags requested)."
-                        value={companyDetails.requirements}
-                        onChange={(e) => setCompanyDetails({ ...companyDetails, requirements: e.target.value })}
-                        className="w-full text-xs border border-slate-200 rounded-xl px-4 py-2.5 focus:border-teal-500 outline-none resize-none"
-                      />
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* STEP 4: REAL-TIME CARGO RESULT & PDF MOCK */}
-                {step === 4 && (
-                  <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    className="grid grid-cols-1 md:grid-cols-2 gap-8"
-                  >
-                    {/* Invoice visual */}
-                    <div className="bg-slate-50 rounded-2xl border border-slate-200 p-6 space-y-4 font-mono text-xs relative overflow-hidden">
-                      {/* Diagonal watermark */}
-                      <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] rotate-45 pointer-events-none select-none text-slate-900 font-bold text-4xl">
-                        ESTIMATE PROFORMA
-                      </div>
-
-                      <div className="flex justify-between items-start border-b border-slate-200 pb-3">
+                      <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <p className="font-bold text-slate-900">NAMYA ECOPACK PVT LTD</p>
-                          <p className="text-[10px] text-slate-500">Mundra SEZ Export Zone, Guj, IN</p>
+                          <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 font-mono">DESTINATION COUNTRY *</label>
+                          <input
+                            type="text"
+                            required
+                            placeholder="e.g. USA, UK"
+                            value={companyDetails.country}
+                            onChange={(e) => setCompanyDetails({ ...companyDetails, country: e.target.value })}
+                            className="w-full text-xs border border-slate-200 rounded-xl px-4 py-3 focus:border-teal-500 outline-none text-slate-800"
+                          />
                         </div>
-                        <div className="text-right">
-                          <p className="font-bold text-teal-800">PROFORMA INVOICE</p>
-                          <p className="text-[10px] text-slate-500">REF: #NY-2026-9482</p>
+                        <div>
+                          <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 font-mono">WHATSAPP / PHONE</label>
+                          <input
+                            type="tel"
+                            placeholder="e.g. +1 555-0199"
+                            value={companyDetails.phone}
+                            onChange={(e) => setCompanyDetails({ ...companyDetails, phone: e.target.value })}
+                            className="w-full text-xs border border-slate-200 rounded-xl px-4 py-3 focus:border-teal-500 outline-none text-slate-800"
+                          />
                         </div>
                       </div>
 
-                      <div className="space-y-1.5 text-[11px]">
-                        <p><span className="text-slate-500">CLIENT  :</span> <span className="font-bold text-slate-800">{companyDetails.company || 'Pacific EcoDistributors'}</span></p>
-                        <p><span className="text-slate-500">PORT    :</span> <span className="font-bold text-slate-800">{destinationPort || 'MUNDRA PORT, INDIA'}</span></p>
-                        <p><span className="text-slate-500">CARGO   :</span> <span className="font-bold text-slate-800">{quantity.toLocaleString()} Pcs of {activeProduct.name}</span></p>
-                        <p><span className="text-slate-500">PULP    :</span> <span className="font-bold text-slate-800 uppercase">{pulpType} organic fiber</span></p>
-                      </div>
-
-                      <div className="border-t border-b border-dashed border-slate-300 py-3 space-y-1 text-slate-800">
-                        <div className="flex justify-between">
-                          <span>Base Value:</span>
-                          <span>${(baseUnitPrice * quantity).toFixed(2)} USD</span>
-                        </div>
-                        {(customEmboss || customCarton) && (
-                          <div className="flex justify-between text-teal-800">
-                            <span>OEM Custom Addons:</span>
-                            <span>+ ${(customizationCharge * quantity).toFixed(2)} USD</span>
-                          </div>
-                        )}
-                        {quantity > 200000 && (
-                          <div className="flex justify-between text-emerald-800">
-                            <span>Volume Discount:</span>
-                            <span>- ${(volumeDiscount * quantity).toFixed(2)} USD</span>
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="flex justify-between items-center text-sm font-bold pt-1">
-                        <span className="text-slate-900">ESTIMATED FOB TOTAL:</span>
-                        <span className="text-teal-700 font-bold">${totalEstimatedCost.toLocaleString()} USD</span>
-                      </div>
-                      
-                      <div className="text-[10px] text-slate-400 text-center pt-2">
-                        *Subject to active raw bagasse fiber rates. Formal corporate invoice will be sent over email/whatsapp.
+                      <div>
+                        <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 font-mono">SPECIAL DIRECTIVES (OPTIONAL)</label>
+                        <textarea
+                          rows={2}
+                          placeholder="Specific port instructions, customized packaging, or sample kit options."
+                          value={companyDetails.requirements}
+                          onChange={(e) => setCompanyDetails({ ...companyDetails, requirements: e.target.value })}
+                          className="w-full text-xs border border-slate-200 rounded-xl px-4 py-3 focus:border-teal-500 outline-none text-slate-800 resize-none"
+                        />
                       </div>
                     </div>
 
-                    {/* Logistics specs */}
-                    <div className="space-y-5">
-                      <h4 className="text-sm font-bold text-slate-800 uppercase tracking-wider font-mono">Seaworthy Shipping Specifications</h4>
-
-                      <div className="grid grid-cols-2 gap-3">
-                        <div className="p-3 bg-teal-50/50 rounded-xl border border-teal-100/50 text-xs">
-                          <p className="text-slate-500">Total Weight</p>
-                          <p className="text-base font-bold text-slate-800 mt-1">{totalWeightKg.toLocaleString()} Kg</p>
-                          <p className="text-[10px] text-slate-400 mt-0.5">({(totalWeightKg/1000).toFixed(2)} Metric Tons)</p>
-                        </div>
-                        <div className="p-3 bg-teal-50/50 rounded-xl border border-teal-100/50 text-xs">
-                          <p className="text-slate-500">Total Volume</p>
-                          <p className="text-base font-bold text-slate-800 mt-1">{totalCbm} CBM</p>
-                          <p className="text-[10px] text-slate-400 mt-0.5">Approx {totalCartons} Cartons</p>
-                        </div>
-                        <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/50 text-xs col-span-2">
-                          <p className="text-slate-500">FCL Container Fit Analysis</p>
-                          <p className="text-sm font-bold text-teal-800 mt-1">
-                            {totalCbm > 58 ? 'Requires 40ft HQ FCL Container' : totalCbm > 28 ? 'Perfect 20ft GP FCL Load' : `LCL / Consolidation (Fills ${Math.round((totalCbm/28)*100)}% of 20ft FCL)`}
-                          </p>
-                          <div className="w-full bg-slate-200 h-1.5 rounded-full mt-2 overflow-hidden">
-                            <div className="bg-teal-700 h-full rounded-full" style={{ width: `${Math.min((totalCbm/68)*100, 100)}%` }} />
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="p-4 bg-slate-900 text-white rounded-2xl flex items-start space-x-3">
-                        <ShieldCheck className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-0.5" />
-                        <div className="text-xs">
-                          <p className="font-bold">Sourcing & Supply Lead Time: ~{estimatedLeadTimeDays} Days</p>
-                          <p className="text-slate-300 mt-1">Includes precision tooling CAD mockup, sample physical proof, hydraulic heat sourcing, post-dry, metal detection safety and vacuum bulk wrapping.</p>
-                        </div>
-                      </div>
-
-                      <button
-                        type="submit"
-                        className="w-full bg-teal-700 hover:bg-teal-800 text-white text-center py-3.5 rounded-xl text-sm font-bold transition-all shadow-lg shadow-teal-700/10 flex items-center justify-center space-x-2"
-                      >
-                        <FileText className="w-4 h-4" />
-                        <span>Submit Final Request for Quotation</span>
-                      </button>
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* Footer Controls */}
-                <div className="mt-8 pt-4 border-t border-slate-100 flex justify-between items-center">
-                  {step > 1 ? (
                     <button
-                      type="button"
-                      onClick={handlePrevStep}
-                      className="text-xs font-bold text-slate-600 hover:text-slate-900 flex items-center space-x-1"
+                      type="submit"
+                      disabled={submitting}
+                      className={`w-full text-white text-center py-4 rounded-xl text-sm font-bold transition-all shadow-lg flex items-center justify-center space-x-2 ${
+                        submitting ? 'bg-slate-400 cursor-not-allowed shadow-none' : 'bg-teal-700 hover:bg-teal-800 shadow-teal-700/10'
+                      }`}
                     >
-                      <ArrowLeft className="w-4 h-4" />
-                      <span>Previous Step</span>
+                      {submitting ? (
+                        <>
+                          <RefreshCw className="w-4 h-4 animate-spin" />
+                          <span>Submitting Sourcing Request...</span>
+                        </>
+                      ) : (
+                        <>
+                          <FileText className="w-4 h-4" />
+                          <span>Submit Quote & Cargo Request</span>
+                        </>
+                      )}
                     </button>
-                  ) : (
-                    <div />
-                  )}
+                  </div>
 
-                  {step < 4 ? (
-                    <button
-                      type="button"
-                      onClick={handleNextStep}
-                      className="bg-slate-900 hover:bg-slate-800 text-white px-5 py-2.5 rounded-xl text-xs font-bold flex items-center space-x-1 transition-colors"
-                    >
-                      <span>Continue to Next</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
-                  ) : (
-                    <div />
-                  )}
                 </div>
-
               </form>
             )}
           </div>

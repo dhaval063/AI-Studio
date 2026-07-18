@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Search, Globe, ChevronDown, ArrowRight, FileText, Settings, ShieldCheck, HelpCircle, Disc, CupSoda, Package, Grid3X3, Coffee, PackageOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { categories } from '../data/products';
+import NamyaLogo from './NamyaLogo';
 
 interface NavbarProps {
   currentPage: string;
@@ -59,6 +60,23 @@ export default function Navbar({
     navToPage('products');
   };
 
+  const handleRequestQuoteClick = () => {
+    if (currentPage !== 'home') {
+      setCurrentPage('home');
+      setTimeout(() => {
+        const element = document.getElementById('home-contact');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 180);
+    } else {
+      const element = document.getElementById('home-contact');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  };
+
   return (
     <>
       {/* Sticky Navbar */}
@@ -83,19 +101,9 @@ export default function Navbar({
             <div 
               id="brand-logo"
               onClick={() => navToPage('home')}
-              className="flex items-center space-x-2 cursor-pointer group"
+              className="flex items-center cursor-pointer group"
             >
-              <div className="w-10 h-10 rounded-xl bg-teal-700 flex items-center justify-center text-white font-semibold shadow-md shadow-teal-700/15 transition-transform duration-300 group-hover:scale-105">
-                <span className="text-xl tracking-tighter">N</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-lg font-bold text-slate-900 tracking-tight leading-none">
-                  Namya <span className="text-teal-700">EcoPack</span>
-                </span>
-                <span className="text-[9px] font-medium text-slate-500 uppercase tracking-widest mt-0.5">
-                  Sustainable Excellence
-                </span>
-              </div>
+              <NamyaLogo height={44} variant="light" className="transition-transform duration-300 group-hover:scale-[1.03]" />
             </div>
 
             {/* Desktop Navigation Links */}
@@ -117,6 +125,7 @@ export default function Navbar({
                 onMouseLeave={() => setActiveDropdown(null)}
               >
                 <button
+                  onClick={() => { navToPage('products'); onSelectCategory('all'); }}
                   className={`flex items-center space-x-1 text-sm font-medium transition-colors py-2 ${
                     currentPage === 'products' ? 'text-teal-700' : 'text-slate-600 hover:text-slate-900'
                   }`}
@@ -169,73 +178,14 @@ export default function Navbar({
                 </AnimatePresence>
               </div>
 
-              {/* Manufacturing & Custom (Services Dropdown) */}
-              <div 
-                className="relative"
-                onMouseEnter={() => setActiveDropdown('services')}
-                onMouseLeave={() => setActiveDropdown(null)}
-              >
-                <button
-                  className={`flex items-center space-x-1 text-sm font-medium transition-colors py-2 ${
-                    ['oem', 'privatelabel', 'manufacturing'].includes(currentPage) ? 'text-teal-700' : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  <span>OEM & Sourcing</span>
-                  <ChevronDown className="w-4 h-4" />
-                </button>
-
-                <AnimatePresence>
-                  {activeDropdown === 'services' && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      transition={{ duration: 0.15 }}
-                      className="absolute left-0 top-full w-80 bg-white rounded-2xl shadow-xl border border-slate-100 p-4 space-y-1"
-                    >
-                      <button
-                        onClick={() => navToPage('oem')}
-                        className="w-full text-left p-3 rounded-xl hover:bg-slate-50 transition-colors flex items-start space-x-3 group"
-                      >
-                        <Settings className="w-5 h-5 text-teal-600 mt-0.5 group-hover:rotate-45 transition-transform" />
-                        <div>
-                          <div className="text-sm font-semibold text-slate-800">OEM Customized Shapes</div>
-                          <p className="text-xs text-slate-500 mt-0.5">3D prototyping & molding design.</p>
-                        </div>
-                      </button>
-                      <button
-                        onClick={() => navToPage('privatelabel')}
-                        className="w-full text-left p-3 rounded-xl hover:bg-slate-50 transition-colors flex items-start space-x-3 group"
-                      >
-                        <FileText className="w-5 h-5 text-teal-600 mt-0.5" />
-                        <div>
-                          <div className="text-sm font-semibold text-slate-800">Private Label Sourcing</div>
-                          <p className="text-xs text-slate-500 mt-0.5">Custom bottom embossing and branding.</p>
-                        </div>
-                      </button>
-                      <button
-                        onClick={() => navToPage('manufacturing')}
-                        className="w-full text-left p-3 rounded-xl hover:bg-slate-50 transition-colors flex items-start space-x-3 group"
-                      >
-                        <ShieldCheck className="w-5 h-5 text-teal-600 mt-0.5" />
-                        <div>
-                          <div className="text-sm font-semibold text-slate-800">Sourcing Facility</div>
-                          <p className="text-xs text-slate-500 mt-0.5">Our world-class zero-waste supply channels.</p>
-                        </div>
-                      </button>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              {/* Exports */}
+              {/* Sourcing Link */}
               <button
-                onClick={() => navToPage('exports')}
+                onClick={() => navToPage('manufacturing')}
                 className={`text-sm font-medium transition-colors ${
-                  currentPage === 'exports' ? 'text-teal-700' : 'text-slate-600 hover:text-slate-900'
+                  currentPage === 'manufacturing' ? 'text-teal-700' : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                Exports
+                Sourcing
               </button>
 
               {/* Sustainability */}
@@ -303,48 +253,9 @@ export default function Navbar({
                 </AnimatePresence>
               </div>
 
-              {/* Language Selector */}
-              <div 
-                className="relative"
-                onMouseEnter={() => setActiveDropdown('languages')}
-                onMouseLeave={() => setActiveDropdown(null)}
-              >
-                <button className="flex items-center space-x-1 p-2 rounded-full hover:bg-slate-100 text-slate-600 hover:text-slate-900 transition-colors text-sm font-semibold">
-                  <Globe className="w-4 h-4" />
-                  <span>{currentLang}</span>
-                </button>
-                <AnimatePresence>
-                  {activeDropdown === 'languages' && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 5 }}
-                      className="absolute right-0 top-full w-32 bg-white rounded-xl shadow-lg border border-slate-100 p-2 space-y-0.5 z-50"
-                    >
-                      {[
-                        { code: 'EN', name: 'English' },
-                        { code: 'ES', name: 'Español' },
-                        { code: 'DE', name: 'Deutsch' },
-                        { code: 'FR', name: 'Français' }
-                      ].map((lang) => (
-                        <button
-                          key={lang.code}
-                          onClick={() => { setCurrentLang(lang.code); setActiveDropdown(null); }}
-                          className={`w-full text-left px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                            currentLang === lang.code ? 'bg-teal-50 text-teal-700' : 'text-slate-600 hover:bg-slate-50'
-                          }`}
-                        >
-                          {lang.name}
-                        </button>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
               {/* Request Quote Button */}
               <button
-                onClick={onOpenQuoteModal}
+                onClick={handleRequestQuoteClick}
                 className="bg-teal-700 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-teal-800 hover:shadow-lg hover:shadow-teal-700/10 transition-all duration-200"
               >
                 Request Quote
@@ -406,38 +317,25 @@ export default function Navbar({
           >
             <div className="space-y-6">
               <div className="space-y-1">
-                <span className="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-2">Company</span>
+                <span className="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-2">Navigation</span>
                 {[
-                  { id: 'home', label: 'Home Page' },
-                  { id: 'about', label: 'About Our Supply network' },
-                  { id: 'exports', label: 'Export & Shipping Logistics' },
-                  { id: 'sustainability', label: 'Sustainability & Infographics' },
-                  { id: 'faq', label: 'Frequently Asked Questions' }
+                  { id: 'home', label: 'Home' },
+                  { id: 'products', label: 'Products' },
+                  { id: 'manufacturing', label: 'Sourcing' },
+                  { id: 'sustainability', label: 'Sustainability' },
+                  { id: 'about', label: 'About Us' },
+                  { id: 'faq', label: 'FAQ' }
                 ].map((item) => (
                   <button
                     key={item.id}
-                    onClick={() => navToPage(item.id)}
+                    onClick={() => {
+                      if (item.id === 'products') {
+                        onSelectCategory('all');
+                      }
+                      navToPage(item.id);
+                    }}
                     className={`w-full text-left py-2.5 text-base font-semibold ${
-                      currentPage === item.id ? 'text-teal-700' : 'text-slate-800'
-                    }`}
-                  >
-                    {item.label}
-                  </button>
-                ))}
-              </div>
-
-              <div className="space-y-1">
-                <span className="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-2">Capabilities</span>
-                {[
-                  { id: 'oem', label: 'OEM Custom Shaping' },
-                  { id: 'privatelabel', label: 'Private Label branding' },
-                  { id: 'manufacturing', label: 'Zero-Waste Supply Facility' }
-                ].map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => navToPage(item.id)}
-                    className={`w-full text-left py-2.5 text-base font-semibold ${
-                      currentPage === item.id ? 'text-teal-700' : 'text-slate-800'
+                      currentPage === item.id ? 'text-teal-700 font-bold' : 'text-slate-800'
                     }`}
                   >
                     {item.label}
@@ -461,27 +359,12 @@ export default function Navbar({
               </div>
             </div>
 
-            <div className="pt-8 border-t border-slate-100 space-y-4">
-              <div className="flex items-center justify-between text-sm text-slate-500">
-                <span>Select Language</span>
-                <div className="flex space-x-3 font-semibold text-slate-800">
-                  {['EN', 'ES', 'DE', 'FR'].map((l) => (
-                    <button 
-                      key={l} 
-                      onClick={() => setCurrentLang(l)}
-                      className={currentLang === l ? 'text-teal-700 underline' : ''}
-                    >
-                      {l}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
+            <div className="pt-8 border-t border-slate-100">
               <button
-                onClick={() => { setMobileMenuOpen(false); onOpenQuoteModal(); }}
+                onClick={() => { setMobileMenuOpen(false); handleRequestQuoteClick(); }}
                 className="w-full bg-teal-700 text-white text-center py-3.5 rounded-xl text-base font-bold hover:bg-teal-800 shadow-md transition-colors"
               >
-                Get Container Quote
+                Request Quote
               </button>
             </div>
           </motion.div>

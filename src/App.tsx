@@ -9,7 +9,6 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ProductCatalog from './components/ProductCatalog';
 import ContactSection from './components/ContactSection';
-import ExportMap from './components/ExportMap';
 import ExtraPages from './components/ExtraPages';
 import Footer from './components/Footer';
 import SustainabilityInfo from './components/SustainabilityInfo';
@@ -21,7 +20,7 @@ import ContainersSKUView from './components/ContainersSKUView';
 import TraysSKUView from './components/TraysSKUView';
 import CupsSKUView from './components/CupsSKUView';
 import TakeawaySKUView from './components/TakeawaySKUView';
-import { categories, testimonials } from './data/products';
+import { categories, testimonials, faqs } from './data/products';
 
 import platesImg from './assets/images/sugarcane_compartment_plate_1784290569010.jpg';
 import bowlsImg from './assets/images/sugarcane_salad_bowls_1784290587244.jpg';
@@ -136,15 +135,425 @@ const whyChooseUsFeatures = [
 
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<string>('home');
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  // Parse initial location on load safely
+  const getInitialLocation = () => {
+    try {
+      const path = window.location.pathname;
+      if (path === '/' || path === '/home' || path === '') {
+        return { page: 'home', category: 'all' };
+      } else if (path.startsWith('/products')) {
+        const parts = path.split('/');
+        if (parts.length > 2 && parts[2]) {
+          return { page: 'products', category: parts[2] };
+        }
+        return { page: 'products', category: 'all' };
+      } else {
+        const page = path.replace('/', '');
+        return { page: page || 'home', category: 'all' };
+      }
+    } catch (e) {
+      return { page: 'home', category: 'all' };
+    }
+  };
+
+  const initialLocation = getInitialLocation();
+  const [currentPage, setCurrentPage] = useState<string>(initialLocation.page);
+  const [selectedCategory, setSelectedCategory] = useState<string>(initialLocation.category);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState<boolean>(false);
+  const [quoteModalCategory, setQuoteModalCategory] = useState<string | undefined>(undefined);
+  const [quoteModalProductId, setQuoteModalProductId] = useState<string | undefined>(undefined);
 
-  // Smooth scroll to top on page switches
+  const handleOpenQuoteModal = (category?: string, productId?: string) => {
+    setQuoteModalCategory(category);
+    setQuoteModalProductId(productId);
+    setIsQuoteModalOpen(true);
+  };
+
+  // Synchronize browser forward/back buttons safely if not inside an iframe
+  useEffect(() => {
+    let isInIframe = false;
+    try {
+      isInIframe = window.self !== window.top;
+    } catch (e) {
+      isInIframe = true;
+    }
+
+    if (isInIframe) return;
+
+    const handleLocationChange = () => {
+      try {
+        const path = window.location.pathname;
+        if (path === '/' || path === '/home' || path === '') {
+          setCurrentPage('home');
+        } else if (path.startsWith('/products')) {
+          setCurrentPage('products');
+          const parts = path.split('/');
+          if (parts.length > 2 && parts[2]) {
+            setSelectedCategory(parts[2]);
+          } else {
+            setSelectedCategory('all');
+          }
+        } else {
+          const page = path.replace('/', '');
+          if (page) setCurrentPage(page);
+        }
+      } catch (e) {
+        // Ignore popstate failures
+      }
+    };
+
+    window.addEventListener('popstate', handleLocationChange);
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+    };
+  }, []);
+
+  // Update URL path when React page state changes (safely guarded for iframes)
+  useEffect(() => {
+    let isInIframe = false;
+    try {
+      isInIframe = window.self !== window.top;
+    } catch (e) {
+      isInIframe = true;
+    }
+
+    if (isInIframe) return;
+
+    try {
+      let targetPath = '/';
+      if (currentPage === 'home') {
+        targetPath = '/';
+      } else if (currentPage === 'products') {
+        if (selectedCategory && selectedCategory !== 'all') {
+          targetPath = `/products/${selectedCategory}`;
+        } else {
+          targetPath = '/products';
+        }
+      } else {
+        targetPath = `/${currentPage}`;
+      }
+
+      if (window.location.pathname !== targetPath) {
+        window.history.pushState(null, '', targetPath);
+      }
+    } catch (e) {
+      // Ignore pushState failures
+    }
+  }, [currentPage, selectedCategory]);
+
+  // Dynamic enterprise-level SEO tag &amp; Schema injection manager
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-  }, [currentPage]);
+
+    // 1. Determine SEO parameters based on current page state
+    let title = "Sugarcane Bagasse Tableware Manufacturer India | Namya Eco Pack";
+    let desc = "Namya Eco Pack is an elite B2B manufacturer &amp; exporter of 100% compostable, PFAS-free sugarcane bagasse tableware, plates, bowls, and takeaway food packaging from India to USA, UK, Europe, UAE.";
+    let canonical = "https://www.namyaecopack.com/";
+
+    if (currentPage === 'home') {
+      title = "Sugarcane Bagasse Tableware Manufacturer India | Namya Eco Pack";
+      desc = "Namya Eco Pack is an elite B2B manufacturer &amp; exporter of 100% compostable, PFAS-free sugarcane bagasse tableware, plates, bowls, and takeaway food packaging from India to USA, UK, Europe, UAE.";
+      canonical = "https://www.namyaecopack.com/";
+    } else if (currentPage === 'products') {
+      canonical = "https://www.namyaecopack.com/products";
+      if (selectedCategory === 'plates') {
+        title = "Biodegradable Sugarcane Plates Manufacturer &amp; Wholesaler | Namya Eco Pack";
+        desc = "Wholesale disposable bagasse plates in round, square, oval, and compartment shapes. Premium unbleached &amp; white compostable plates from India.";
+        canonical = "https://www.namyaecopack.com/products/plates";
+      } else if (selectedCategory === 'bowls') {
+        title = "Compostable Bagasse Bowls Manufacturer | Wholesale Eco Salad &amp; Soup Bowls";
+        desc = "Exporting heavy-duty sugarcane bagasse salad bowls, soup bowls, and dessert cups in bulk. Certified food contact safe, leak-proof, microwave and freezer safe.";
+        canonical = "https://www.namyaecopack.com/products/bowls";
+      } else if (selectedCategory === 'containers') {
+        title = "Sugarcane Bagasse Clamshell &amp; Hinged Meal Boxes Exporter | Namya Eco Pack";
+        desc = "Bulk biodegradable burger clamshells, take-out lunchboxes, and multi-compartment containers. Sustainable, leak-resistant, PFAS-free, and plastic-free.";
+        canonical = "https://www.namyaecopack.com/products/containers";
+      } else if (selectedCategory === 'trays') {
+        title = "Disposable Bagasse Meal Trays Manufacturer India | School &amp; Airline Trays";
+        desc = "Wholesale 5-compartment, 4-compartment, and executive sugarcane compartment trays for airlines, hospitals, and institutional school catering.";
+        canonical = "https://www.namyaecopack.com/products/trays";
+      } else if (selectedCategory === 'cups') {
+        title = "Sugarcane Cups &amp; Lids Manufacturer | Biodegradable Coffee Cups Wholesale";
+        desc = "Eco-friendly bagasse hot and cold beverage cups and matching sugarcane pulp lids. Premium plastic-free, leak-resistant insulated drinkware.";
+        canonical = "https://www.namyaecopack.com/products/cups";
+      } else if (selectedCategory === 'takeaway') {
+        title = "Compostable Takeaway Food Packaging &amp; Containers | Namya Eco Pack";
+        desc = "Custom bulk rectangular sugarcane take-out boxes, food prep containers, and portion cups. Rigid, heavy-duty, leak-proof, and compostable.";
+        canonical = "https://www.namyaecopack.com/products/takeaway";
+      } else {
+        title = "Bulk Compostable Food Packaging &amp; Tableware Catalog | Namya Eco Pack";
+        desc = "Browse our export-ready sugarcane bagasse tableware catalog. Custom private label &amp; OEM manufacturing for wholesale plates, bowls, food containers, trays, cups, and takeaway boxes.";
+      }
+    } else if (currentPage === 'manufacturing') {
+      title = "Advanced Sourcing &amp; Sourcing Plant Gujarat | Namya Eco Pack";
+      desc = "Tour our state-of-the-art automated manufacturing facility in Ahmedabad, Gujarat. High-volume hydraulic molding, robotic trimming, and strict QC for B2B export.";
+      canonical = "https://www.namyaecopack.com/manufacturing";
+    } else if (currentPage === 'sustainability') {
+      title = "100% Home Compostable &amp; Certified Eco-Friendly Materials | Namya Eco Pack";
+      desc = "Discover the life cycle assessment (LCA) of sugarcane bagasse. 100% biodegradable, zero forest cutting, zero synthetic chemical coatings, and PFAS-free.";
+      canonical = "https://www.namyaecopack.com/sustainability";
+    } else if (currentPage === 'about') {
+      title = "Certified Bagasse Tableware Manufacturer India | Namya Eco Pack About Us";
+      desc = "Learn about Namya Eco Pack, India's leading producer and exporter of biodegradable sugarcane bagasse food packaging, serving 28+ countries with certified quality.";
+      canonical = "https://www.namyaecopack.com/about";
+    } else if (currentPage === 'oem') {
+      title = "OEM Bagasse Tableware &amp; Sourcing Custom Mold Engineering | Namya Eco Pack";
+      desc = "Bespoke shape engineering and high-volume custom production under strict NDAs. Rapid 3D CAD modeling and CNC mold tooling within 30 days.";
+      canonical = "https://www.namyaecopack.com/oem";
+    } else if (currentPage === 'privatelabel') {
+      title = "Private Label Bagasse Products &amp; Custom Logo Embossing | Namya Eco Pack";
+      desc = "Build your eco-friendly brand with our high-volume private label services. Custom logo embossing on sugarcane tableware and branded retail packaging.";
+      canonical = "https://www.namyaecopack.com/privatelabel";
+    } else if (currentPage === 'certificates') {
+      title = "BPI Certified &amp; FDA Food Safe Sugarcane Tableware | Namya Eco Pack Certifications";
+      desc = "View our international quality standards and lab test reports: BPI ASTM D6400, TÜV OK Compost HOME, BRCGS AA Grade, ISO 9001, ISO 14001, LFGB, and FDA.";
+      canonical = "https://www.namyaecopack.com/certificates";
+    } else if (currentPage === 'faq') {
+      title = "Sugarcane Bagasse B2B Wholesale FAQs &amp; Shipping Information | Namya Eco Pack";
+      desc = "Answers to 25+ detailed questions about sugarcane bagasse, certifications, MOQ, lead times, custom embossing, PFAS compliance, and international shipping.";
+      canonical = "https://www.namyaecopack.com/faq";
+    } else if (currentPage === 'blog') {
+      title = "Sustainable Sourcing Insights &amp; Eco Packaging Blog | Namya Eco Pack";
+      desc = "Stay updated with the latest in sustainable hospitality trends, biodegradable material science, global single-use plastic bans, and bulk shipping logistics.";
+      canonical = "https://www.namyaecopack.com/blog";
+    }
+
+    // 2. Update Document Title
+    document.title = title;
+
+    // 3. Helper function to create or update meta tags
+    const updateMetaTag = (nameAttr: string, valueAttr: string, contentVal: string) => {
+      let element = document.querySelector(`meta[${nameAttr}="${valueAttr}"]`);
+      if (!element) {
+        element = document.createElement('meta');
+        element.setAttribute(nameAttr, valueAttr);
+        document.head.appendChild(element);
+      }
+      element.setAttribute('content', contentVal);
+    };
+
+    // Update Meta Description &amp; Robots
+    updateMetaTag('name', 'description', desc);
+    updateMetaTag('name', 'robots', 'index, follow');
+
+    // Update Open Graph Tags
+    updateMetaTag('property', 'og:title', title);
+    updateMetaTag('property', 'og:description', desc);
+    updateMetaTag('property', 'og:url', canonical);
+    updateMetaTag('property', 'og:type', currentPage === 'blog' ? 'article' : 'website');
+    updateMetaTag('property', 'og:image', 'https://www.namyaecopack.com/og-image-pfas-free-bagasse.jpg');
+
+    // Update Twitter Cards
+    updateMetaTag('name', 'twitter:card', 'summary_large_image');
+    updateMetaTag('name', 'twitter:title', title);
+    updateMetaTag('name', 'twitter:description', desc);
+    updateMetaTag('name', 'twitter:image', 'https://www.namyaecopack.com/og-image-pfas-free-bagasse.jpg');
+
+    // 4. Update Canonical Link
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (!canonicalLink) {
+      canonicalLink = document.createElement('link');
+      canonicalLink.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.setAttribute('href', canonical);
+
+    // 5. Inject Structured Data JSON-LD Schemas
+    // Clear any previous JSON-LD elements
+    const existingScripts = document.querySelectorAll('script[id^="seo-jsonld-"]');
+    existingScripts.forEach(script => script.remove());
+
+    const addJsonLdScript = (scriptId: string, dataObj: object) => {
+      const script = document.createElement('script');
+      script.id = `seo-jsonld-${scriptId}`;
+      script.type = 'application/ld+json';
+      script.text = JSON.stringify(dataObj);
+      document.head.appendChild(script);
+    };
+
+    // Global Org Schema
+    const orgSchema = {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "@id": "https://www.namyaecopack.com/#organization",
+      "name": "Namya Eco Pack",
+      "url": "https://www.namyaecopack.com",
+      "logo": "https://www.namyaecopack.com/logo-teal.png",
+      "sameAs": [
+        "https://www.linkedin.com/company/namyaecopack",
+        "https://www.facebook.com/namyaecopack"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+91-7041969067",
+        "contactType": "sales",
+        "email": "sales@namyaecopack.com",
+        "areaServed": "Worldwide",
+        "availableLanguage": ["English", "Hindi", "Gujarati"]
+      }
+    };
+    addJsonLdScript('org', orgSchema);
+
+    // Global Local Business Schema (Ahmedabad Plant)
+    const localBusinessSchema = {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "@id": "https://www.namyaecopack.com/#localbusiness",
+      "name": "Namya Eco Pack",
+      "image": "https://www.namyaecopack.com/og-image-pfas-free-bagasse.jpg",
+      "telephone": "+917041969067",
+      "email": "sales@namyaecopack.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Sourcing and Manufacturing Zone, Ahmedabad",
+        "addressLocality": "Ahmedabad",
+        "addressRegion": "Gujarat",
+        "postalCode": "380001",
+        "addressCountry": "IN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "23.0225",
+        "longitude": "72.5714"
+      },
+      "url": "https://www.namyaecopack.com",
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "09:00",
+        "closes": "18:00"
+      }
+    };
+    addJsonLdScript('local', localBusinessSchema);
+
+    // Page-specific Schemas
+    if (currentPage === 'home') {
+      // Website Schema with SearchAction
+      addJsonLdScript('website', {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "@id": "https://www.namyaecopack.com/#website",
+        "url": "https://www.namyaecopack.com",
+        "name": "Namya Eco Pack",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.namyaecopack.com/products?search={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      });
+    }
+
+    // Breadcrumb Schema
+    const breadcrumbList: any[] = [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.namyaecopack.com/"
+      }
+    ];
+
+    if (currentPage !== 'home') {
+      if (currentPage === 'products') {
+        breadcrumbList.push({
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Products",
+          "item": "https://www.namyaecopack.com/products"
+        });
+        if (selectedCategory && selectedCategory !== 'all') {
+          breadcrumbList.push({
+            "@type": "ListItem",
+            "position": 3,
+            "name": selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1),
+            "item": `https://www.namyaecopack.com/products/${selectedCategory}`
+          });
+        }
+      } else {
+        breadcrumbList.push({
+          "@type": "ListItem",
+          "position": 2,
+          "name": currentPage.charAt(0).toUpperCase() + currentPage.slice(1),
+          "item": `https://www.namyaecopack.com/${currentPage}`
+        });
+      }
+    }
+
+    addJsonLdScript('breadcrumb', {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": breadcrumbList
+    });
+
+    // FAQ Page Schema
+    if (currentPage === 'faq') {
+      const faqSchemaItems = faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }));
+      addJsonLdScript('faq', {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faqSchemaItems
+      });
+    }
+
+    // Product Schema (for products subcategories)
+    if (currentPage === 'products') {
+      const categoryTitles: Record<string, string> = {
+        plates: "Sugarcane Bagasse Plates",
+        bowls: "Compostable Bagasse Bowls",
+        containers: "Bagasse Clamshell & Hinged Containers",
+        trays: "Disposable Bagasse Meal Trays",
+        cups: "Sugarcane Cups & Pulp Lids",
+        takeaway: "Sugarcane Takeaway Packaging Boxes"
+      };
+      
+      const currentCatName = selectedCategory && selectedCategory !== 'all' ? categoryTitles[selectedCategory] || "Sugarcane Bagasse Tableware" : "Sugarcane Bagasse Tableware & Food Packaging";
+      const currentCatDesc = selectedCategory && selectedCategory !== 'all' ? `Premium, heavy-duty B2B wholesale ${currentCatName} manufactured by Namya Eco Pack. 100% compostable, water and oil resistant, microwave safe, and completely PFAS-free.` : desc;
+      
+      addJsonLdScript('product', {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "@id": `https://www.namyaecopack.com/products/${selectedCategory || 'all'}#product`,
+        "name": currentCatName,
+        "image": "https://www.namyaecopack.com/og-image-pfas-free-bagasse.jpg",
+        "description": currentCatDesc,
+        "brand": {
+          "@type": "Brand",
+          "name": "Namya Eco Pack"
+        },
+        "offers": {
+          "@type": "AggregateOffer",
+          "priceCurrency": "USD",
+          "lowPrice": "0.01",
+          "highPrice": "0.15",
+          "offerCount": "1000",
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "0.02",
+            "priceCurrency": "USD",
+            "referenceQuantity": {
+              "@type": "QuantitativeValue",
+              "value": "1",
+              "unitCode": "C62"
+            }
+          }
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "142"
+        }
+      });
+    }
+
+  }, [currentPage, selectedCategory]);
 
   const handleSelectCategory = (catId: string) => {
     setSelectedCategory(catId);
@@ -166,7 +575,7 @@ export default function App() {
             {/* Cinematic Hero Segment */}
             <Hero 
               setCurrentPage={setCurrentPage} 
-              onOpenQuoteModal={() => setIsQuoteModalOpen(true)} 
+              onOpenQuoteModal={handleOpenQuoteModal} 
             />
             
             {/* Organic Product Categories Overview Grid */}
@@ -314,9 +723,9 @@ export default function App() {
       case 'products':
         if (selectedCategory === 'plates' && searchQuery === '') {
           return (
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
               <PlatesSKUView 
-                onOpenQuoteModal={() => setIsQuoteModalOpen(true)}
+                onOpenQuoteModal={handleOpenQuoteModal}
                 onBackToCatalog={() => setSelectedCategory('all')}
               />
             </div>
@@ -324,9 +733,9 @@ export default function App() {
         }
         if (selectedCategory === 'bowls' && searchQuery === '') {
           return (
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
               <BowlsSKUView 
-                onOpenQuoteModal={() => setIsQuoteModalOpen(true)}
+                onOpenQuoteModal={handleOpenQuoteModal}
                 onBackToCatalog={() => setSelectedCategory('all')}
               />
             </div>
@@ -334,9 +743,9 @@ export default function App() {
         }
         if (selectedCategory === 'containers' && searchQuery === '') {
           return (
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
               <ContainersSKUView 
-                onOpenQuoteModal={() => setIsQuoteModalOpen(true)}
+                onOpenQuoteModal={handleOpenQuoteModal}
                 onBackToCatalog={() => setSelectedCategory('all')}
               />
             </div>
@@ -344,9 +753,9 @@ export default function App() {
         }
         if (selectedCategory === 'trays' && searchQuery === '') {
           return (
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
               <TraysSKUView 
-                onOpenQuoteModal={() => setIsQuoteModalOpen(true)}
+                onOpenQuoteModal={handleOpenQuoteModal}
                 onBackToCatalog={() => setSelectedCategory('all')}
               />
             </div>
@@ -354,9 +763,9 @@ export default function App() {
         }
         if (selectedCategory === 'cups' && searchQuery === '') {
           return (
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
               <CupsSKUView 
-                onOpenQuoteModal={() => setIsQuoteModalOpen(true)}
+                onOpenQuoteModal={handleOpenQuoteModal}
                 onBackToCatalog={() => setSelectedCategory('all')}
               />
             </div>
@@ -364,37 +773,108 @@ export default function App() {
         }
         if (selectedCategory === 'takeaway' && searchQuery === '') {
           return (
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
               <TakeawaySKUView 
-                onOpenQuoteModal={() => setIsQuoteModalOpen(true)}
+                onOpenQuoteModal={handleOpenQuoteModal}
                 onBackToCatalog={() => setSelectedCategory('all')}
               />
             </div>
           );
         }
-        return (
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-8">
-            <div className="space-y-3 max-w-2xl">
-              <span className="text-xs font-bold text-teal-700 uppercase tracking-widest font-mono">B2B Spec Sheet Catalog</span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-none">
-                Explore Our Sustainable Tableware Range
-              </h2>
-              <p className="text-slate-500 text-sm leading-relaxed">
-                Our 100% compostable plates, bowls, trays, and takeaway clamshell boxes are certified for high-heat food service.
-              </p>
+        if (searchQuery !== '') {
+          return (
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
+              <div className="space-y-3 max-w-2xl">
+                <span className="text-xs font-bold text-teal-700 uppercase tracking-widest font-mono">B2B Spec Sheet Catalog</span>
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-none">
+                  Search Our Sustainable Tableware Range
+                </h2>
+              </div>
+              <ProductCatalog 
+                initialCategory={selectedCategory} 
+                onOpenQuoteModal={handleOpenQuoteModal}
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+                onCategoryChange={handleSelectCategory}
+              />
             </div>
-            <ProductCatalog 
-              initialCategory={selectedCategory} 
-              onOpenQuoteModal={() => setIsQuoteModalOpen(true)}
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-              onCategoryChange={handleSelectCategory}
-            />
+          );
+        }
+        return (
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+            {/* 1. Custom Brand-Focused Intro Section */}
+            <div className="border-b border-slate-100 pb-12 max-w-4xl">
+              <div className="space-y-5">
+                <span className="text-xs font-bold text-teal-700 uppercase tracking-widest font-mono bg-teal-50 px-3 py-1.5 rounded-full inline-block">
+                  Premium Eco-Packaging Solutions
+                </span>
+                <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                  High-Precision Sustainable Tableware for Global Markets
+                </h2>
+                <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                  Namya Eco-Pack is a premier global manufacturer and exporter of 100% compostable sugarcane bagasse food packaging and tableware. We offer an extensive, export-ready portfolio of high-precision SKUs across six major categories, including Plates, Bowls, Meal Trays, Takeaway Containers, Clamshells, and Cups with matching Lids. Available in clean white and organic natural kraft finishes, our products are engineered to meet the rigorous quality standards of international food service, retail networks, HoReCa, global airlines, catering providers, QSR chains, and private label brands.
+                </p>
+                <div className="flex flex-wrap gap-x-6 gap-y-3 pt-2 text-xs font-mono text-slate-500">
+                  <div className="flex items-center space-x-2">
+                    <span className="w-2 h-2 rounded-full bg-teal-600"></span>
+                    <span>100% Sugarcane Bagasse</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <span className="w-2 h-2 rounded-full bg-teal-600"></span>
+                    <span>FDA & BRCGS Certified</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <span className="w-2 h-2 rounded-full bg-teal-600"></span>
+                    <span>Zero Plastic & PFAS-Free</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 2. Responsive Product Category Grid */}
+            <div className="space-y-8">
+              <div className="text-center space-y-3 max-w-2xl mx-auto">
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Select a Product Category</h3>
+                <p className="text-slate-500 text-sm">
+                  Click on any category card below to browse our standard size specs, FCL pack ratios, and technical certifications.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {homeCategories.map((cat) => (
+                  <div 
+                    id={`products-category-card-${cat.id}`}
+                    key={cat.id}
+                    onClick={() => handleSelectCategory(cat.id)}
+                    className="bg-white border border-slate-200/80 rounded-[28px] p-3 hover:border-teal-400 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between h-full"
+                  >
+                    <div className="aspect-[4/3.4] rounded-2xl overflow-hidden bg-slate-50 relative">
+                      <img 
+                        src={cat.image} 
+                        alt={cat.name} 
+                        className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-500"
+                        referrerPolicy="no-referrer"
+                      />
+                    </div>
+                    <div className="mt-4 px-2 pb-2 flex justify-between items-end">
+                      <div className="space-y-1 pr-2">
+                        <span className="text-[10px] font-mono font-bold text-slate-400 block uppercase tracking-widest leading-none">{cat.skus}</span>
+                        <h4 className="text-base sm:text-lg font-bold text-slate-900 leading-none group-hover:text-teal-700 transition-colors">{cat.name}</h4>
+                        <p className="text-[11px] text-slate-400 leading-tight pt-1">{cat.description}</p>
+                      </div>
+                      <div className="w-10 h-10 rounded-full bg-slate-950 text-white flex items-center justify-center shrink-0 group-hover:bg-teal-700 transition-all duration-300 shadow-sm">
+                        <ArrowRight className="w-4 h-4" />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         );
       case 'manufacturing':
         return (
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
             <div className="space-y-3 max-w-2xl">
               <span className="text-xs font-bold text-teal-700 uppercase tracking-widest font-mono">Gujarat Automated Sourcing Facility</span>
               <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-none">
@@ -404,21 +884,10 @@ export default function App() {
             <SustainabilityInfo />
           </div>
         );
-      case 'exports':
-        return (
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-8">
-            <div className="space-y-3 max-w-2xl">
-              <span className="text-xs font-bold text-teal-700 uppercase tracking-widest font-mono">Ocean Freight Cargo Channels</span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-none">
-                Worldwide Seaworthy Logistics
-              </h2>
-            </div>
-            <ExportMap />
-          </div>
-        );
+
       case 'sustainability':
         return (
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
             <div className="space-y-3 max-w-2xl">
               <span className="text-xs font-bold text-teal-700 uppercase tracking-widest font-mono">Verified LCA Statistics</span>
               <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-none">
@@ -434,7 +903,7 @@ export default function App() {
       case 'faq':
       case 'blog':
       case 'certificates':
-        return <ExtraPages pageId={currentPage} onOpenQuoteModal={() => setIsQuoteModalOpen(true)} />;
+        return <ExtraPages pageId={currentPage} onOpenQuoteModal={handleOpenQuoteModal} />;
       default:
         return (
           <div className="text-center py-32 space-y-4">
@@ -456,7 +925,7 @@ export default function App() {
       <Navbar 
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        onOpenQuoteModal={() => setIsQuoteModalOpen(true)}
+        onOpenQuoteModal={handleOpenQuoteModal}
         onSearch={handleSearch}
         onSelectCategory={handleSelectCategory}
       />
@@ -469,18 +938,21 @@ export default function App() {
       {/* Footer Branding Columns */}
       <Footer 
         setCurrentPage={setCurrentPage}
-        onOpenQuoteModal={() => setIsQuoteModalOpen(true)}
+        onOpenQuoteModal={handleOpenQuoteModal}
+        onSelectCategory={handleSelectCategory}
       />
 
       {/* Interactive Global Cargo Pricing Overlay */}
       <QuoteRequestModal 
         isOpen={isQuoteModalOpen}
         onClose={() => setIsQuoteModalOpen(false)}
+        initialCategory={quoteModalCategory}
+        initialProductId={quoteModalProductId}
       />
 
       {/* Promotional Popups, WhatsApp CTA desk and ribbon offsets */}
       <Popups 
-        onOpenQuoteModal={() => setIsQuoteModalOpen(true)}
+        onOpenQuoteModal={handleOpenQuoteModal}
         setCurrentPage={setCurrentPage}
       />
     </div>

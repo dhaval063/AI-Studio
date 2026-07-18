@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowLeft, MessageCircle, FileText, CheckCircle, HelpCircle, X, ChevronRight, Package, ShieldCheck, Container, Minimize } from 'lucide-react';
+import { ArrowLeft, FileText, CheckCircle, HelpCircle, X, ChevronRight, Package, ShieldCheck, Container, Minimize } from 'lucide-react';
 import takeawayImg from '../assets/images/sugarcane_clamshell_box_1784290602529.jpg';
 
 interface TakeawaySKUViewProps {
-  onOpenQuoteModal: () => void;
+  onOpenQuoteModal: (category?: string, productId?: string) => void;
   onBackToCatalog: () => void;
 }
 
@@ -96,7 +96,7 @@ export default function TakeawaySKUView({ onOpenQuoteModal, onBackToCatalog }: T
 
   const getWhatsAppLink = () => {
     const text = `Hello Namya EcoPack Export Team, I am interested in your Sugarcane Takeaway Packaging range (500ml to 1000ml containers & lids). Please share MOQ terms and FOB pricing coordinates to our region.`;
-    return `https://wa.me/919909900000?text=${encodeURIComponent(text)}`;
+    return `https://wa.me/917041969067?text=${encodeURIComponent(text)}`;
   };
 
   return (
@@ -161,11 +161,10 @@ export default function TakeawaySKUView({ onOpenQuoteModal, onBackToCatalog }: T
           {/* Action buttons */}
           <div className="flex flex-wrap gap-4 pt-2">
             <button
-              onClick={() => setShowSampleForm(true)}
+              onClick={() => onOpenQuoteModal('takeaway')}
               className="bg-teal-800 hover:bg-teal-900 text-white font-bold text-xs sm:text-sm px-6 py-3.5 rounded-xl transition-all shadow-md shadow-teal-900/10 flex items-center space-x-2"
             >
-              <FileText className="w-4 h-4" />
-              <span>Build Sample Kit</span>
+              <span>Get Bulk Quote</span>
             </button>
             
             <a
@@ -174,7 +173,13 @@ export default function TakeawaySKUView({ onOpenQuoteModal, onBackToCatalog }: T
               rel="noopener noreferrer"
               className="bg-white hover:bg-slate-50 text-emerald-700 border border-emerald-200 hover:border-emerald-300 font-bold text-xs sm:text-sm px-6 py-3.5 rounded-xl transition-all flex items-center space-x-2"
             >
-              <MessageCircle className="w-4 h-4 fill-emerald-600 stroke-none" />
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                viewBox="0 0 448 512" 
+                className="w-4 h-4 fill-emerald-600"
+              >
+                <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+              </svg>
               <span>WhatsApp Us</span>
             </a>
           </div>
@@ -209,21 +214,16 @@ export default function TakeawaySKUView({ onOpenQuoteModal, onBackToCatalog }: T
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+        <div className="flex flex-wrap justify-center gap-6">
           {takeawaySkus.map((sku) => {
             return (
               <div
                 key={sku.id}
                 onClick={() => setSelectedSku(sku)}
-                className="bg-[#FBFBFA] border border-slate-200/80 rounded-2xl p-4 flex flex-col justify-between hover:border-teal-400 hover:shadow-xl transition-all duration-300 cursor-pointer group relative"
+                className="w-full sm:w-[280px] h-[400px] flex flex-col justify-between bg-[#FBFBFA] border border-slate-200/80 rounded-2xl p-5 hover:border-teal-400 hover:shadow-xl transition-all duration-300 cursor-pointer group relative"
               >
-                {/* Specs Badge */}
-                <span className="absolute top-3 right-3 bg-[#113C2E] text-white text-[8px] font-bold uppercase tracking-widest font-mono px-2 py-0.5 rounded-md shadow-sm z-10">
-                  SPECS
-                </span>
-
                 {/* SVG Container representation */}
-                <div className="aspect-square w-full rounded-xl bg-white/40 flex items-center justify-center p-6 relative overflow-hidden border border-slate-100 shadow-inner mb-4">
+                <div className="h-[180px] w-full rounded-xl bg-white/40 flex items-center justify-center p-6 relative overflow-hidden border border-slate-100 shadow-inner mb-4 flex-shrink-0">
                   <div className="w-3/4 h-3/4 relative flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
                     <svg className="w-full h-full text-slate-300 group-hover:text-teal-600 transition-colors duration-300" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5">
                       {sku.id === 'takeaway-lid' ? (
@@ -255,35 +255,35 @@ export default function TakeawaySKUView({ onOpenQuoteModal, onBackToCatalog }: T
                   </div>
                 </div>
 
-                {/* SKU Name & specs list */}
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="text-xs font-black text-slate-950 uppercase tracking-tight group-hover:text-teal-800 transition-colors line-clamp-2 min-h-[2rem]">
-                      {sku.name}
-                    </h3>
-                  </div>
+                {/* SKU Name */}
+                <div className="h-10 flex items-start mb-2 flex-shrink-0">
+                  <h3 className="text-xs font-black text-slate-950 uppercase tracking-tight group-hover:text-teal-800 transition-colors line-clamp-2 leading-snug">
+                    {sku.name}
+                  </h3>
+                </div>
 
-                  <div className="border-t border-slate-100 pt-3 space-y-1.5 text-xs">
-                    <div className="flex justify-between">
-                      <span className="text-slate-400 font-medium">Dimensions</span>
-                      <span className="font-bold text-slate-800">{sku.dimensions}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-400 font-medium">Weight</span>
-                      <span className="font-bold text-slate-800">{sku.weight}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-400 font-medium">Pcs/Ctn</span>
-                      <span className="font-bold text-slate-800">{sku.pcsPerCtn}</span>
-                    </div>
+                {/* Specs list */}
+                <div className="border-t border-slate-100 pt-3 space-y-1.5 text-xs flex-1 flex flex-col justify-center">
+                  <div className="flex justify-between">
+                    <span className="text-slate-400 font-medium">Dimensions</span>
+                    <span className="font-bold text-slate-800 text-right truncate max-w-[120px]">{sku.dimensions}</span>
                   </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400 font-medium">Weight</span>
+                    <span className="font-bold text-slate-800 text-right">{sku.weight}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400 font-medium">Pcs/Ctn</span>
+                    <span className="font-bold text-slate-800 text-right">{sku.pcsPerCtn}</span>
+                  </div>
+                </div>
 
-                  <div className="pt-2">
-                    <span className="text-[10px] font-bold text-teal-700 flex items-center group-hover:translate-x-1 duration-200">
-                      <span>View Technical specs</span>
-                      <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
-                    </span>
-                  </div>
+                {/* Link */}
+                <div className="pt-3 mt-auto flex-shrink-0">
+                  <span className="text-[10px] font-bold text-teal-700 flex items-center group-hover:translate-x-1 duration-200">
+                    <span>View Technical specs</span>
+                    <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+                  </span>
                 </div>
               </div>
             );
@@ -355,21 +355,20 @@ export default function TakeawaySKUView({ onOpenQuoteModal, onBackToCatalog }: T
 
                 <div className="flex gap-3 pt-2">
                   <a
-                    href={`https://wa.me/919909900000?text=${encodeURIComponent(`Hello Namya EcoPack, I am interested in placing an FCL container quote for ${selectedSku.name}. Please send B2B wholesale pricing terms.`)}`}
+                    href={`https://wa.me/917041969067?text=${encodeURIComponent(`Hello Namya EcoPack, I am interested in placing an FCL container quote for ${selectedSku.name}. Please send B2B wholesale pricing terms.`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs p-3 rounded-xl transition-all flex items-center justify-center space-x-1.5"
+                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs p-3 rounded-xl transition-all flex items-center justify-center space-x-1.5"
                   >
-                    <MessageCircle className="w-4 h-4 fill-white" />
+                    <svg 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      viewBox="0 0 448 512" 
+                      className="w-4 h-4 fill-white"
+                    >
+                      <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+                    </svg>
                     <span>Inquire via WhatsApp</span>
                   </a>
-
-                  <button
-                    onClick={() => { setSelectedSku(null); onOpenQuoteModal(); }}
-                    className="flex-1 bg-teal-800 hover:bg-teal-900 text-white font-bold text-xs p-3 rounded-xl transition-all"
-                  >
-                    Request Volume Pricing
-                  </button>
                 </div>
               </div>
             </motion.div>

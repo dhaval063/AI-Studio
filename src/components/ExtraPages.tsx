@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Award, ShieldCheck, Factory, ChevronDown, BookOpen, Clock, ArrowRight, CornerDownRight, Settings, HelpCircle, Download, FileText, CheckCircle2, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { certifications, faqs, blogs } from '../data/products';
+import { certifications, faqs, blogs, futureBlogIdeas } from '../data/products';
 import { Certification, FAQItem, BlogItem } from '../types';
 
 interface ExtraPagesProps {
@@ -37,7 +37,7 @@ export default function ExtraPages({ pageId, onOpenQuoteModal }: ExtraPagesProps
                 Namya EcoPack is an premier Indian enterprise pioneering high-volume supply of compostable, biodegradable, and sustainable food packaging solutions. Formulated entirely from agricultural byproduct fibers of sugarcane bagasse, we replace fragile single-use plastic and heavy wood-paper pulp with structurally robust, chemical-free alternatives.
               </p>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Headquartered in Gurgaon with our elite sourcing operations in Ahmedabad, Gujarat, we have built an elite supply-chain network delivering bulk full containers directly to distributors, airline catering hubs, food franchises, and hotels across 28+ countries.
+                Based in Ahmedabad, Gujarat, we have built an elite supply-chain network delivering bulk full containers directly to distributors, airline catering hubs, food franchises, and hotels across 28+ countries.
               </p>
               
               <div className="grid grid-cols-2 gap-4 pt-4">
@@ -395,6 +395,28 @@ export default function ExtraPages({ pageId, onOpenQuoteModal }: ExtraPagesProps
                     </div>
                   </div>
                 ))}
+              </div>
+
+              {/* 50 SEO-friendly Future Blog Ideas Section */}
+              <div className="mt-20 pt-16 border-t border-slate-200 max-w-5xl mx-auto space-y-8" id="blog-editorial-pipeline">
+                <div className="space-y-3 text-center sm:text-left">
+                  <span className="text-xs font-bold text-teal-700 uppercase tracking-widest font-mono">B2B Sugarcane Bagasse Sourcing &amp; Industry Topics</span>
+                  <h3 className="text-2xl font-extrabold tracking-tight text-slate-900">Upcoming Sourcing Research &amp; Editorial Pipeline</h3>
+                  <p className="text-xs text-slate-500 leading-relaxed font-medium max-w-3xl">
+                    Discover our upcoming topical coverage, environmental research, and global B2B procurement guides designed for sustainable distributors, airline caterers, hotel purchasing managers, and school lunch programs.
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {futureBlogIdeas.map((idea, idx) => (
+                    <div key={idx} className="flex items-start space-x-3 p-4 bg-slate-50/60 rounded-2xl border border-slate-200/60 hover:border-teal-300 hover:bg-teal-50/10 transition-all duration-300 group">
+                      <span className="text-[10px] font-bold text-teal-700 font-mono bg-teal-100/60 px-2 py-0.5 rounded leading-none mt-0.5">{String(idx + 1).padStart(2, '0')}</span>
+                      <div className="space-y-0.5">
+                        <h5 className="text-xs font-bold text-slate-800 leading-snug group-hover:text-teal-950 transition-colors">{idea}</h5>
+                        <span className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-wider">UPCOMING RESEARCH PAPERS</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           )}
