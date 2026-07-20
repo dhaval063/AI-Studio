@@ -3,7 +3,15 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, FileText, CheckCircle, HelpCircle, X, ChevronRight, Package, ShieldCheck, Container, Minimize } from 'lucide-react';
 import ProductVectorImage from './ProductVectorImage';
 
-import takeawayImg from '../assets/images/takeaway.jpg';
+import takeawayImg from '../assets/images/takeaway.png';
+
+// Import high-resolution takeaway images
+import takeaway16 from '../assets/images/products/takeaway/16_oz.png';
+import takeaway22 from '../assets/images/products/takeaway/22_oz.png';
+import takeaway24 from '../assets/images/products/takeaway/24_oz.png';
+import takeaway26Flat from '../assets/images/products/takeaway/26_oz_flat.png';
+import takeaway26 from '../assets/images/products/takeaway/26_oz.png';
+import takeaway32 from '../assets/images/products/takeaway/32_oz.png';
 
 interface TakeawaySKUViewProps {
   onOpenQuoteModal: (category?: string, productId?: string) => void;
@@ -19,6 +27,7 @@ interface TakeawaySKU {
   pcsPerCtn: number;
   description: string;
   heatResistance: string;
+  image: string;
 }
 
 export default function TakeawaySKUView({ onOpenQuoteModal, onBackToCatalog }: TakeawaySKUViewProps) {
@@ -30,59 +39,75 @@ export default function TakeawaySKUView({ onOpenQuoteModal, onBackToCatalog }: T
     company: '',
     email: '',
     phone: '',
-    notes: 'Please send physical sample packs of 500ml, 750ml, and 1000ml Rectangular Takeaway Containers with matching bagasse lids.'
+    notes: 'Please send physical sample packs of 16 oz Burrito Oval Bowls, 22 oz Square Containers, and 24 oz Bowls with Lids.'
   });
 
   const takeawaySkus: TakeawaySKU[] = [
     {
-      id: 'takeaway-500',
-      name: '500ml Rectangular Takeaway Container',
-      capacity: '500 ml / 17 oz',
-      dimensions: '180 × 125 × 45 mm',
-      weight: '14.0 g',
+      id: 'takeaway-16',
+      name: '16 oz Burrito Oval Bowl',
+      capacity: '16 oz / 470 ml',
+      dimensions: '200 × 125 × 35 mm',
+      weight: '12 g',
       pcsPerCtn: 500,
-      description: 'Ideal size for single-portion meals, side dishes, stir-fries, and premium desserts. Features high-rigidity structural ribbing.',
-      heatResistance: 'Water & oil resistant up to 120°C, microwave and freezer safe'
+      description: 'Sleek, ergonomic burrito bowl. Designed specifically for Tex-Mex cloud kitchens, single-portion salads, and healthy grains.',
+      heatResistance: 'Water & oil resistant up to 120°C, microwave and freezer safe',
+      image: takeaway16
     },
     {
-      id: 'takeaway-750',
-      name: '750ml Premium Takeaway Container',
-      capacity: '750 ml / 25 oz',
-      dimensions: '230 × 135 × 45 mm',
-      weight: '19.0 g',
+      id: 'takeaway-26',
+      name: '26 oz Burrito Oval Bowl',
+      capacity: '26 oz / 770 ml',
+      dimensions: '236 × 169 × 40.6 mm',
+      weight: '19 g',
       pcsPerCtn: 500,
-      description: 'Our absolute bestseller. Perfect for pasta, main rice dishes, noodles, and gourmet salads. Snaps perfectly with our matching sugarcane lids.',
-      heatResistance: 'Water & oil resistant up to 120°C, microwave and freezer safe'
+      description: 'Heavy-duty oval burrito bowl. Perfect for loaded entrees, corporate meal packages, and substantial delivery mains.',
+      heatResistance: 'Water & oil resistant up to 120°C, microwave and freezer safe',
+      image: takeaway26
     },
     {
-      id: 'takeaway-1000',
-      name: '1000ml Large Takeaway Container',
-      capacity: '1000 ml / 34 oz',
-      dimensions: '230 × 135 × 60 mm',
-      weight: '22.0 g',
-      pcsPerCtn: 500,
-      description: 'Deep profile, heavy-duty container designed for family portions, mixed curries, salads, and bulk food deliveries.',
-      heatResistance: 'Water & oil resistant up to 120°C, microwave and freezer safe'
+      id: 'takeaway-22',
+      name: '22 oz Square Container',
+      capacity: '22 oz / 650 ml',
+      dimensions: '170 × 170 × 48 mm',
+      weight: '20 g',
+      pcsPerCtn: 900,
+      description: 'Robust square delivery container. Ideal for main course pasta, warm noodles, and dense grain salads.',
+      heatResistance: 'Water & oil resistant up to 120°C, microwave and freezer safe',
+      image: takeaway22
     },
     {
-      id: 'takeaway-2c',
-      name: '2-Compartment Delivery Container',
-      capacity: '800 ml (total)',
-      dimensions: '230 × 135 × 48 mm',
-      weight: '20.5 g',
+      id: 'takeaway-32',
+      name: '32 oz Rectangle Container',
+      capacity: '32 oz / 950 ml',
+      dimensions: '220 × 150 × 62 mm',
+      weight: '21 g',
       pcsPerCtn: 500,
-      description: 'Designed to keep mains and side sauces isolated. Excellent for combo meal packs, keeping textures fresh during transit.',
-      heatResistance: 'Water & oil resistant up to 120°C, microwave and freezer safe'
+      description: 'Extra-deep rectangular delivery container. Engineered for large family sizes, catering platters, and bulk deliveries.',
+      heatResistance: 'Water & oil resistant up to 120°C, microwave and freezer safe',
+      image: takeaway32
     },
     {
-      id: 'takeaway-lid',
-      name: 'Universal Rectangular Sugarcane Lid',
-      capacity: 'N/A',
-      dimensions: '235 × 140 × 10 mm',
-      weight: '8.0 g',
+      id: 'takeaway-24',
+      name: '24 oz Bowl with Lid',
+      capacity: '24 oz / 710 ml',
+      dimensions: '230 × 230 × 42 mm',
+      weight: '26 g',
       pcsPerCtn: 500,
-      description: 'Fits our 750ml, 1000ml, and 2-Compartment container range perfectly. Patented leak-resistant double lock lip seals tightly.',
-      heatResistance: 'Steam resistant, hot oil resistant, and 100% compostable'
+      description: 'Classic round bowl bundled with a tight-locking matching sugarcane lid. Tailored for noodle soups, curries, and warm grain bowls.',
+      heatResistance: 'Water & oil resistant up to 120°C, microwave and freezer safe',
+      image: takeaway24
+    },
+    {
+      id: 'takeaway-26-flat',
+      name: '26 oz Flat Bowl with Lid',
+      capacity: '26 oz / 770 ml',
+      dimensions: '205 × 205 × 42 mm',
+      weight: '25 g',
+      pcsPerCtn: 500,
+      description: 'Low-profile, wide flat bowl with a highly secure protective lid. Outstanding showcase for Poke bowls and gourmet salads.',
+      heatResistance: 'Water & oil resistant up to 120°C, microwave and freezer safe',
+      image: takeaway26Flat
     }
   ];
 
@@ -92,12 +117,12 @@ export default function TakeawaySKUView({ onOpenQuoteModal, onBackToCatalog }: T
     setTimeout(() => {
       setSampleSuccess(false);
       setShowSampleForm(false);
-      setSampleForm({ name: '', company: '', email: '', phone: '', notes: 'Please send physical sample packs of 500ml, 750ml, and 1000ml Rectangular Takeaway Containers with matching bagasse lids.' });
+      setSampleForm({ name: '', company: '', email: '', phone: '', notes: 'Please send physical sample packs of 16 oz Burrito Oval Bowls, 22 oz Square Containers, and 24 oz Bowls with Lids.' });
     }, 3000);
   };
 
-  const getWhatsAppLink = () => {
-    const text = `Hello Namya EcoPack Export Team, I am interested in your Sugarcane Takeaway Packaging range (500ml to 1000ml containers & lids). Please share MOQ terms and FOB pricing coordinates to our region.`;
+  const getWhatsAppLink = (customText?: string) => {
+    const text = customText || `Hello Namya EcoPack Export Team, I am interested in your Sugarcane Takeaway Packaging range (16 oz to 32 oz containers & bowls). Please share MOQ terms and FOB pricing coordinates to our region.`;
     return `https://wa.me/917041969067?text=${encodeURIComponent(text)}`;
   };
 
@@ -196,24 +221,22 @@ export default function TakeawaySKUView({ onOpenQuoteModal, onBackToCatalog }: T
               className="object-cover w-full h-full transform hover:scale-103 duration-700 transition-all"
               referrerPolicy="no-referrer"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent pointer-events-none" />
-            <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-lg border border-white/20">
-              <p className="text-[11px] font-mono font-bold text-teal-800 uppercase tracking-wider">Sustainable Delivery</p>
-              <p className="text-xs text-slate-600 mt-1 leading-tight">Sugarcane rectangular containers ready for cloud kitchen deliveries.</p>
-            </div>
           </div>
         </div>
       </section>
 
       {/* SKU Range Grid */}
       <section className="space-y-8 pt-8">
-        <div className="text-center space-y-2">
+        <div className="text-center space-y-3 max-w-3xl mx-auto">
           <span className="text-[10px] font-extrabold text-amber-600 uppercase tracking-widest font-mono block">
             PORTFOLIO SIZES
           </span>
           <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-            Compostable delivery packaging, engineered to ecofy.io specs.
+            Premium Bagasse Takeaway Containers for Food Delivery
           </h2>
+          <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
+            Designed for modern food delivery, cloud kitchens, restaurants, cafés, meal prep businesses, and takeaway services. Our sugarcane bagasse takeaway containers provide excellent heat resistance, leak resistance, and food safety while offering a sustainable alternative to plastic packaging.
+          </p>
         </div>
 
         <div className="flex flex-wrap justify-center gap-6">
@@ -224,14 +247,23 @@ export default function TakeawaySKUView({ onOpenQuoteModal, onBackToCatalog }: T
                 onClick={() => setSelectedSku(sku)}
                 className="w-full sm:w-[280px] h-[400px] flex flex-col justify-between bg-[#FBFBFA] border border-slate-200/80 rounded-2xl p-5 hover:border-teal-400 hover:shadow-xl transition-all duration-300 cursor-pointer group relative"
               >
-                {/* SVG Container representation */}
-                <div className="h-[180px] w-full rounded-xl bg-white/40 flex items-center justify-center p-6 relative overflow-hidden border border-slate-100 shadow-inner mb-4 flex-shrink-0">
-                  <ProductVectorImage
-                    id={sku.id}
-                    name={sku.name}
-                    category="takeaway"
-                    className="max-h-full max-w-full select-none transition-transform duration-500 group-hover:scale-105"
-                  />
+                {/* High-Resolution Takeaway Image */}
+                <div className="h-[180px] w-full rounded-xl bg-white/40 flex items-center justify-center p-3 relative overflow-hidden border border-slate-100 shadow-inner mb-4 flex-shrink-0">
+                  {sku.image ? (
+                    <img
+                      src={sku.image}
+                      alt={sku.name}
+                      className="max-h-full max-w-full object-contain select-none transition-transform duration-500 group-hover:scale-105"
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : (
+                    <ProductVectorImage
+                      id={sku.id}
+                      name={sku.name}
+                      category="takeaway"
+                      className="max-h-full max-w-full select-none transition-transform duration-500 group-hover:scale-105"
+                    />
+                  )}
                 </div>
 
                 {/* SKU Name */}
@@ -244,8 +276,8 @@ export default function TakeawaySKUView({ onOpenQuoteModal, onBackToCatalog }: T
                 {/* Specs list */}
                 <div className="border-t border-slate-100 pt-3 space-y-1.5 text-xs flex-1 flex flex-col justify-center">
                   <div className="flex justify-between">
-                    <span className="text-slate-400 font-medium">Dimensions</span>
-                    <span className="font-bold text-slate-800 text-right truncate max-w-[120px]">{sku.dimensions}</span>
+                    <span className="text-slate-400 font-medium">Size</span>
+                    <span className="font-bold text-slate-800 text-right truncate max-w-[140px]">{sku.dimensions}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-slate-400 font-medium">Weight</span>
@@ -267,6 +299,63 @@ export default function TakeawaySKUView({ onOpenQuoteModal, onBackToCatalog }: T
               </div>
             );
           })}
+        </div>
+      </section>
+
+      {/* Quality Assurance section */}
+      <section className="space-y-6">
+        <div className="text-center space-y-2">
+          <span className="text-[10px] font-extrabold text-teal-700 uppercase tracking-widest font-mono block">QUALITY GUARANTEE</span>
+          <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Quality Assurance</h2>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+          {[
+            'Food Contact Safe',
+            'Consistent Product Quality',
+            'Hygienic Manufacturing',
+            'Export Packaging Standards'
+          ].map((text, idx) => (
+            <div key={idx} className="p-4 bg-white border border-slate-150 rounded-2xl flex items-center space-x-3 shadow-sm">
+              <ShieldCheck className="w-5 h-5 text-teal-600 flex-shrink-0" />
+              <span className="text-xs font-bold text-slate-800 leading-tight">{text}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Bottom CTA */}
+      <section className="bg-teal-950 text-white rounded-3xl p-8 lg:p-12 text-center space-y-6 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]" />
+        <div className="max-w-3xl mx-auto space-y-4 relative z-10">
+          <span className="text-[10px] font-extrabold text-teal-300 uppercase tracking-widest font-mono block">PARTNER WITH NAMYA ECOPACK</span>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight">
+            Looking for Sustainable Food Packaging?
+          </h2>
+          <p className="text-xs sm:text-sm text-teal-100/90 leading-relaxed max-w-xl mx-auto">
+            Whether you're a distributor, importer, wholesaler, restaurant chain, or food service brand, Namya EcoPack offers reliable manufacturing, consistent quality, and customized packaging solutions for global markets.
+          </p>
+          
+          <div className="flex flex-wrap justify-center gap-4 pt-4">
+            <a
+              href={getWhatsAppLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white hover:bg-slate-50 text-teal-950 font-bold text-xs sm:text-sm px-6 py-3.5 rounded-xl transition-all shadow-md flex items-center space-x-2"
+            >
+              <FileText className="w-4 h-4 text-teal-900" />
+              <span>Request Catalogue</span>
+            </a>
+
+            <a
+              href={getWhatsAppLink("Hello Namya EcoPack Export Team, I would like to contact your sales representative regarding your Sugarcane Takeaway range.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-teal-700 hover:bg-teal-600 text-white font-bold text-xs sm:text-sm px-6 py-3.5 rounded-xl transition-all border border-teal-600 shadow-md flex items-center space-x-2"
+            >
+              <span>Contact Sales</span>
+            </a>
+          </div>
         </div>
       </section>
 

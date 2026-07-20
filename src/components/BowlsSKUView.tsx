@@ -121,8 +121,8 @@ export default function BowlsSKUView({ onOpenQuoteModal, onBackToCatalog }: Bowl
     }, 3000);
   };
 
-  const getWhatsAppLink = () => {
-    const text = `Hello Namya EcoPack Export Team, I am interested in your Sugarcane Bowls range (6oz to 32oz). Please share B2B technical specs, price terms, and shipping lead times to our port.`;
+  const getWhatsAppLink = (customText?: string) => {
+    const text = customText || `Hello Namya EcoPack Export Team, I am interested in your Sugarcane Bowls range (6oz to 32oz). Please share B2B technical specs, price terms, and shipping lead times to our port.`;
     return `https://wa.me/917041969067?text=${encodeURIComponent(text)}`;
   };
 
@@ -203,11 +203,6 @@ export default function BowlsSKUView({ onOpenQuoteModal, onBackToCatalog }: Bowl
               className="object-cover w-full h-full transform hover:scale-103 duration-700 transition-all"
               referrerPolicy="no-referrer"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent pointer-events-none" />
-            <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-lg border border-white/20">
-              <p className="text-[11px] font-mono font-bold text-teal-800 uppercase tracking-wider">Premium Eco Presentation</p>
-              <p className="text-xs text-slate-600 mt-1 leading-tight">Sugarcane bagasse deep salad bowls arranged on organic wooden layouts.</p>
-            </div>
           </div>
         </div>
       </section>
@@ -283,6 +278,63 @@ export default function BowlsSKUView({ onOpenQuoteModal, onBackToCatalog }: Bowl
               </div>
             );
           })}
+        </div>
+      </section>
+
+      {/* Quality Assurance section */}
+      <section className="space-y-6">
+        <div className="text-center space-y-2">
+          <span className="text-[10px] font-extrabold text-teal-700 uppercase tracking-widest font-mono block">QUALITY GUARANTEE</span>
+          <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Quality Assurance</h2>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+          {[
+            'Food Contact Safe',
+            'Consistent Product Quality',
+            'Hygienic Manufacturing',
+            'Export Packaging Standards'
+          ].map((text, idx) => (
+            <div key={idx} className="p-4 bg-white border border-slate-150 rounded-2xl flex items-center space-x-3 shadow-sm">
+              <ShieldCheck className="w-5 h-5 text-teal-600 flex-shrink-0" />
+              <span className="text-xs font-bold text-slate-800 leading-tight">{text}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Bottom CTA */}
+      <section className="bg-teal-950 text-white rounded-3xl p-8 lg:p-12 text-center space-y-6 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]" />
+        <div className="max-w-3xl mx-auto space-y-4 relative z-10">
+          <span className="text-[10px] font-extrabold text-teal-300 uppercase tracking-widest font-mono block">PARTNER WITH NAMYA ECOPACK</span>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight">
+            Looking for Sustainable Tableware Packaging?
+          </h2>
+          <p className="text-xs sm:text-sm text-teal-100/90 leading-relaxed max-w-xl mx-auto">
+            Whether you're a distributor, importer, wholesaler, restaurant chain, or food service brand, Namya EcoPack offers reliable manufacturing, consistent quality, and customized packaging solutions for global markets.
+          </p>
+          
+          <div className="flex flex-wrap justify-center gap-4 pt-4">
+            <a
+              href={getWhatsAppLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white hover:bg-slate-50 text-teal-950 font-bold text-xs sm:text-sm px-6 py-3.5 rounded-xl transition-all shadow-md flex items-center space-x-2"
+            >
+              <FileText className="w-4 h-4 text-teal-900" />
+              <span>Request Catalogue</span>
+            </a>
+
+            <a
+              href={getWhatsAppLink("Hello Namya EcoPack Export Team, I would like to contact your sales representative regarding your Sugarcane Bowls range.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-teal-700 hover:bg-teal-600 text-white font-bold text-xs sm:text-sm px-6 py-3.5 rounded-xl transition-all border border-teal-600 shadow-md flex items-center space-x-2"
+            >
+              <span>Contact Sales</span>
+            </a>
+          </div>
         </div>
       </section>
 

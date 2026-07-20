@@ -11,6 +11,17 @@ import tray2 from '../assets/images/products/trays/2cp.png';
 import tray4 from '../assets/images/products/trays/4cp.png';
 import tray5 from '../assets/images/products/trays/5cp.png';
 
+// Import high-resolution takeaway assets
+import takeaway16 from '../assets/images/products/takeaway/16_oz.png';
+import takeaway22 from '../assets/images/products/takeaway/22_oz.png';
+import takeaway24 from '../assets/images/products/takeaway/24_oz.png';
+import takeaway26Flat from '../assets/images/products/takeaway/26_oz_flat.png';
+import takeaway26 from '../assets/images/products/takeaway/26_oz.png';
+import takeaway32 from '../assets/images/products/takeaway/32_oz.png';
+
+// Import cup asset
+import cup12 from '../assets/images/products/cups/cup_12oz.png';
+
 export const categories: ProductCategory[] = [
   {
     id: 'plates',
@@ -293,21 +304,106 @@ export const products: Product[] = [
 
   // Takeaway
   {
-    id: 'rectangular-container-750',
-    name: '750ml Premium Takeaway Rectangular Container',
+    id: 'takeaway-16',
+    name: '16 oz Burrito Oval Bowl',
     category: 'takeaway',
-    image: 'https://images.unsplash.com/photo-1530587191325-3db32d826c18?q=80&w=600&auto=format&fit=crop',
-    description: 'Sophisticated food container, optimized for packing hot pasta, stir-fries, or sushi. Highly stackable with crystal-clear rPET lid options.',
-    features: ['High-resistance rim prevents lid slip', 'Elegant rectangular form factor', 'Microwaveable base', 'Leak-resistant lock edge'],
+    image: takeaway16,
+    description: 'Sleek, ergonomic burrito bowl. Designed specifically for Tex-Mex cloud kitchens, single-portion salads, and healthy grains.',
+    features: ['Ergonomic oval contour for easy scooping', 'Oil and liquid leak protection built-in', '100% Compostable sugarcane fiber', 'Perfect for burrito bowls and salad toppings'],
     specs: {
-      material: '100% Biodegradable Sugarcane Bagasse',
-      dimensions: '230 mm x 135 mm x H 45 mm',
-      weight: '19.0g ± 0.5g',
+      material: '100% Sugarcane Bagasse Pulp',
+      dimensions: '200 × 125 × 35 mm',
+      weight: '12g ± 0.5g',
       packingDetails: '50 Pcs / Pack, 10 Packs / Carton',
       qtyPerPack: '50 Pcs',
       qtyPerCarton: '500 Pcs'
     },
-    applications: ['Premium Cloud Kitchens', 'Delis and Supermarket Salad Bars', 'Meal Prep Companies', 'Hotel Takeout Services']
+    applications: ['Tex-Mex QSR Chains', 'Poke & Grain Bowl Outlets', 'Salad Delivery Brands', 'Cloud Kitchens']
+  },
+  {
+    id: 'takeaway-26',
+    name: '26 oz Burrito Oval Bowl',
+    category: 'takeaway',
+    image: takeaway26,
+    description: 'Heavy-duty oval burrito bowl. Perfect for loaded entrees, corporate meal packages, and substantial delivery mains.',
+    features: ['Large volume capacity for hearty meals', 'No plastic lining or PFAS chemical additives', 'High moisture and oil absorption resistance', 'Nestable packing design saves shelf space'],
+    specs: {
+      material: '100% Biodegradable Sugarcane Bagasse',
+      dimensions: '236 × 169 × 40.6 mm',
+      weight: '19g ± 0.5g',
+      packingDetails: '50 Pcs / Pack, 10 Packs / Carton',
+      qtyPerPack: '50 Pcs',
+      qtyPerCarton: '500 Pcs'
+    },
+    applications: ['Premium Mexican Grills', 'Cloud Kitchen Heavy Entrees', 'Corporate Lunch Catering', 'Airlines & Transit Dining']
+  },
+  {
+    id: 'takeaway-22',
+    name: '22 oz Square Container',
+    category: 'takeaway',
+    image: takeaway22,
+    description: 'Robust square delivery container. Ideal for main course pasta, warm noodles, and dense grain salads.',
+    features: ['High structural strength prevents wall flex', 'Saves space with nestable square layout', 'Premium organic matte texture', 'Microwave and freezer safe base'],
+    specs: {
+      material: '100% Sugarcane Bagasse Pulp',
+      dimensions: '170 × 170 × 48 mm',
+      weight: '20g ± 0.5g',
+      packingDetails: '100 Pcs / Pack, 9 Packs / Carton',
+      qtyPerPack: '100 Pcs',
+      qtyPerCarton: '900 Pcs'
+    },
+    applications: ['Premium Salad Bars', 'Noodle & Pasta Deliveries', 'Healthy Meal Prep Brands', 'Corporate Dining']
+  },
+  {
+    id: 'takeaway-32',
+    name: '32 oz Rectangle Container',
+    category: 'takeaway',
+    image: takeaway32,
+    description: 'Extra-deep rectangular delivery container. Engineered for large family sizes, catering platters, and bulk deliveries.',
+    features: ['High rigidity structural ribbing', 'Leak-proof double-lock perimeter rim', 'Steam-venting premium surface', 'Exceptional thermal temperature retention'],
+    specs: {
+      material: '100% Unbleached Sugarcane Bagasse',
+      dimensions: '220 × 150 × 62 mm',
+      weight: '21g ± 0.5g',
+      packingDetails: '50 Pcs / Pack, 10 Packs / Carton',
+      qtyPerPack: '50 Pcs',
+      qtyPerCarton: '500 Pcs'
+    },
+    applications: ['Family Meal Bundles', 'Barbeque & Grill Bulk Packs', 'Event Catering Delivery', 'Wholesale Importers']
+  },
+  {
+    id: 'takeaway-24',
+    name: '24 oz Bowl with Lid',
+    category: 'takeaway',
+    image: takeaway24,
+    description: 'Classic round bowl bundled with a tight-locking matching sugarcane lid. Tailored for noodle soups, curries, and warm grain bowls.',
+    features: ['Double leak-resistant lock lip seal', 'Keeps meals hot and fresh during transit', 'Soak proof up to 100°C soup load', '100% agricultural byproduct fibers'],
+    specs: {
+      material: '100% Sugarcane Bagasse (Home Compostable)',
+      dimensions: '230 × 230 × 42 mm',
+      weight: '26g ± 0.5g',
+      packingDetails: '50 Pcs / Pack, 10 Packs / Carton',
+      qtyPerPack: '50 Pcs',
+      qtyPerCarton: '500 Pcs'
+    },
+    applications: ['Ramen & Noodle Shops', 'Soup Deliveries', 'Traditional Curry Kitchens', 'Organic Food Outlets']
+  },
+  {
+    id: 'takeaway-26-flat',
+    name: '26 oz Flat Bowl with Lid',
+    category: 'takeaway',
+    image: takeaway26Flat,
+    description: 'Low-profile, wide flat bowl with a highly secure protective lid. Outstanding showcase for Poke bowls and gourmet salads.',
+    features: ['Wide flat display form factor', 'Excellent stack stability in delivery bags', 'Secure snapping double-lip lid', 'Heavy load resistance, no buckling'],
+    specs: {
+      material: '100% Sugarcane Bagasse & Bamboo Blend',
+      dimensions: '205 × 205 × 42 mm',
+      weight: '25g ± 0.5g',
+      packingDetails: '50 Pcs / Pack, 10 Packs / Carton',
+      qtyPerPack: '50 Pcs',
+      qtyPerCarton: '500 Pcs'
+    },
+    applications: ['Gourmet Poke Bowl Chains', 'High-End Salad Bars', 'Premium Catering Displays', 'Cloud Kitchen Deliveries']
   },
 
   // Cups
@@ -315,7 +411,7 @@ export const products: Product[] = [
     id: 'bagasse-cup-12oz',
     name: '12oz Premium Sugarcane Beverage Cup',
     category: 'cups',
-    image: 'https://images.unsplash.com/photo-1517256064527-09c53b2d0c6b?q=80&w=600&auto=format&fit=crop',
+    image: cup12,
     description: 'Double-pressed organic bagasse cup with heat protective grip layers. Far more eco-friendly than standard PE-lined paper cups.',
     features: ['Completely plastic-free internal barrier', 'Retains hot beverages (coffee/tea) without soggy breakdown', 'Comfortable matte outer texture', 'Matching compostable pulp sugarcane lids'],
     specs: {
@@ -327,42 +423,6 @@ export const products: Product[] = [
       qtyPerCarton: '1000 Pcs'
     },
     applications: ['Specialty Coffee Shops', 'Eco Cafés', 'Aviation Hot Beverage Service', 'Exhibitions and Large Arenas']
-  },
-
-  // Takeaway
-  {
-    id: 'rectangular-container-500',
-    name: '500ml Sugarcane Takeaway Container',
-    category: 'takeaway',
-    image: 'https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?q=80&w=600&auto=format&fit=crop',
-    description: 'Premium base for single-portion meals, side dishes, stir-fries, and premium desserts. Crafted from 100% renewable sugarcane fibers.',
-    features: ['100% Biodegradable & Compostable', 'Microwave (up to 120°C) and Freezer safe', 'Oil-resistant and Water-resistant', 'Extremely high structural rigidity'],
-    specs: {
-      material: '100% Sugarcane Bagasse Pulp',
-      dimensions: '180 mm x 125 mm x H 45 mm',
-      weight: '14.0g ± 0.5g',
-      packingDetails: '50 Pcs / Pack, 10 Packs / Carton',
-      qtyPerPack: '50 Pcs',
-      qtyPerCarton: '500 Pcs'
-    },
-    applications: ['Single Portion Food Delivery', 'Gourmet Cafes', 'Salad Bars', 'Catering Buffets']
-  },
-  {
-    id: 'takeaway-lid-9x5',
-    name: 'Universal Rectangular Sugarcane Lid',
-    category: 'takeaway',
-    image: 'https://images.unsplash.com/photo-1530587191325-3db32d826c18?q=80&w=600&auto=format&fit=crop',
-    description: 'Fits our 750ml, 1000ml, and 2-Compartment container range perfectly. Patented leak-resistant double lock lip seals tightly.',
-    features: ['Double-tight snap lock mechanism', 'Steam resistant, prevents condensation build-up', '100% compostable agricultural fiber', 'Zero plastic coatings'],
-    specs: {
-      material: '100% Sugarcane Bagasse (Home Compostable)',
-      dimensions: '235 mm x 140 mm x H 10 mm',
-      weight: '8.0g ± 0.3g',
-      packingDetails: '50 Pcs / Pack, 10 Packs / Carton',
-      qtyPerPack: '50 Pcs',
-      qtyPerCarton: '500 Pcs'
-    },
-    applications: ['Meal Deliveries', 'Premium Takeout Outlets', 'Cloud Kitchen Operations', 'Safe Food Logistics']
   },
 
   // Custom Pack
@@ -400,43 +460,83 @@ export const certifications: Certification[] = [
 export const testimonials: Testimonial[] = [
   {
     id: 't1',
-    name: 'Marcus Vance',
-    role: 'Director of Global Procurement',
-    company: 'Evergreen Food Services Inc.',
-    country: 'United States',
-    text: 'Namya EcoPack has completely transformed our supply chain. Their 6" burger boxes and plates have zero leak issues, even with hot greasy burgers. When importing multiple FCLs (Full Container Loads), their consistency in quality and flawless export documentation has saved us weeks in customs clearance.',
+    name: 'Nguyen T.',
+    role: '',
+    company: '',
+    country: 'Vietnam',
+    text: 'Product quality has remained consistent across every shipment. Communication was smooth and delivery was on schedule.',
     rating: 5,
-    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=120&auto=format&fit=crop'
+    image: '🇻🇳'
   },
   {
     id: 't2',
-    name: 'Charlotte Dubois',
-    role: 'Head of Brand Sustainability',
-    company: 'Noveau Bistro Group',
-    country: 'France',
-    text: 'European compostability laws are incredibly strict. Namya’s OK Compost EN13432 certification from TÜV Austria allowed us to seamless deploy their square plates and meal trays across 140 bistro outlets in France and Germany. Our consumers love the luxurious unbleached organic feel.',
+    name: 'Ahmed K.',
+    role: '',
+    company: '',
+    country: 'United Arab Emirates',
+    text: 'We appreciate the reliable packaging quality and professional handling of export documentation.',
     rating: 5,
-    image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=120&auto=format&fit=crop'
+    image: '🇦🇪'
   },
   {
     id: 't3',
-    name: 'Alistair Ross',
-    role: 'Managing Director & Founder',
-    company: 'Pacific EcoDistributors',
-    country: 'Australia',
-    text: 'We do high volume wholesaling. Working with Namya on Private Label OEM sourcing was smooth. They created our custom embossed plates within 30 days of CAD signoff. Meticulous laboratory testing reports and premium container loading make them a world-class strategic partner.',
+    name: 'Mohammed A.',
+    role: '',
+    company: '',
+    country: 'Qatar',
+    text: 'The products matched our expectations, and the entire ordering process was straightforward and efficient.',
     rating: 5,
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=120&auto=format&fit=crop'
+    image: '🇶🇦'
   },
   {
     id: 't4',
-    name: 'Tariq Al-Mansoori',
-    role: 'Procurement Specialist',
-    company: 'Emirates Catering Hub',
-    country: 'United Arab Emirates',
-    text: 'In airline catering, weight, stacking precision, and temperature retention are non-negotiable. Namya’s 5-compartment executive meal trays fit our service carts perfectly. Their team communicates on WhatsApp instantly and handles shipping logistics like a true multinational corporate partner.',
+    name: 'Carlos R.',
+    role: '',
+    company: '',
+    country: 'Bolivia',
+    text: 'Excellent product finish, secure packing, and responsive customer support throughout the shipment.',
     rating: 5,
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=120&auto=format&fit=crop'
+    image: '🇧🇴'
+  },
+  {
+    id: 't5',
+    name: 'Samuel O.',
+    role: '',
+    company: '',
+    country: 'Nigeria',
+    text: 'Our wholesale customers are satisfied with the quality and durability of the bagasse products.',
+    rating: 5,
+    image: '🇳🇬'
+  },
+  {
+    id: 't6',
+    name: 'Grace N.',
+    role: '',
+    company: '',
+    country: 'Kenya',
+    text: 'Orders arrived on time, well packed, and exactly as agreed. We look forward to future shipments.',
+    rating: 5,
+    image: '🇰🇪'
+  },
+  {
+    id: 't7',
+    name: 'James W.',
+    role: '',
+    company: '',
+    country: 'Australia',
+    text: 'Consistent manufacturing quality and excellent export coordination have made sourcing easy for us.',
+    rating: 5,
+    image: '🇦🇺'
+  },
+  {
+    id: 't8',
+    name: 'David L.',
+    role: '',
+    company: '',
+    country: 'South Africa',
+    text: "We've completed repeat orders with confidence thanks to their reliable products and timely deliveries.",
+    rating: 5,
+    image: '🇿🇦'
   }
 ];
 

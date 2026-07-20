@@ -20,14 +20,15 @@ import ContainersSKUView from './components/ContainersSKUView';
 import TraysSKUView from './components/TraysSKUView';
 import CupsSKUView from './components/CupsSKUView';
 import TakeawaySKUView from './components/TakeawaySKUView';
-import { categories, testimonials, faqs } from './data/products';
+import TestimonialsSection from './components/TestimonialsSection';
+import { categories, faqs } from './data/products';
 
 import platesImg from './assets/images/plates.jpg';
 import bowlsImg from './assets/images/bowls.jpg';
 import containersImg from './assets/images/containers.jpg';
 import traysImg from './assets/images/mealtrays.jpg';
 import cupsImg from './assets/images/cups_lids.jpg';
-import takeawayImg from './assets/images/takeaway.jpg';
+import takeawayImg from './assets/images/takeaway.png';
 import cutleryImg from './assets/images/compostable_cutlery_set_1784290659429.png';
 
 const homeCategories = [
@@ -675,45 +676,7 @@ export default function App() {
             </section>
 
             {/* Client Testimonials Carousel Section */}
-            <section id="home-testimonials" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center max-w-2xl mx-auto space-y-4 mb-12">
-                <span className="text-xs font-bold text-teal-700 uppercase tracking-widest font-mono">Global Corporate Trust</span>
-                <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">What Our Partners Say</h2>
-                <p className="text-slate-500 text-xs sm:text-sm">Feedback from high-volume importers, airlines, and hospitality procurement divisions across North America, Europe, and Australia.</p>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {testimonials.map((t) => (
-                  <div 
-                    id={`testimonial-card-${t.id}`}
-                    key={t.id} 
-                    className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between hover:border-teal-300 hover:shadow-md transition-all"
-                  >
-                    <div className="space-y-4">
-                      <div className="flex space-x-1 text-amber-500 text-sm">
-                        {Array.from({ length: t.rating }).map((_, i) => (
-                          <span key={i}>★</span>
-                        ))}
-                      </div>
-                      <p className="text-xs text-slate-600 leading-relaxed italic">"{t.text}"</p>
-                    </div>
-                    <div className="flex items-center space-x-3 pt-6 mt-6 border-t border-slate-50">
-                      <img 
-                        src={t.image} 
-                        alt={t.name} 
-                        className="w-10 h-10 rounded-full object-cover"
-                        referrerPolicy="no-referrer"
-                      />
-                      <div className="text-[11px] leading-tight">
-                        <p className="font-bold text-slate-900">{t.name}</p>
-                        <p className="text-slate-400 mt-0.5">{t.role}</p>
-                        <p className="text-teal-700 font-medium mt-0.5">{t.company} ({t.country})</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
+            <TestimonialsSection />
 
             {/* Direct Contact trade questionnaire */}
             <section id="home-contact" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 border-t border-slate-100">

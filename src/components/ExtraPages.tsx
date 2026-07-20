@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from 'motion/react';
 import { certifications, faqs, blogs, futureBlogIdeas } from '../data/products';
 import { Certification, FAQItem, BlogItem } from '../types';
 
+import aboutUsImg from '../assets/images/about_us.png';
+
 interface ExtraPagesProps {
   pageId: string;
   onOpenQuoteModal: () => void;
@@ -54,16 +56,11 @@ export default function ExtraPages({ pageId, onOpenQuoteModal }: ExtraPagesProps
 
             <div className="relative rounded-3xl overflow-hidden aspect-video shadow-2xl bg-slate-100 border border-slate-200">
               <img 
-                src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=800&auto=format&fit=crop" 
-                alt="Beautiful plantation representation" 
+                src={aboutUsImg} 
+                alt="Namya EcoPack Manufacturing Facilities" 
                 className="object-cover w-full h-full"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/45 to-transparent flex items-end p-6">
-                <p className="text-xs text-white font-mono leading-relaxed max-w-sm">
-                  Utilising 100% waste biomass fibers leftover from regional sugar refinery crushers in Gujarat.
-                </p>
-              </div>
             </div>
           </div>
 
