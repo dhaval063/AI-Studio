@@ -282,6 +282,7 @@ export default function QuoteRequestModal({ isOpen, onClose, initialCategory, in
                         alt={activeProduct.name} 
                         className="w-16 h-16 rounded-xl object-cover flex-shrink-0"
                         referrerPolicy="no-referrer"
+                        loading="lazy"
                       />
                       <div className="text-xs min-w-0">
                         <p className="font-bold text-slate-800 truncate">{activeProduct.name}</p>

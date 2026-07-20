@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { certifications, faqs, blogs, futureBlogIdeas } from '../data/products';
 import { Certification, FAQItem, BlogItem } from '../types';
 
-import aboutUsImg from '../assets/images/about_us.png';
+import aboutUsImg from '../assets/images/about_us.webp';
 
 interface ExtraPagesProps {
   pageId: string;
@@ -60,6 +60,7 @@ export default function ExtraPages({ pageId, onOpenQuoteModal }: ExtraPagesProps
                 alt="Namya EcoPack Manufacturing Facilities" 
                 className="object-cover w-full h-full"
                 referrerPolicy="no-referrer"
+                loading="lazy"
               />
             </div>
           </div>
@@ -337,7 +338,7 @@ export default function ExtraPages({ pageId, onOpenQuoteModal }: ExtraPagesProps
               </div>
 
               <div className="rounded-3xl overflow-hidden aspect-video bg-slate-100 border border-slate-200 shadow-lg">
-                <img src={activeBlog.image} alt={activeBlog.title} className="object-cover w-full h-full" referrerPolicy="no-referrer" />
+                <img src={activeBlog.image} alt={activeBlog.title} className="object-cover w-full h-full" referrerPolicy="no-referrer" loading="lazy" />
               </div>
 
               <div className="prose prose-slate max-w-none text-slate-600 text-sm sm:text-base leading-relaxed space-y-6">
@@ -368,7 +369,7 @@ export default function ExtraPages({ pageId, onOpenQuoteModal }: ExtraPagesProps
                     className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl hover:border-teal-300 transition-all duration-300 cursor-pointer flex flex-col justify-between group"
                   >
                     <div className="aspect-video bg-slate-100 overflow-hidden border-b border-slate-100 relative">
-                      <img src={blog.image} alt={blog.title} className="object-cover w-full h-full transform group-hover:scale-105 duration-500" referrerPolicy="no-referrer" />
+                      <img src={blog.image} alt={blog.title} className="object-cover w-full h-full transform group-hover:scale-105 duration-500" referrerPolicy="no-referrer" loading="lazy" />
                       <span className="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-[10px] font-bold uppercase tracking-widest font-mono text-teal-800 px-3 py-1 rounded-md border border-slate-100/30">
                         {blog.category}
                       </span>

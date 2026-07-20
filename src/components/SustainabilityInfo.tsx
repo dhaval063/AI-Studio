@@ -220,6 +220,7 @@ export default function SustainabilityInfo() {
                         alt={step.title} 
                         className="w-full h-full rounded-full object-cover"
                         referrerPolicy="no-referrer"
+                        loading="lazy"
                       />
                       {/* Step Number Badge */}
                       <span className={`absolute -top-1 -right-1 w-5 h-5 rounded-full text-[9px] font-mono font-bold flex items-center justify-center border shadow-sm ${
@@ -266,6 +267,7 @@ export default function SustainabilityInfo() {
                         alt={step.title} 
                         className="w-full h-full rounded-full object-cover"
                         referrerPolicy="no-referrer"
+                        loading="lazy"
                       />
                     </div>
                     <div className="flex-1 min-w-0">

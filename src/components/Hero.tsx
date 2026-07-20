@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, FileText, ChevronLeft, ChevronRight, Globe, ShieldCheck, Factory, Award, CheckCircle2, Star, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
-import hero1Img from '../assets/images/hero/hero_1.png';
-import hero2Img from '../assets/images/hero/hero_2.png';
-import hero3Img from '../assets/images/hero/hero_3.png';
-import hero4Img from '../assets/images/hero/hero_4.png';
+import hero1Img from '../assets/images/hero/hero_1.webp';
+import hero2Img from '../assets/images/hero/hero_2.webp';
+import hero3Img from '../assets/images/hero/hero_3.webp';
+import hero4Img from '../assets/images/hero/hero_4.webp';
 
 interface HeroProps {
   setCurrentPage: (page: string) => void;
@@ -144,6 +144,8 @@ export default function Hero({ setCurrentPage, onOpenQuoteModal }: HeroProps) {
       onMouseMove={handleMouseMove}
       className="relative bg-white pt-12 pb-12 overflow-hidden select-none"
     >
+      {/* Preload first critical hero banner image */}
+      <link rel="preload" as="image" href={hero1Img} />
       {/* Desktop Cursor Glow Highlight */}
       <div 
         id="cursor-glowing-trail"
@@ -253,6 +255,7 @@ export default function Hero({ setCurrentPage, onOpenQuoteModal }: HeroProps) {
                     alt={slides[currentSlide].title}
                     className="object-contain w-full h-full"
                     referrerPolicy="no-referrer"
+                    loading={currentSlide === 0 ? "eager" : "lazy"}
                   />
                 </motion.div>
               </AnimatePresence>

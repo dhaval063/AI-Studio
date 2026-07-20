@@ -609,7 +609,7 @@ export default function ProductCatalog({
                 >
                   <div className="col-span-1 sm:col-span-4 flex items-center space-x-3">
                     <div className="w-12 h-12 rounded-lg bg-slate-50 overflow-hidden flex-shrink-0 border border-slate-100">
-                      <img src={prod.image} alt="" className="object-cover w-full h-full" />
+                      <img src={prod.image} alt="" className="object-cover w-full h-full" loading="lazy" />
                     </div>
                     <div>
                       <h5 className="text-xs font-bold text-slate-900 group-hover:text-teal-700 transition-colors leading-tight line-clamp-1">{prod.name}</h5>
@@ -799,7 +799,7 @@ export default function ProductCatalog({
                           className="bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl p-3 cursor-pointer text-center space-y-2 transition-colors"
                         >
                           <div className="aspect-video rounded-lg overflow-hidden bg-slate-200">
-                            <img src={rel.image} alt="" className="object-cover w-full h-full" />
+                            <img src={rel.image} alt="" className="object-cover w-full h-full" loading="lazy" />
                           </div>
                           <p className="text-[10px] font-bold text-slate-800 truncate leading-tight">{rel.name}</p>
                         </div>

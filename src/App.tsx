@@ -23,13 +23,13 @@ import TakeawaySKUView from './components/TakeawaySKUView';
 import TestimonialsSection from './components/TestimonialsSection';
 import { categories, faqs } from './data/products';
 
-import platesImg from './assets/images/plates.jpg';
-import bowlsImg from './assets/images/bowls.jpg';
-import containersImg from './assets/images/containers.jpg';
-import traysImg from './assets/images/mealtrays.jpg';
-import cupsImg from './assets/images/cups_lids.jpg';
-import takeawayImg from './assets/images/takeaway.png';
-import cutleryImg from './assets/images/compostable_cutlery_set_1784290659429.png';
+import platesImg from './assets/images/plates.webp';
+import bowlsImg from './assets/images/bowls.webp';
+import containersImg from './assets/images/containers.webp';
+import traysImg from './assets/images/mealtrays.webp';
+import cupsImg from './assets/images/cups_lids.webp';
+import takeawayImg from './assets/images/takeaway.webp';
+import cutleryImg from './assets/images/compostable_cutlery_set_1784290659429.webp';
 
 const homeCategories = [
   {
@@ -344,13 +344,13 @@ export default function App() {
     updateMetaTag('property', 'og:description', desc);
     updateMetaTag('property', 'og:url', canonical);
     updateMetaTag('property', 'og:type', currentPage === 'blog' ? 'article' : 'website');
-    updateMetaTag('property', 'og:image', 'https://www.namyaecopack.com/og-image-pfas-free-bagasse.jpg');
+    updateMetaTag('property', 'og:image', 'https://www.namyaecopack.com/og-image-pfas-free-bagasse.webp');
 
     // Update Twitter Cards
     updateMetaTag('name', 'twitter:card', 'summary_large_image');
     updateMetaTag('name', 'twitter:title', title);
     updateMetaTag('name', 'twitter:description', desc);
-    updateMetaTag('name', 'twitter:image', 'https://www.namyaecopack.com/og-image-pfas-free-bagasse.jpg');
+    updateMetaTag('name', 'twitter:image', 'https://www.namyaecopack.com/og-image-pfas-free-bagasse.webp');
 
     // 4. Update Canonical Link
     let canonicalLink = document.querySelector('link[rel="canonical"]');
@@ -381,7 +381,7 @@ export default function App() {
       "@id": "https://www.namyaecopack.com/#organization",
       "name": "Namya Eco Pack",
       "url": "https://www.namyaecopack.com",
-      "logo": "https://www.namyaecopack.com/logo-teal.png",
+      "logo": "https://www.namyaecopack.com/logo-teal.webp",
       "sameAs": [
         "https://www.linkedin.com/company/namyaecopack",
         "https://www.facebook.com/namyaecopack"
@@ -403,7 +403,7 @@ export default function App() {
       "@type": "LocalBusiness",
       "@id": "https://www.namyaecopack.com/#localbusiness",
       "name": "Namya Eco Pack",
-      "image": "https://www.namyaecopack.com/og-image-pfas-free-bagasse.jpg",
+      "image": "https://www.namyaecopack.com/og-image-pfas-free-bagasse.webp",
       "telephone": "+917041969067",
       "email": "sales@namyaecopack.com",
       "address": {
@@ -524,7 +524,7 @@ export default function App() {
         "@type": "Product",
         "@id": `https://www.namyaecopack.com/products/${selectedCategory || 'all'}#product`,
         "name": currentCatName,
-        "image": "https://www.namyaecopack.com/og-image-pfas-free-bagasse.jpg",
+        "image": "https://www.namyaecopack.com/og-image-pfas-free-bagasse.webp",
         "description": currentCatDesc,
         "brand": {
           "@type": "Brand",
@@ -606,6 +606,7 @@ export default function App() {
                         alt={cat.name} 
                         className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-500"
                         referrerPolicy="no-referrer"
+                        loading="lazy"
                       />
                     </div>
                     <div className="mt-4 px-2 pb-2 flex justify-between items-end">
@@ -818,6 +819,7 @@ export default function App() {
                         alt={cat.name} 
                         className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-500"
                         referrerPolicy="no-referrer"
+                        loading="lazy"
                       />
                     </div>
                     <div className="mt-4 px-2 pb-2 flex justify-between items-end">

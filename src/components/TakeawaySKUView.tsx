@@ -3,15 +3,15 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, FileText, CheckCircle, HelpCircle, X, ChevronRight, Package, ShieldCheck, Container, Minimize } from 'lucide-react';
 import ProductVectorImage from './ProductVectorImage';
 
-import takeawayImg from '../assets/images/takeaway.png';
+import takeawayImg from '../assets/images/takeaway.webp';
 
 // Import high-resolution takeaway images
-import takeaway16 from '../assets/images/products/takeaway/16_oz.png';
-import takeaway22 from '../assets/images/products/takeaway/22_oz.png';
-import takeaway24 from '../assets/images/products/takeaway/24_oz.png';
-import takeaway26Flat from '../assets/images/products/takeaway/26_oz_flat.png';
-import takeaway26 from '../assets/images/products/takeaway/26_oz.png';
-import takeaway32 from '../assets/images/products/takeaway/32_oz.png';
+import takeaway16 from '../assets/images/products/takeaway/16_oz.webp';
+import takeaway22 from '../assets/images/products/takeaway/22_oz.webp';
+import takeaway24 from '../assets/images/products/takeaway/24_oz.webp';
+import takeaway26Flat from '../assets/images/products/takeaway/26_oz_flat.webp';
+import takeaway26 from '../assets/images/products/takeaway/26_oz.webp';
+import takeaway32 from '../assets/images/products/takeaway/32_oz.webp';
 
 interface TakeawaySKUViewProps {
   onOpenQuoteModal: (category?: string, productId?: string) => void;
@@ -220,6 +220,7 @@ export default function TakeawaySKUView({ onOpenQuoteModal, onBackToCatalog }: T
               alt="Sugarcane Takeaway Containers" 
               className="object-cover w-full h-full transform hover:scale-103 duration-700 transition-all"
               referrerPolicy="no-referrer"
+              loading="lazy"
             />
           </div>
         </div>
@@ -255,6 +256,7 @@ export default function TakeawaySKUView({ onOpenQuoteModal, onBackToCatalog }: T
                       alt={sku.name}
                       className="max-h-full max-w-full object-contain select-none transition-transform duration-500 group-hover:scale-105"
                       referrerPolicy="no-referrer"
+                      loading="lazy"
                     />
                   ) : (
                     <ProductVectorImage
