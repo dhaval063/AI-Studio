@@ -216,6 +216,13 @@ export default function Navbar({
               >
                 FAQ
               </button>
+
+              <button
+                onClick={handleRequestQuoteClick}
+                className="text-sm font-medium transition-colors text-slate-600 hover:text-slate-900"
+              >
+                Contact Us
+              </button>
             </div>
 
             {/* Actions (Search, Language, Quote Button) */}
@@ -324,7 +331,8 @@ export default function Navbar({
                   { id: 'manufacturing', label: 'Sourcing' },
                   { id: 'sustainability', label: 'Sustainability' },
                   { id: 'about', label: 'About Us' },
-                  { id: 'faq', label: 'FAQ' }
+                  { id: 'faq', label: 'FAQ' },
+                  { id: 'contact', label: 'Contact Us' }
                 ].map((item) => (
                   <button
                     key={item.id}
@@ -332,7 +340,12 @@ export default function Navbar({
                       if (item.id === 'products') {
                         onSelectCategory('all');
                       }
-                      navToPage(item.id);
+                      if (item.id === 'contact') {
+                        setMobileMenuOpen(false);
+                        handleRequestQuoteClick();
+                      } else {
+                        navToPage(item.id);
+                      }
                     }}
                     className={`w-full text-left py-2.5 text-base font-semibold ${
                       currentPage === item.id ? 'text-teal-700 font-bold' : 'text-slate-800'
