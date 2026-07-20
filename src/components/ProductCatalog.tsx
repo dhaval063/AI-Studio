@@ -608,8 +608,8 @@ export default function ProductCatalog({
                   className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center bg-white border border-slate-200 rounded-xl px-6 py-4 hover:border-teal-400 hover:shadow-md cursor-pointer transition-all duration-200 group"
                 >
                   <div className="col-span-1 sm:col-span-4 flex items-center space-x-3">
-                    <div className="w-12 h-12 rounded-lg bg-slate-50 overflow-hidden flex-shrink-0 border border-slate-100">
-                      <img src={prod.image} alt="" className="object-cover w-full h-full" loading="lazy" />
+                    <div className="w-12 h-12 rounded-lg bg-slate-50 overflow-hidden flex-shrink-0 border border-slate-100 flex items-center justify-center p-0.5">
+                      <img src={prod.image} alt="" className="object-contain w-full h-full" loading="lazy" />
                     </div>
                     <div>
                       <h5 className="text-xs font-bold text-slate-900 group-hover:text-teal-700 transition-colors leading-tight line-clamp-1">{prod.name}</h5>
@@ -681,7 +681,7 @@ export default function ProductCatalog({
                       <img
                         src={activeProductDetail.image}
                         alt={activeProductDetail.name}
-                        className="object-cover w-full h-full transform group-hover/zoom:scale-105 duration-500"
+                        className="object-contain w-full h-full p-2 transform group-hover/zoom:scale-105 duration-500"
                         referrerPolicy="no-referrer"
                       />
                       <div className="absolute inset-0 bg-black/10 opacity-0 group-hover/zoom:opacity-100 transition-opacity flex items-center justify-center text-white">
@@ -798,8 +798,8 @@ export default function ProductCatalog({
                           onClick={() => { handleOpenDetail(rel); }}
                           className="bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl p-3 cursor-pointer text-center space-y-2 transition-colors"
                         >
-                          <div className="aspect-video rounded-lg overflow-hidden bg-slate-200">
-                            <img src={rel.image} alt="" className="object-cover w-full h-full" loading="lazy" />
+                          <div className="aspect-video rounded-lg overflow-hidden bg-slate-100 flex items-center justify-center p-1">
+                            <img src={rel.image} alt="" className="object-contain w-full h-full" loading="lazy" />
                           </div>
                           <p className="text-[10px] font-bold text-slate-800 truncate leading-tight">{rel.name}</p>
                         </div>

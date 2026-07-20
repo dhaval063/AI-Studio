@@ -600,11 +600,11 @@ export default function App() {
                     onClick={() => handleSelectCategory(cat.id)}
                     className="bg-white border border-slate-200/70 rounded-[28px] p-3 hover:border-teal-400 hover:shadow-xl transition-all duration-300 cursor-pointer group flex flex-col justify-between h-full"
                   >
-                    <div className="aspect-[4/3.8] rounded-2xl overflow-hidden bg-slate-50 relative">
+                    <div className="aspect-[4/3.8] rounded-2xl overflow-hidden bg-slate-50/50 relative flex items-center justify-center p-2">
                       <img 
                         src={cat.image} 
                         alt={cat.name} 
-                        className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-500"
+                        className="object-contain w-full h-full transform group-hover:scale-105 transition-transform duration-500"
                         referrerPolicy="no-referrer"
                         loading="lazy"
                       />
@@ -813,11 +813,11 @@ export default function App() {
                     onClick={() => handleSelectCategory(cat.id)}
                     className="bg-white border border-slate-200/80 rounded-[28px] p-3 hover:border-teal-400 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between h-full"
                   >
-                    <div className="aspect-[4/3.4] rounded-2xl overflow-hidden bg-slate-50 relative">
+                    <div className="aspect-[4/3.4] rounded-2xl overflow-hidden bg-slate-50/50 relative flex items-center justify-center p-2">
                       <img 
                         src={cat.image} 
                         alt={cat.name} 
-                        className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-500"
+                        className="object-contain w-full h-full transform group-hover:scale-105 transition-transform duration-500"
                         referrerPolicy="no-referrer"
                         loading="lazy"
                       />

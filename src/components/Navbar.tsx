@@ -90,7 +90,7 @@ export default function Navbar({
               onClick={() => navToPage('home')}
               className="flex items-center cursor-pointer group"
             >
-              <img src={logo2} alt="Namya Logo" className="h-11 w-auto transition-transform duration-300 group-hover:scale-[1.03]" referrerPolicy="no-referrer" />
+              <img src={logo2} alt="Namya Logo" className="h-11 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03]" referrerPolicy="no-referrer" />
             </div>
 
             {/* Desktop Navigation Links */}
