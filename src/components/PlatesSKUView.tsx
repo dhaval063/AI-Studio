@@ -3,21 +3,21 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, FileText, CheckCircle, HelpCircle, X, ChevronRight, ShieldCheck, Truck, Scale, Grid3X3 } from 'lucide-react';
 import ProductVectorImage from './ProductVectorImage';
 
-import platesImg from '../assets/images/plates.webp';
+import platesImg from '../assets/images/plates.jpg';
 
 // Import high-resolution plate images
-import plate6 from '../assets/images/products/plates/6-inch.webp';
-import plate7 from '../assets/images/products/plates/7-inch.webp';
-import plate9 from '../assets/images/products/plates/9-inch.webp';
-import plate10 from '../assets/images/products/plates/10-inch.webp';
-import plate11 from '../assets/images/products/plates/11-inch.webp';
-import plate12 from '../assets/images/products/plates/12-inch.webp';
+import plate6 from '../assets/images/products/plates/6-inch.png';
+import plate7 from '../assets/images/products/plates/7-inch.png';
+import plate9 from '../assets/images/products/plates/9-inch.png';
+import plate10 from '../assets/images/products/plates/10-inch.png';
+import plate11 from '../assets/images/products/plates/11-inch.png';
+import plate12 from '../assets/images/products/plates/12-inch.png';
 
 // Import high-resolution compartment plate images
-import comp9_3cp from '../assets/images/products/compartment-plates/9-3cp.webp';
-import comp10_3cp from '../assets/images/products/compartment-plates/10-3cp.webp';
-import comp11_4cp from '../assets/images/products/compartment-plates/11-4cp.webp';
-import comp12_4cp from '../assets/images/products/compartment-plates/12-4cp.webp';
+import comp9_3cp from '../assets/images/products/compartment-plates/9-3cp.png';
+import comp10_3cp from '../assets/images/products/compartment-plates/10-3cp.png';
+import comp11_4cp from '../assets/images/products/compartment-plates/11-4cp.png';
+import comp12_4cp from '../assets/images/products/compartment-plates/12-4cp.png';
 
 interface PlatesSKUViewProps {
   onOpenQuoteModal: (category?: string, productId?: string) => void;

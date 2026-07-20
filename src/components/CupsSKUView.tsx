@@ -32,17 +32,17 @@ import {
 } from 'lucide-react';
 import ProductVectorImage from './ProductVectorImage';
 
-import cupsImg from '../assets/images/cups_lids.webp';
+import cupsImg from '../assets/images/cups_lids.jpg';
 
 // Import high-resolution cup and lid images
-import cup4 from '../assets/images/products/cups/cup_4oz.webp';
-import cup6 from '../assets/images/products/cups/cup_6oz.webp';
-import cup8 from '../assets/images/products/cups/cup_8oz.webp';
-import cup10 from '../assets/images/products/cups/cup_10oz.webp';
-import cup12 from '../assets/images/products/cups/cup_12oz.webp';
-import cup16 from '../assets/images/products/cups/cup_16oz.webp';
-import lidFlat from '../assets/images/products/cups/lid_flat.webp';
-import lidSip from '../assets/images/products/cups/lid_sip.webp';
+import cup4 from '../assets/images/products/cups/cup_4oz.png';
+import cup6 from '../assets/images/products/cups/cup_6oz.png';
+import cup8 from '../assets/images/products/cups/cup_8oz.png';
+import cup10 from '../assets/images/products/cups/cup_10oz.png';
+import cup12 from '../assets/images/products/cups/cup_12oz.png';
+import cup16 from '../assets/images/products/cups/cup_16oz.png';
+import lidFlat from '../assets/images/products/cups/lid_flat.png';
+import lidSip from '../assets/images/products/cups/lid_sip.png';
 
 interface CupsSKUViewProps {
   onOpenQuoteModal: (category?: string, productId?: string) => void;

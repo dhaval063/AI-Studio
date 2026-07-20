@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { certifications, faqs, blogs, futureBlogIdeas } from '../data/products';
 import { Certification, FAQItem, BlogItem } from '../types';
 
-import aboutUsImg from '../assets/images/about_us.webp';
+import aboutUsImg from '../assets/images/about_us.png';
 
 interface ExtraPagesProps {
   pageId: string;

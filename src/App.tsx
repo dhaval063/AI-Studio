@@ -23,13 +23,13 @@ import TakeawaySKUView from './components/TakeawaySKUView';
 import TestimonialsSection from './components/TestimonialsSection';
 import { categories, faqs } from './data/products';
 
-import platesImg from './assets/images/plates.webp';
-import bowlsImg from './assets/images/bowls.webp';
-import containersImg from './assets/images/containers.webp';
-import traysImg from './assets/images/mealtrays.webp';
-import cupsImg from './assets/images/cups_lids.webp';
-import takeawayImg from './assets/images/takeaway.webp';
-import cutleryImg from './assets/images/compostable_cutlery_set_1784290659429.webp';
+import platesImg from './assets/images/plates.jpg';
+import bowlsImg from './assets/images/bowls.jpg';
+import containersImg from './assets/images/containers.jpg';
+import traysImg from './assets/images/mealtrays.jpg';
+import cupsImg from './assets/images/cups_lids.jpg';
+import takeawayImg from './assets/images/takeaway.jpg';
+import cutleryImg from './assets/images/compostable_cutlery_set_1784290659429.png';
 
 const homeCategories = [
   {

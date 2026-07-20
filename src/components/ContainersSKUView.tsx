@@ -3,16 +3,16 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, FileText, CheckCircle, HelpCircle, X, ChevronRight, Package, ShieldCheck, Layers, Minimize } from 'lucide-react';
 import ProductVectorImage from './ProductVectorImage';
 
-import containersImg from '../assets/images/containers.webp';
+import containersImg from '../assets/images/containers.jpg';
 
 // Import high-resolution clamshell images
-import clamshell6 from '../assets/images/products/containers/6_6.webp';
-import clamshell7 from '../assets/images/products/containers/7_inch.webp';
-import clamshell8 from '../assets/images/products/containers/8_8.webp';
-import clamshell8_3cp from '../assets/images/products/containers/8_8_3cp.webp';
-import clamshell9 from '../assets/images/products/containers/9_6.webp';
-import clamshell9_3cp from '../assets/images/products/containers/9_9_3cp.webp';
-import clamshell10_3cp from '../assets/images/products/containers/10_3cp.webp';
+import clamshell6 from '../assets/images/products/containers/6_6.png';
+import clamshell7 from '../assets/images/products/containers/7_inch.png';
+import clamshell8 from '../assets/images/products/containers/8_8.png';
+import clamshell8_3cp from '../assets/images/products/containers/8_8_3cp.png';
+import clamshell9 from '../assets/images/products/containers/9_6.png';
+import clamshell9_3cp from '../assets/images/products/containers/9_9_3cp.png';
+import clamshell10_3cp from '../assets/images/products/containers/10_3cp.png';
 
 interface ContainersSKUViewProps {
   onOpenQuoteModal: (category?: string, productId?: string) => void;
