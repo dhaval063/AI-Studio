@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, FileText, ChevronLeft, ChevronRight, Globe, ShieldCheck, Factory, Award, CheckCircle2, Star, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
-import hero1Img from '../assets/images/hero/hero_1.png';
-import hero2Img from '../assets/images/hero/hero_2.png';
-import hero3Img from '../assets/images/hero/hero_3.png';
-import hero4Img from '../assets/images/hero/hero_4.png';
+const hero1Img = "/images/hero/hero_1.png";
+const hero2Img = "/images/hero/hero_2.png";
+const hero3Img = "/images/hero/hero_3.png";
+const hero4Img = "/images/hero/hero_4.png";
 
 interface HeroProps {
   setCurrentPage: (page: string) => void;

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Search, Globe, ChevronDown, ArrowRight, FileText, Settings, ShieldCheck, HelpCircle, Disc, CupSoda, Package, Grid3X3, Coffee, PackageOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { categories } from '../data/products';
-import logo2 from '../assets/images/2.png';
+
+const logo2 = "/images/2.png";
 
 interface NavbarProps {
   currentPage: string;

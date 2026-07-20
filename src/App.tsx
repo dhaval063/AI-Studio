@@ -23,13 +23,13 @@ import TakeawaySKUView from './components/TakeawaySKUView';
 import TestimonialsSection from './components/TestimonialsSection';
 import { categories, faqs } from './data/products';
 
-import platesImg from './assets/images/plates.jpg';
-import bowlsImg from './assets/images/bowls.jpg';
-import containersImg from './assets/images/containers.jpg';
-import traysImg from './assets/images/mealtrays.jpg';
-import cupsImg from './assets/images/cups_lids.jpg';
-import takeawayImg from './assets/images/takeaway.jpg';
-import cutleryImg from './assets/images/compostable_cutlery_set_1784290659429.png';
+const platesImg = "/images/plates.jpg";
+const bowlsImg = "/images/bowls.jpg";
+const containersImg = "/images/containers.jpg";
+const traysImg = "/images/mealtrays.jpg";
+const cupsImg = "/images/cups_lids.jpg";
+const takeawayImg = "/images/takeaway.jpg";
+const cutleryImg = "/images/compostable_cutlery_set_1784290659429.png";
 
 const homeCategories = [
   {
@@ -600,11 +600,11 @@ export default function App() {
                     onClick={() => handleSelectCategory(cat.id)}
                     className="bg-white border border-slate-200/70 rounded-[28px] p-3 hover:border-teal-400 hover:shadow-xl transition-all duration-300 cursor-pointer group flex flex-col justify-between h-full"
                   >
-                    <div className="aspect-[4/3.8] rounded-2xl overflow-hidden bg-slate-50/50 relative flex items-center justify-center p-2">
+                    <div className="aspect-[4/3.8] rounded-2xl overflow-hidden bg-slate-50 relative">
                       <img 
                         src={cat.image} 
                         alt={cat.name} 
-                        className="object-contain w-full h-full transform group-hover:scale-105 transition-transform duration-500"
+                        className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-500"
                         referrerPolicy="no-referrer"
                         loading="lazy"
                       />
@@ -813,11 +813,11 @@ export default function App() {
                     onClick={() => handleSelectCategory(cat.id)}
                     className="bg-white border border-slate-200/80 rounded-[28px] p-3 hover:border-teal-400 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between h-full"
                   >
-                    <div className="aspect-[4/3.4] rounded-2xl overflow-hidden bg-slate-50/50 relative flex items-center justify-center p-2">
+                    <div className="aspect-[4/3.4] rounded-2xl overflow-hidden bg-slate-50 relative">
                       <img 
                         src={cat.image} 
                         alt={cat.name} 
-                        className="object-contain w-full h-full transform group-hover:scale-105 transition-transform duration-500"
+                        className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-500"
                         referrerPolicy="no-referrer"
                         loading="lazy"
                       />

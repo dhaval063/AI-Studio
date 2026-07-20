@@ -3,15 +3,15 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, FileText, CheckCircle, HelpCircle, X, ChevronRight, CupSoda, ShieldCheck, Soup, Minimize } from 'lucide-react';
 import ProductVectorImage from './ProductVectorImage';
 
-import bowlsImg from '../assets/images/bowls.jpg';
+const bowlsImg = "/images/bowls.jpg";
 
 // Import high-resolution bowl images
-import bowl6 from '../assets/images/products/bowls/6-oz.png';
-import bowl8 from '../assets/images/products/bowls/8-oz.png';
-import bowl12 from '../assets/images/products/bowls/12-oz.png';
-import bowl16 from '../assets/images/products/bowls/16-oz.png';
-import bowl24 from '../assets/images/products/bowls/24-oz.png';
-import bowl32 from '../assets/images/products/bowls/32-oz.png';
+const bowl6 = "/images/products/bowls/6-oz.png";
+const bowl8 = "/images/products/bowls/8-oz.png";
+const bowl12 = "/images/products/bowls/12-oz.png";
+const bowl16 = "/images/products/bowls/16-oz.png";
+const bowl24 = "/images/products/bowls/24-oz.png";
+const bowl32 = "/images/products/bowls/32-oz.png";
 
 interface BowlsSKUViewProps {
   onOpenQuoteModal: (category?: string, productId?: string) => void;

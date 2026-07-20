@@ -1,26 +1,26 @@
 import { Product, ProductCategory, Certification, Testimonial, FAQItem, BlogItem } from '../types';
 
 // Import high-resolution bowl and container assets
-import bowl12 from '../assets/images/products/bowls/12-oz.png';
-import bowl24 from '../assets/images/products/bowls/24-oz.png';
-import clamshell6 from '../assets/images/products/containers/6_6.png';
-import clamshell9_3cp from '../assets/images/products/containers/9_9_3cp.png';
-import clamshell7New from '../assets/images/products/containers/7_inch.png';
-import clamshell10_3cpNew from '../assets/images/products/containers/10_3cp.png';
-import tray2 from '../assets/images/products/trays/2cp.png';
-import tray4 from '../assets/images/products/trays/4cp.png';
-import tray5 from '../assets/images/products/trays/5cp.png';
+const bowl12 = '/images/products/bowls/12-oz.png';
+const bowl24 = '/images/products/bowls/24-oz.png';
+const clamshell6 = '/images/products/containers/6_6.png';
+const clamshell9_3cp = '/images/products/containers/9_9_3cp.png';
+const clamshell7New = '/images/products/containers/7_inch.png';
+const clamshell10_3cpNew = '/images/products/containers/10_3cp.png';
+const tray2 = '/images/products/trays/2cp.png';
+const tray4 = '/images/products/trays/4cp.png';
+const tray5 = '/images/products/trays/5cp.png';
 
 // Import high-resolution takeaway assets
-import takeaway16 from '../assets/images/products/takeaway/16_oz.png';
-import takeaway22 from '../assets/images/products/takeaway/22_oz.png';
-import takeaway24 from '../assets/images/products/takeaway/24_oz.png';
-import takeaway26Flat from '../assets/images/products/takeaway/26_oz_flat.png';
-import takeaway26 from '../assets/images/products/takeaway/26_oz.png';
-import takeaway32 from '../assets/images/products/takeaway/32_oz.png';
+const takeaway16 = '/images/products/takeaway/16_oz.png';
+const takeaway22 = '/images/products/takeaway/22_oz.png';
+const takeaway24 = '/images/products/takeaway/24_oz.png';
+const takeaway26Flat = '/images/products/takeaway/26_oz_flat.png';
+const takeaway26 = '/images/products/takeaway/26_oz.png';
+const takeaway32 = '/images/products/takeaway/32_oz.png';
 
 // Import cup asset
-import cup12 from '../assets/images/products/cups/cup_12oz.png';
+const cup12 = '/images/products/cups/cup_12oz.png';
 
 export const categories: ProductCategory[] = [
   {
