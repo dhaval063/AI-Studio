@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, HelpCircle, FileText, Shield, ArrowUpRight } from 'lucide-react';
-import NamyaLogo from './NamyaLogo';
+import logo1 from '../assets/images/1.png';
 
 interface FooterProps {
   setCurrentPage: (page: string) => void;
@@ -33,7 +33,7 @@ export default function Footer({ setCurrentPage, onOpenQuoteModal, onSelectCateg
         {/* Brand & Mission Column */}
         <div className="lg:col-span-2 space-y-6">
           <div className="flex items-center">
-            <NamyaLogo height={52} variant="dark" className="opacity-95 hover:opacity-100 transition-opacity" />
+            <img src={logo1} alt="Namya Logo" className="h-[52px] w-auto opacity-95 hover:opacity-100 transition-opacity" referrerPolicy="no-referrer" />
           </div>
           <p className="text-sm text-slate-400 max-w-sm leading-relaxed">
             Premium Indian supplier and exporter of sustainable sugarcane bagasse tableware. Replacing single-use plastics with luxury, food-safe biodegradable alternatives for global food brands, hotels, and airlines.

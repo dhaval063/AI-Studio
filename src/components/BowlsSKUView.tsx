@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, FileText, CheckCircle, HelpCircle, X, ChevronRight, CupSoda, ShieldCheck, Soup, Minimize } from 'lucide-react';
-import bowlsImg from '../assets/images/sugarcane_salad_bowls_1784290587244.jpg';
+import ProductVectorImage from './ProductVectorImage';
+
+import bowlsImg from '../assets/images/bowls.jpg';
 
 // Import high-resolution bowl images
 import bowl6 from '../assets/images/products/bowls/6-oz.png';
@@ -231,12 +233,21 @@ export default function BowlsSKUView({ onOpenQuoteModal, onBackToCatalog }: Bowl
               >
                 {/* Real High-Resolution Bowl Image */}
                 <div className="h-[180px] w-full rounded-xl bg-white/40 flex items-center justify-center p-3 relative overflow-hidden border border-slate-100 shadow-inner mb-4 flex-shrink-0">
-                  <img
-                    src={sku.image}
-                    alt={sku.name}
-                    className="max-h-full max-w-full object-contain select-none transition-transform duration-500 group-hover:scale-105"
-                    referrerPolicy="no-referrer"
-                  />
+                  {sku.image ? (
+                    <img
+                      src={sku.image}
+                      alt={sku.name}
+                      className="max-h-full max-w-full object-contain select-none transition-transform duration-500 group-hover:scale-105"
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : (
+                    <ProductVectorImage
+                      id={sku.id}
+                      name={sku.name}
+                      category="bowls"
+                      className="max-h-full max-w-full select-none transition-transform duration-500 group-hover:scale-105"
+                    />
+                  )}
                 </div>
 
                 {/* SKU Name */}

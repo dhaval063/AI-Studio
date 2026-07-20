@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, FileText, CheckCircle, HelpCircle, X, ChevronRight, ShieldCheck, Truck, Scale, Grid3X3 } from 'lucide-react';
-import platesImg from '../assets/images/sugarcane_compartment_plate_1784290569010.jpg';
+import ProductVectorImage from './ProductVectorImage';
+
+import platesImg from '../assets/images/plates.jpg';
 
 // Import high-resolution plate images
 import plate6 from '../assets/images/products/plates/6-inch.png';
@@ -284,12 +286,21 @@ export default function PlatesSKUView({ onOpenQuoteModal, onBackToCatalog }: Pla
               >
                 {/* Real High-Resolution Plate Image */}
                 <div className="h-[180px] w-full rounded-xl bg-white/40 flex items-center justify-center p-3 relative overflow-hidden border border-slate-100 shadow-inner mb-4 flex-shrink-0">
-                  <img
-                    src={sku.image}
-                    alt={sku.name}
-                    className="max-h-full max-w-full object-contain select-none transition-transform duration-500 group-hover:scale-105"
-                    referrerPolicy="no-referrer"
-                  />
+                  {sku.image ? (
+                    <img
+                      src={sku.image}
+                      alt={sku.name}
+                      className="max-h-full max-w-full object-contain select-none transition-transform duration-500 group-hover:scale-105"
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : (
+                    <ProductVectorImage
+                      id={sku.id}
+                      name={sku.name}
+                      category="plates"
+                      className="max-h-full max-w-full select-none transition-transform duration-500 group-hover:scale-105"
+                    />
+                  )}
                 </div>
 
                 {/* SKU Name */}
@@ -355,12 +366,21 @@ export default function PlatesSKUView({ onOpenQuoteModal, onBackToCatalog }: Pla
               >
                 {/* Real High-Resolution Plate Image */}
                 <div className="h-[180px] w-full rounded-xl bg-white/40 flex items-center justify-center p-3 relative overflow-hidden border border-slate-100 shadow-inner mb-4 flex-shrink-0">
-                  <img
-                    src={sku.image}
-                    alt={sku.name}
-                    className="max-h-full max-w-full object-contain select-none transition-transform duration-500 group-hover:scale-105"
-                    referrerPolicy="no-referrer"
-                  />
+                  {sku.image ? (
+                    <img
+                      src={sku.image}
+                      alt={sku.name}
+                      className="max-h-full max-w-full object-contain select-none transition-transform duration-500 group-hover:scale-105"
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : (
+                    <ProductVectorImage
+                      id={sku.id}
+                      name={sku.name}
+                      category="plates"
+                      className="max-h-full max-w-full select-none transition-transform duration-500 group-hover:scale-105"
+                    />
+                  )}
                 </div>
 
                 {/* SKU Name */}

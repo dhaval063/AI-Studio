@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, FileText, CheckCircle, HelpCircle, X, ChevronRight, Package, ShieldCheck, Layers, Minimize } from 'lucide-react';
-import containersImg from '../assets/images/sugarcane_clamshell_box_1784290602529.jpg';
+import ProductVectorImage from './ProductVectorImage';
+
+import containersImg from '../assets/images/containers.jpg';
 
 // Import high-resolution clamshell images
-import clamshell6 from '../assets/images/products/containers/6-6.png';
-import clamshell9 from '../assets/images/products/containers/9-6.png';
-import clamshell9_3cp from '../assets/images/products/containers/9-9-3cp.png';
-import clamshell7New from '../assets/images/products/containers/7-inch.png';
-import clamshell10_3cpNew from '../assets/images/products/containers/10-3cp.png';
+import clamshell6 from '../assets/images/products/containers/6_6.png';
+import clamshell7 from '../assets/images/products/containers/7_inch.png';
+import clamshell8 from '../assets/images/products/containers/8_8.png';
+import clamshell8_3cp from '../assets/images/products/containers/8_8_3cp.png';
+import clamshell9 from '../assets/images/products/containers/9_6.png';
+import clamshell9_3cp from '../assets/images/products/containers/9_9_3cp.png';
+import clamshell10_3cp from '../assets/images/products/containers/10_3cp.png';
 
 interface ContainersSKUViewProps {
   onOpenQuoteModal: (category?: string, productId?: string) => void;
@@ -59,7 +63,30 @@ export default function ContainersSKUView({ onOpenQuoteModal, onBackToCatalog }:
       weight: '22 g',
       pcsPerCtn: 400,
       description: 'Mid-size square takeout classic. Perfect for heavy sandwiches, small salads, fries, pastries, and general snack packaging.',
-      heatResistance: 'Water & oil resistant up to 120°C, microwaveable'
+      heatResistance: 'Water & oil resistant up to 120°C, microwaveable',
+      image: clamshell7
+    },
+    {
+      id: 'clamshell-8',
+      name: '8" Heavy-Duty Clamshell',
+      sizeInch: '8" × 8"',
+      dimensions: '203 × 203 × 75 mm',
+      weight: '30 g',
+      pcsPerCtn: 250,
+      description: 'Heavy-duty square clamshell box, perfect for large lunches, entrees, and salads with leak-resistant tabs.',
+      heatResistance: 'Water & oil resistant up to 120°C, microwaveable',
+      image: clamshell8
+    },
+    {
+      id: 'clamshell-8-3',
+      name: '8" 3-Compartment Hinged Box',
+      sizeInch: '8" × 8"',
+      dimensions: '203 × 203 × 75 mm',
+      weight: '32 g',
+      pcsPerCtn: 250,
+      description: 'Premium 3-compartment hinged box designed for combo meals, entrees, and side dish separation.',
+      heatResistance: 'Water & oil resistant up to 120°C, microwaveable',
+      image: clamshell8_3cp
     },
     {
       id: 'clamshell-9',
@@ -91,7 +118,8 @@ export default function ContainersSKUView({ onOpenQuoteModal, onBackToCatalog }:
       weight: '45 g',
       pcsPerCtn: 200,
       description: 'Extra-large professional catering clamshell. Widely imported by university canteens and institutional catering networks.',
-      heatResistance: 'Water & oil resistant up to 120°C, microwaveable'
+      heatResistance: 'Water & oil resistant up to 120°C, microwaveable',
+      image: clamshell10_3cp
     },
     {
       id: 'clamshell-7-new',
@@ -102,7 +130,7 @@ export default function ContainersSKUView({ onOpenQuoteModal, onBackToCatalog }:
       pcsPerCtn: 300,
       description: 'Modern rigid clamshell design, perfect for sandwiches, pastries, and quick meal services.',
       heatResistance: 'Water & oil resistant up to 120°C, microwaveable',
-      image: clamshell7New
+      image: clamshell7
     },
     {
       id: 'clamshell-10-3-new',
@@ -113,7 +141,7 @@ export default function ContainersSKUView({ onOpenQuoteModal, onBackToCatalog }:
       pcsPerCtn: 200,
       description: 'Extra-large 3-compartment dining box with complete portion separation. Great for premium takeout platters.',
       heatResistance: 'Water & oil resistant up to 120°C, microwaveable',
-      image: clamshell10_3cpNew
+      image: clamshell10_3cp
     }
   ];
 
@@ -265,10 +293,12 @@ export default function ContainersSKUView({ onOpenQuoteModal, onBackToCatalog }:
                       referrerPolicy="no-referrer"
                     />
                   ) : (
-                    // Clean blank area or icon representation for products without images
-                    <div className="w-12 h-12 text-slate-300 group-hover:text-teal-600 transition-colors duration-300 flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
-                      <Package className="w-full h-full stroke-[1.5]" />
-                    </div>
+                    <ProductVectorImage
+                      id={sku.id}
+                      name={sku.name}
+                      category="containers"
+                      className="max-h-full max-w-full select-none transition-transform duration-500 group-hover:scale-105"
+                    />
                   )}
                 </div>
 

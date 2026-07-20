@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Search, Globe, ChevronDown, ArrowRight, FileText, Settings, ShieldCheck, HelpCircle, Disc, CupSoda, Package, Grid3X3, Coffee, PackageOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { categories } from '../data/products';
-import NamyaLogo from './NamyaLogo';
+import logo2 from '../assets/images/2.png';
 
 interface NavbarProps {
   currentPage: string;
@@ -103,7 +103,7 @@ export default function Navbar({
               onClick={() => navToPage('home')}
               className="flex items-center cursor-pointer group"
             >
-              <NamyaLogo height={44} variant="light" className="transition-transform duration-300 group-hover:scale-[1.03]" />
+              <img src={logo2} alt="Namya Logo" className="h-11 w-auto transition-transform duration-300 group-hover:scale-[1.03]" referrerPolicy="no-referrer" />
             </div>
 
             {/* Desktop Navigation Links */}

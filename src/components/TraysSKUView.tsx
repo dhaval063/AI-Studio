@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, FileText, CheckCircle, HelpCircle, X, ChevronRight, Grid3X3, ShieldCheck, Layers, Minimize } from 'lucide-react';
-import traysImg from '../assets/images/sugarcane_5comp_tray_1784290621851.jpg';
+import ProductVectorImage from './ProductVectorImage';
+
+import traysImg from '../assets/images/mealtrays.jpg';
 
 // Import high-resolution tray images
 import tray2 from '../assets/images/products/trays/2cp.png';
@@ -84,6 +86,17 @@ export default function TraysSKUView({ onOpenQuoteModal, onBackToCatalog }: Tray
       description: 'B2B flagship tray. Favored for Indian Thali meals, complete airline catering courses, and school food systems.',
       heatResistance: 'Water & oil resistant up to 120°C, microwaveable',
       image: tray5
+    },
+    {
+      id: 'tray-5-deep',
+      name: '5-Compartment Deep Tray',
+      compartments: '5 Compartments',
+      dimensions: '280 × 220 × 38 mm',
+      weight: '32 g',
+      pcsPerCtn: 250,
+      description: 'Extra-deep compartments designed for generous curry portions, liquid gravies, and heavy catering services without overflow.',
+      heatResistance: 'Water & oil resistant up to 120°C, microwaveable',
+      image: tray5Deep
     },
     {
       id: 'tray-6',
@@ -246,48 +259,12 @@ export default function TraysSKUView({ onOpenQuoteModal, onBackToCatalog }: Tray
                       referrerPolicy="no-referrer"
                     />
                   ) : (
-                    <div className="w-3/4 h-3/4 relative flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
-                      <svg className="w-full h-full text-slate-300 group-hover:text-teal-600 transition-colors duration-300" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <rect x="15" y="20" width="70" height="60" rx="6" />
-                        {sku.id === 'tray-2' && (
-                          <>
-                            <line x1="50" y1="20" x2="50" y2="80" />
-                          </>
-                        )}
-                        {sku.id === 'tray-3' && (
-                          <>
-                            <line x1="15" y1="50" x2="85" y2="50" />
-                            <line x1="50" y1="50" x2="50" y2="80" />
-                          </>
-                        )}
-                        {sku.id === 'tray-4' && (
-                          <>
-                            <line x1="15" y1="50" x2="85" y2="50" />
-                            <line x1="50" y1="20" x2="50" y2="80" />
-                          </>
-                        )}
-                        {sku.id === 'tray-5' && (
-                          <>
-                            <line x1="15" y1="45" x2="85" y2="45" />
-                            <line x1="38" y1="45" x2="38" y2="80" />
-                            <line x1="62" y1="45" x2="62" y2="80" />
-                            <line x1="50" y1="20" x2="50" y2="45" />
-                          </>
-                        )}
-                        {sku.id === 'tray-6' && (
-                          <>
-                            <line x1="15" y1="50" x2="85" y2="50" />
-                            <line x1="38" y1="20" x2="38" y2="80" />
-                            <line x1="62" y1="20" x2="62" y2="80" />
-                          </>
-                        )}
-                      </svg>
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-[10px] font-extrabold text-slate-500 font-mono bg-white/80 px-1.5 py-0.5 rounded shadow-sm">
-                          {sku.compartments}
-                        </span>
-                      </div>
-                    </div>
+                    <ProductVectorImage
+                      id={sku.id}
+                      name={sku.name}
+                      category="trays"
+                      className="max-h-full max-w-full select-none transition-transform duration-500 group-hover:scale-105"
+                    />
                   )}
                 </div>
 

@@ -22,12 +22,13 @@ import CupsSKUView from './components/CupsSKUView';
 import TakeawaySKUView from './components/TakeawaySKUView';
 import { categories, testimonials, faqs } from './data/products';
 
-import platesImg from './assets/images/sugarcane_compartment_plate_1784290569010.jpg';
-import bowlsImg from './assets/images/sugarcane_salad_bowls_1784290587244.jpg';
-import containersImg from './assets/images/sugarcane_clamshell_box_1784290602529.jpg';
-import traysImg from './assets/images/sugarcane_5comp_tray_1784290621851.jpg';
-import cupsImg from './assets/images/sugarcane_hot_cup_1784290638862.jpg';
-import cutleryImg from './assets/images/compostable_cutlery_set_1784290659429.jpg';
+import platesImg from './assets/images/plates.jpg';
+import bowlsImg from './assets/images/bowls.jpg';
+import containersImg from './assets/images/containers.jpg';
+import traysImg from './assets/images/mealtrays.jpg';
+import cupsImg from './assets/images/cups_lids.jpg';
+import takeawayImg from './assets/images/takeaway.jpg';
+import cutleryImg from './assets/images/compostable_cutlery_set_1784290659429.png';
 
 const homeCategories = [
   {
@@ -70,7 +71,7 @@ const homeCategories = [
     name: 'Takeaway Packaging',
     skus: '5 SKUs',
     description: 'Compostable rectangular containers & lids',
-    image: containersImg
+    image: takeawayImg
   }
 ];
 

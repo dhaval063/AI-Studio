@@ -3,12 +3,13 @@ import { Product, ProductCategory, Certification, Testimonial, FAQItem, BlogItem
 // Import high-resolution bowl and container assets
 import bowl12 from '../assets/images/products/bowls/12-oz.png';
 import bowl24 from '../assets/images/products/bowls/24-oz.png';
-import clamshell6 from '../assets/images/products/containers/6-6.png';
-import clamshell9_3cp from '../assets/images/products/containers/9-9-3cp.png';
-import clamshell7New from '../assets/images/products/containers/7-inch.png';
-import clamshell10_3cpNew from '../assets/images/products/containers/10-3cp.png';
+import clamshell6 from '../assets/images/products/containers/6_6.png';
+import clamshell9_3cp from '../assets/images/products/containers/9_9_3cp.png';
+import clamshell7New from '../assets/images/products/containers/7_inch.png';
+import clamshell10_3cpNew from '../assets/images/products/containers/10_3cp.png';
 import tray2 from '../assets/images/products/trays/2cp.png';
 import tray4 from '../assets/images/products/trays/4cp.png';
+import tray5 from '../assets/images/products/trays/5cp.png';
 
 export const categories: ProductCategory[] = [
   {
@@ -241,7 +242,7 @@ export const products: Product[] = [
     id: 'meal-tray-5c',
     name: '5-Compartment Executive Meal Tray',
     category: 'trays',
-    image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=600&auto=format&fit=crop',
+    image: tray5,
     description: 'Executive tray with 5 distinct chambers for curries, desserts, salads, and rice. Highly favored for corporate catering and airline service.',
     features: ['High barrier ridges', 'Perfect for institutional heavy loading', 'No odor, completely organic taste preservation', 'Saves space - nestable packaging design'],
     specs: {

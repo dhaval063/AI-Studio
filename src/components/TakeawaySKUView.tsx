@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, FileText, CheckCircle, HelpCircle, X, ChevronRight, Package, ShieldCheck, Container, Minimize } from 'lucide-react';
-import takeawayImg from '../assets/images/sugarcane_clamshell_box_1784290602529.jpg';
+import ProductVectorImage from './ProductVectorImage';
+
+import takeawayImg from '../assets/images/takeaway.jpg';
 
 interface TakeawaySKUViewProps {
   onOpenQuoteModal: (category?: string, productId?: string) => void;
@@ -224,35 +226,12 @@ export default function TakeawaySKUView({ onOpenQuoteModal, onBackToCatalog }: T
               >
                 {/* SVG Container representation */}
                 <div className="h-[180px] w-full rounded-xl bg-white/40 flex items-center justify-center p-6 relative overflow-hidden border border-slate-100 shadow-inner mb-4 flex-shrink-0">
-                  <div className="w-3/4 h-3/4 relative flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
-                    <svg className="w-full h-full text-slate-300 group-hover:text-teal-600 transition-colors duration-300" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      {sku.id === 'takeaway-lid' ? (
-                        <>
-                          {/* Flat Lid shape */}
-                          <rect x="15" y="38" width="70" height="24" rx="4" />
-                          <line x1="15" y1="50" x2="85" y2="50" />
-                          <line x1="30" y1="44" x2="70" y2="44" strokeDasharray="1.5 1.5" />
-                        </>
-                      ) : (
-                        <>
-                          {/* Deep Rectangular base */}
-                          <path d="M20 30 L80 30 L72 80 L28 80 Z" />
-                          <line x1="20" y1="38" x2="80" y2="38" />
-                          {sku.id === 'takeaway-2c' && (
-                            <line x1="50" y1="38" x2="50" y2="80" strokeWidth="2" />
-                          )}
-                          {sku.id === 'takeaway-1000' && (
-                            <path d="M25 55 L75 55" strokeDasharray="2 2" />
-                          )}
-                        </>
-                      )}
-                    </svg>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-[10px] font-extrabold text-slate-500 font-mono bg-white/80 px-1.5 py-0.5 rounded shadow-sm">
-                        {sku.capacity !== 'N/A' ? sku.capacity.split(' / ')[0] : 'Lid'}
-                      </span>
-                    </div>
-                  </div>
+                  <ProductVectorImage
+                    id={sku.id}
+                    name={sku.name}
+                    category="takeaway"
+                    className="max-h-full max-w-full select-none transition-transform duration-500 group-hover:scale-105"
+                  />
                 </div>
 
                 {/* SKU Name */}

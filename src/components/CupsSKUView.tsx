@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, FileText, CheckCircle, HelpCircle, X, ChevronRight, Coffee, ShieldCheck, CupSoda, Minimize } from 'lucide-react';
-import cupsImg from '../assets/images/sugarcane_hot_cup_1784290638862.jpg';
+import ProductVectorImage from './ProductVectorImage';
+
+import cupsImg from '../assets/images/cups_lids.jpg';
 
 interface CupsSKUViewProps {
   onOpenQuoteModal: (category?: string, productId?: string) => void;
@@ -230,32 +232,12 @@ export default function CupsSKUView({ onOpenQuoteModal, onBackToCatalog }: CupsS
               >
                 {/* SVG Cup Visual representation */}
                 <div className="h-[180px] w-full rounded-xl bg-white/40 flex items-center justify-center p-6 relative overflow-hidden border border-slate-100 shadow-inner mb-4 flex-shrink-0">
-                  <div className="w-3/4 h-3/4 relative flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
-                    <svg className="w-full h-full text-slate-300 group-hover:text-teal-600 transition-colors duration-300" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      {sku.id === 'cup-lid-90' ? (
-                        <>
-                          {/* Lid shape */}
-                          <ellipse cx="50" cy="40" rx="35" ry="12" />
-                          <ellipse cx="50" cy="45" rx="35" ry="12" />
-                          <line x1="15" y1="40" x2="15" y2="45" />
-                          <line x1="85" y1="40" x2="85" y2="45" />
-                          <path d="M40 38 L45 35 L55 35 L60 38" />
-                        </>
-                      ) : (
-                        <>
-                          {/* Cup shape */}
-                          <path d="M30 20 L70 20 L60 85 L40 85 Z" />
-                          <ellipse cx="50" cy="20" rx="20" ry="4" />
-                          <line x1="30" y1="40" x2="70" y2="40" strokeDasharray="2 2" />
-                        </>
-                      )}
-                    </svg>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-[10px] font-extrabold text-slate-500 font-mono bg-white/80 px-1.5 py-0.5 rounded shadow-sm">
-                        {sku.capacityOz}
-                      </span>
-                    </div>
-                  </div>
+                  <ProductVectorImage
+                    id={sku.id}
+                    name={sku.name}
+                    category="cups"
+                    className="max-h-full max-w-full select-none transition-transform duration-500 group-hover:scale-105"
+                  />
                 </div>
 
                 {/* SKU Name */}
