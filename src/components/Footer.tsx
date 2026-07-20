@@ -98,7 +98,8 @@ export default function Footer({ setCurrentPage, onOpenQuoteModal, onSelectCateg
               { id: 'manufacturing', label: 'Sourcing Facility' },
               { id: 'sustainability', label: 'Circular Economy Metric' },
               { id: 'faq', label: 'Import FAQ' },
-              { id: 'about', label: 'Our Credentials & Story' }
+              { id: 'about', label: 'Our Credentials & Story' },
+              { id: 'contact', label: 'Contact Us' }
             ].map((link) => (
               <li key={link.id}>
                 <button 

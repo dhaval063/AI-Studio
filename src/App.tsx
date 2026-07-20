@@ -870,6 +870,18 @@ export default function App() {
       case 'blog':
       case 'certificates':
         return <ExtraPages pageId={currentPage} onOpenQuoteModal={handleOpenQuoteModal} />;
+      case 'contact':
+        return (
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
+            <div className="space-y-3 max-w-2xl">
+              <span className="text-xs font-bold text-teal-700 uppercase tracking-widest font-mono">Get in Touch</span>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-none">
+                Global B2B Support & Sourcing Desk
+              </h2>
+            </div>
+            <ContactSection />
+          </div>
+        );
       default:
         return (
           <div className="text-center py-32 space-y-4">

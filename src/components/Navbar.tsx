@@ -61,20 +61,7 @@ export default function Navbar({
   };
 
   const handleRequestQuoteClick = () => {
-    if (currentPage !== 'home') {
-      setCurrentPage('home');
-      setTimeout(() => {
-        const element = document.getElementById('home-contact');
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 180);
-    } else {
-      const element = document.getElementById('home-contact');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }
+    navToPage('contact');
   };
 
   return (
@@ -219,7 +206,9 @@ export default function Navbar({
 
               <button
                 onClick={handleRequestQuoteClick}
-                className="text-sm font-medium transition-colors text-slate-600 hover:text-slate-900"
+                className={`text-sm font-medium transition-colors ${
+                  currentPage === 'contact' ? 'text-teal-700 font-semibold' : 'text-slate-600 hover:text-slate-900'
+                }`}
               >
                 Contact Us
               </button>
