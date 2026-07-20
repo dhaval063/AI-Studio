@@ -31,18 +31,19 @@ import {
   Info 
 } from 'lucide-react';
 import ProductVectorImage from './ProductVectorImage';
+import { resolveImagePath } from '../utils/paths';
 
-const cupsImg = "/images/cups_lids.jpg";
+const cupsImg = resolveImagePath("/images/cups_lids.jpg");
 
 // Import high-resolution cup and lid images
-const cup4 = "/images/products/cups/cup_4oz.png";
-const cup6 = "/images/products/cups/cup_6oz.png";
-const cup8 = "/images/products/cups/cup_8oz.png";
-const cup10 = "/images/products/cups/cup_10oz.png";
-const cup12 = "/images/products/cups/cup_12oz.png";
-const cup16 = "/images/products/cups/cup_16oz.png";
-const lidFlat = "/images/products/cups/lid_flat.png";
-const lidSip = "/images/products/cups/lid_sip.png";
+const cup4 = resolveImagePath("/images/products/cups/cup_4oz.png");
+const cup6 = resolveImagePath("/images/products/cups/cup_6oz.png");
+const cup8 = resolveImagePath("/images/products/cups/cup_8oz.png");
+const cup10 = resolveImagePath("/images/products/cups/cup_10oz.png");
+const cup12 = resolveImagePath("/images/products/cups/cup_12oz.png");
+const cup16 = resolveImagePath("/images/products/cups/cup_16oz.png");
+const lidFlat = resolveImagePath("/images/products/cups/lid_flat.png");
+const lidSip = resolveImagePath("/images/products/cups/lid_sip.png");
 
 interface CupsSKUViewProps {
   onOpenQuoteModal: (category?: string, productId?: string) => void;

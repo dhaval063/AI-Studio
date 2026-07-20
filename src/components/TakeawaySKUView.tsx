@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, FileText, CheckCircle, HelpCircle, X, ChevronRight, Package, ShieldCheck, Container, Minimize } from 'lucide-react';
 import ProductVectorImage from './ProductVectorImage';
+import { resolveImagePath } from '../utils/paths';
 
-const takeawayImg = "/images/takeaway.jpg";
+const takeawayImg = resolveImagePath("/images/takeaway.jpg");
 
 // Import high-resolution takeaway images
-const takeaway16 = "/images/products/takeaway/16_oz.png";
-const takeaway22 = "/images/products/takeaway/22_oz.png";
-const takeaway24 = "/images/products/takeaway/24_oz.png";
-const takeaway26Flat = "/images/products/takeaway/26_oz_flat.png";
-const takeaway26 = "/images/products/takeaway/26_oz.png";
-const takeaway32 = "/images/products/takeaway/32_oz.png";
+const takeaway16 = resolveImagePath("/images/products/takeaway/16_oz.png");
+const takeaway22 = resolveImagePath("/images/products/takeaway/22_oz.png");
+const takeaway24 = resolveImagePath("/images/products/takeaway/24_oz.png");
+const takeaway26Flat = resolveImagePath("/images/products/takeaway/26_oz_flat.png");
+const takeaway26 = resolveImagePath("/images/products/takeaway/26_oz.png");
+const takeaway32 = resolveImagePath("/images/products/takeaway/32_oz.png");
 
 interface TakeawaySKUViewProps {
   onOpenQuoteModal: (category?: string, productId?: string) => void;

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, HelpCircle, FileText, Shield, ArrowUpRight } from 'lucide-react';
+import { resolveImagePath } from '../utils/paths';
 
-const logo1 = "/images/1.png";
+const logo1 = resolveImagePath("/images/1.png");
 
 interface FooterProps {
   setCurrentPage: (page: string) => void;

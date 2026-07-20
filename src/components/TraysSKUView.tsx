@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, FileText, CheckCircle, HelpCircle, X, ChevronRight, Grid3X3, ShieldCheck, Layers, Minimize } from 'lucide-react';
 import ProductVectorImage from './ProductVectorImage';
+import { resolveImagePath } from '../utils/paths';
 
-const traysImg = "/images/mealtrays.jpg";
+const traysImg = resolveImagePath("/images/mealtrays.jpg");
 
 // Import high-resolution tray images
-const tray2 = "/images/products/trays/2cp.png";
-const tray3 = "/images/products/trays/3cp.png";
-const tray4 = "/images/products/trays/4cp.png";
-const tray5 = "/images/products/trays/5cp.png";
-const tray5Deep = "/images/products/trays/5cp-deep.png";
-const tray6 = "/images/products/trays/6cp.png";
+const tray2 = resolveImagePath("/images/products/trays/2cp.png");
+const tray3 = resolveImagePath("/images/products/trays/3cp.png");
+const tray4 = resolveImagePath("/images/products/trays/4cp.png");
+const tray5 = resolveImagePath("/images/products/trays/5cp.png");
+const tray5Deep = resolveImagePath("/images/products/trays/5cp-deep.png");
+const tray6 = resolveImagePath("/images/products/trays/6cp.png");
 
 interface TraysSKUViewProps {
   onOpenQuoteModal: (category?: string, productId?: string) => void;

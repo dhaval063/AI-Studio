@@ -2,22 +2,23 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, FileText, CheckCircle, HelpCircle, X, ChevronRight, ShieldCheck, Truck, Scale, Grid3X3 } from 'lucide-react';
 import ProductVectorImage from './ProductVectorImage';
+import { resolveImagePath } from '../utils/paths';
 
-const platesImg = "/images/plates.jpg";
+const platesImg = resolveImagePath("/images/plates.jpg");
 
 // Import high-resolution plate images
-const plate6 = "/images/products/plates/6-inch.png";
-const plate7 = "/images/products/plates/7-inch.png";
-const plate9 = "/images/products/plates/9-inch.png";
-const plate10 = "/images/products/plates/10-inch.png";
-const plate11 = "/images/products/plates/11-inch.png";
-const plate12 = "/images/products/plates/12-inch.png";
+const plate6 = resolveImagePath("/images/products/plates/6-inch.png");
+const plate7 = resolveImagePath("/images/products/plates/7-inch.png");
+const plate9 = resolveImagePath("/images/products/plates/9-inch.png");
+const plate10 = resolveImagePath("/images/products/plates/10-inch.png");
+const plate11 = resolveImagePath("/images/products/plates/11-inch.png");
+const plate12 = resolveImagePath("/images/products/plates/12-inch.png");
 
 // Import high-resolution compartment plate images
-const comp9_3cp = "/images/products/compartment-plates/9-3cp.png";
-const comp10_3cp = "/images/products/compartment-plates/10-3cp.png";
-const comp11_4cp = "/images/products/compartment-plates/11-4cp.png";
-const comp12_4cp = "/images/products/compartment-plates/12-4cp.png";
+const comp9_3cp = resolveImagePath("/images/products/compartment-plates/9-3cp.png");
+const comp10_3cp = resolveImagePath("/images/products/compartment-plates/10-3cp.png");
+const comp11_4cp = resolveImagePath("/images/products/compartment-plates/11-4cp.png");
+const comp12_4cp = resolveImagePath("/images/products/compartment-plates/12-4cp.png");
 
 interface PlatesSKUViewProps {
   onOpenQuoteModal: (category?: string, productId?: string) => void;

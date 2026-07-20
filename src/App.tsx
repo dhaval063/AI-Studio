@@ -22,14 +22,15 @@ import CupsSKUView from './components/CupsSKUView';
 import TakeawaySKUView from './components/TakeawaySKUView';
 import TestimonialsSection from './components/TestimonialsSection';
 import { categories, faqs } from './data/products';
+import { getBasePath, resolveImagePath } from './utils/paths';
 
-const platesImg = "/images/plates.jpg";
-const bowlsImg = "/images/bowls.jpg";
-const containersImg = "/images/containers.jpg";
-const traysImg = "/images/mealtrays.jpg";
-const cupsImg = "/images/cups_lids.jpg";
-const takeawayImg = "/images/takeaway.jpg";
-const cutleryImg = "/images/compostable_cutlery_set_1784290659429.png";
+const platesImg = resolveImagePath("/images/plates.jpg");
+const bowlsImg = resolveImagePath("/images/bowls.jpg");
+const containersImg = resolveImagePath("/images/containers.jpg");
+const traysImg = resolveImagePath("/images/mealtrays.jpg");
+const cupsImg = resolveImagePath("/images/cups_lids.jpg");
+const takeawayImg = resolveImagePath("/images/takeaway.jpg");
+const cutleryImg = resolveImagePath("/images/compostable_cutlery_set_1784290659429.png");
 
 const homeCategories = [
   {
@@ -140,7 +141,11 @@ export default function App() {
   // Parse initial location on load safely
   const getInitialLocation = () => {
     try {
-      const path = window.location.pathname;
+      const base = getBasePath();
+      let path = window.location.pathname;
+      if (base && path.startsWith(base)) {
+        path = path.slice(base.length);
+      }
       if (path === '/' || path === '/home' || path === '') {
         return { page: 'home', category: 'all' };
       } else if (path.startsWith('/products')) {
@@ -185,7 +190,11 @@ export default function App() {
 
     const handleLocationChange = () => {
       try {
-        const path = window.location.pathname;
+        const base = getBasePath();
+        let path = window.location.pathname;
+        if (base && path.startsWith(base)) {
+          path = path.slice(base.length);
+        }
         if (path === '/' || path === '/home' || path === '') {
           setCurrentPage('home');
         } else if (path.startsWith('/products')) {
@@ -236,8 +245,10 @@ export default function App() {
         targetPath = `/${currentPage}`;
       }
 
-      if (window.location.pathname !== targetPath) {
-        window.history.pushState(null, '', targetPath);
+      const fullTargetPath = getBasePath() + targetPath;
+
+      if (window.location.pathname !== fullTargetPath) {
+        window.history.pushState(null, '', fullTargetPath);
       }
     } catch (e) {
       // Ignore pushState failures
